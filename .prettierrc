@@ -1,0 +1,29 @@
+{
+  "singleQuote": true,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "semi": true,
+  "bracketSpacing": true,
+  "jsxSingleQuote": false,
+  "endOfLine": "lf",
+  "trailingComma": "es5",
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^react",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^@/theme/(.*)$",
+    "^@/assets/(.*)$",
+    "",
+    "^@/components/(.*)$",
+    "^@/views/(.*)$",
+    "",
+    "^@/hooks/(.*)$",
+    "^@/handlers/(.*)$",
+    "^@/utils/(.*)$",
+    "",
+    "^@/types/(.*)$",
+    "",
+    "^[./]"
+  ]
+}
