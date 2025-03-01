@@ -7,13 +7,10 @@
   "jsxSingleQuote": false,
   "endOfLine": "lf",
   "trailingComma": "es5",
-  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
   "importOrder": [
-    "^react",
-    "<THIRD_PARTY_MODULES>",
+    "^(react/(.*)$)|^(react$)",
     "",
-    "^@/theme/(.*)$",
-    "^@/assets/(.*)$",
+    "<THIRD_PARTY_MODULES>",
     "",
     "^@/components/(.*)$",
     "^@/views/(.*)$",
@@ -21,9 +18,16 @@
     "^@/hooks/(.*)$",
     "^@/handlers/(.*)$",
     "^@/utils/(.*)$",
-    "",
     "^@/types/(.*)$",
     "",
-    "^[./]"
-  ]
+    "^@/theme/(.*)$",
+    "^@/assets/(.*)$",
+    "",
+    "^(?!.*[.]css$)[./].*$",
+    "",
+    ".css$"
+  ],
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+  "importOrderTypeScriptVersion": "5.0.0",
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"]
 }
