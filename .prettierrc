@@ -6,28 +6,5 @@
   "bracketSpacing": true,
   "jsxSingleQuote": false,
   "endOfLine": "lf",
-  "trailingComma": "es5",
-  "importOrder": [
-    "^(react/(.*)$)|^(react$)",
-    "",
-    "<THIRD_PARTY_MODULES>",
-    "",
-    "^@/components/(.*)$",
-    "^@/views/(.*)$",
-    "",
-    "^@/hooks/(.*)$",
-    "^@/handlers/(.*)$",
-    "^@/utils/(.*)$",
-    "^@/types/(.*)$",
-    "",
-    "^@/theme/(.*)$",
-    "^@/assets/(.*)$",
-    "",
-    "^(?!.*[.]css$)[./].*$",
-    "",
-    ".css$"
-  ],
-  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
-  "importOrderTypeScriptVersion": "5.0.0",
-  "plugins": ["@ianvs/prettier-plugin-sort-imports"]
+  "trailingComma": "es5"
 }

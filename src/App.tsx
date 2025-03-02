@@ -1,14 +1,11 @@
+import './App.css';
+
 import { useState } from 'react';
 
+import viteLogo from '/vite.svg';
+import HnDLogo from '@/assets/hnd-logo.svg';
 import { Button } from '@/components/common/button/Button';
 import { Button2 } from '@/components/common/button2/Button2';
-
-import HnDLogo from '@/assets/hnd-logo.svg';
-
-import viteLogo from '/vite.svg';
-
-import './App2.css';
-import './App.css';
 
 function App() {
   const [count, setCount] = useState(0);
