@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import BREAKPOINTS from '@/theme/devices';
+import BREAKPOINTS from '@theme/devices';
 
 export function useDevice() {
   const [width, setWidth] = useState(window.innerWidth);

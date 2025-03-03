@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { darkTheme, lightTheme } from '@/theme';
+import { darkTheme, lightTheme } from '@theme/index';
 
 export function useThemeMode() {
   const [mode, setMode] = useState<'light' | 'dark'>('dark');

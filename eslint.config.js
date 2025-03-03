@@ -1,11 +1,10 @@
 import pluginJs from '@eslint/js';
 import typescriptParser from '@typescript-eslint/parser';
 import configPrettier from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
+import pluginImport from 'eslint-plugin-import';
 import pluginPrettier from 'eslint-plugin-prettier';
 import pluginReact from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -17,6 +16,12 @@ export default [
     settings: {
       react: {
         version: 'detect',
+      },
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.app.json',
+          alwaysTryTypes: true,
+        },
       },
     },
   },
@@ -36,6 +41,7 @@ export default [
 
   {
     rules: {
+      'import/no-unresolved': 'error',
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
       'react-hooks/rules-of-hooks': 'error',
@@ -44,24 +50,12 @@ export default [
   },
   {
     plugins: {
+      import: pluginImport,
       prettier: pluginPrettier,
       'react-hooks': reactHooksPlugin,
     },
     rules: {
       'prettier/prettier': 'warn',
-    },
-  },
-  {
-    plugins: {
-      'simple-import-sort': simpleImportSort,
-      import: importPlugin,
-    },
-    rules: {
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
-      'import/first': 'error',
-      'import/newline-after-import': 'error',
-      'import/no-duplicates': 'error',
     },
   },
   configPrettier,

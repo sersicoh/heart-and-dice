@@ -12,7 +12,7 @@
     "prepare": "husky install",
     "test": "echo \"(No tests configured)\" && exit 0",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
-    "fix": "npm run format && npm run eslint:fix"
+    "fix": "npm run eslint:fix"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.2.2",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@types/node": "^22.13.5",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
@@ -35,12 +36,13 @@
     "eslint": "^9.21.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-formatter-friendly": "^7.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^3.8.3",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
     "globals": "^16.0.0",
     "husky": "^8.0.0",
     "lint-staged": "^15.4.3",
