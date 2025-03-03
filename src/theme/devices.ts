@@ -1,6 +1,6 @@
 const BREAKPOINTS = {
-  mobile: 480,
-  tablet: 768,
+  mobile: 501,
+  tablet: 1280,
 } as const;
 
 export const devices = {
