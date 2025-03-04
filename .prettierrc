@@ -4,7 +4,7 @@
   "printWidth": 100,
   "semi": true,
   "bracketSpacing": true,
-  "jsxSingleQuote": false,
+  "jsxSingleQuote": true,
   "endOfLine": "lf",
   "trailingComma": "es5",
   "importOrder": [

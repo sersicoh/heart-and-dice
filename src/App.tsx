@@ -1,4 +1,4 @@
-import { NavigationBar } from '@components/common/navigationBar/NavigationBar';
+import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
 function App() {
   return <NavigationBar />;

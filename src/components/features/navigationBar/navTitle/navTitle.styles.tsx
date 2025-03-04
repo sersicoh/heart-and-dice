@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledNavTitle = styled.h1`
+  color: ${({ theme }) => theme.colors.textLight};
   font-size: 3rem;
   text-align: center;
 

@@ -56,7 +56,7 @@ export default [
       'react-hooks': reactHooksPlugin,
     },
     rules: {
-      'prettier/prettier': 'warn',
+      'prettier/prettier': ['warn', { singleQuote: true }],
     },
   },
   configPrettier,
