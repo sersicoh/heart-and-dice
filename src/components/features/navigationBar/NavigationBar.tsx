@@ -16,7 +16,7 @@ export const NavigationBar = ({ routes }: NavigationBarProps) => {
   const navigate = useNavigate();
   const { theme, isMobile } = useMyTheme();
 
-  const [isDrawerOpen, setDrawerOpen] = React.useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
   const isHome = location.pathname === '/';
 
@@ -37,7 +37,7 @@ export const NavigationBar = ({ routes }: NavigationBarProps) => {
           width={isMobile ? '32px' : '48px'}
           height={'100%'}
           color={theme.colors.logo}
-          onClick={() => setDrawerOpen(true)}
+          onClick={() => setIsDrawerOpen(true)}
           style={{ cursor: 'pointer' }}
         />
       </Container>
@@ -49,9 +49,9 @@ export const NavigationBar = ({ routes }: NavigationBarProps) => {
         </Container>
       )}
       {isDrawerOpen && (
-        <div className='drawerOverlay' onClick={() => setDrawerOpen(false)}>
+        <div className='drawerOverlay' onClick={() => setIsDrawerOpen(false)}>
           <div className='drawer' onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setDrawerOpen(false)}>X</button>
+            <button onClick={() => setIsDrawerOpen(false)}>X</button>
 
             {isHome ? (
               <>

@@ -70,14 +70,14 @@ export function useHeartFormLogic() {
       if (sectionName === 'heartSection') {
         if (rowKey in cloned.heartSection) {
           const rowData = cloned.heartSection[rowKey as keyof IFormHeartSection];
-          if (rowData[playerInputKey] && typeof rowData[playerInputKey].value === 'number') {
+          if (rowData[playerInputKey]) {
             rowData[playerInputKey].value = newValue;
           }
         }
       } else if (sectionName === 'raceSection') {
         if (rowKey in cloned.raceSection) {
           const rowData = cloned.raceSection[rowKey as keyof IFormRaceSection];
-          if (rowData[playerInputKey] && typeof rowData[playerInputKey].value === 'number') {
+          if (rowData[playerInputKey]) {
             rowData[playerInputKey].value = newValue;
           }
         }

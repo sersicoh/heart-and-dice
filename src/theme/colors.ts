@@ -31,6 +31,8 @@ export const LightColorsColections: IColorsCollection = {
   logo: primitiveColors.poloBlue,
   thirdFormText: primitiveColors.white,
   lightFormField: primitiveColors.poloBlue,
+  buttonDisabled: primitiveColors.oxfordBlue,
+  buttonDisabledText: primitiveColors.blueBayoux,
 };
 
 export const DarkColorsColections: IColorsCollection = {
@@ -50,4 +52,6 @@ export const DarkColorsColections: IColorsCollection = {
   logo: primitiveColors.poloBlue,
   thirdFormText: primitiveColors.white,
   lightFormField: primitiveColors.poloBlue,
+  buttonDisabled: primitiveColors.oxfordBlue,
+  buttonDisabledText: primitiveColors.blueBayoux,
 };

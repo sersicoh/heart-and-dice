@@ -85,7 +85,7 @@ export const getHeartsFields = (players: Player[]): IFormSections => {
       result: {
         roundType: { label: 'Wynik', variant: 'resultTitle', placeholder: undefined },
         player1Input: { value: null },
-        player2Input: { value: null, variant: 'winner' },
+        player2Input: { value: null },
         player3Input: { value: null },
         ...(withPlayer4 && {
           player4Input: { value: null },
@@ -131,7 +131,7 @@ export const getHeartsFields = (players: Player[]): IFormSections => {
       },
       result: {
         roundType: { label: 'Wynik', variant: 'resultTitle', placeholder: undefined },
-        player1Input: { value: null, variant: 'winner' },
+        player1Input: { value: null },
         player2Input: { value: null },
         player3Input: { value: null },
         ...(withPlayer4 && {
@@ -142,7 +142,7 @@ export const getHeartsFields = (players: Player[]): IFormSections => {
     resultSection: {
       result: {
         roundType: { label: 'Razem', variant: 'resultTitle', placeholder: undefined },
-        player1Input: { value: null, variant: 'winner' },
+        player1Input: { value: null },
         player2Input: { value: null },
         player3Input: { value: null },
         ...(withPlayer4 && {

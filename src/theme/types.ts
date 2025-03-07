@@ -29,4 +29,6 @@ export interface IColorsCollection {
   thirdFormText: string;
   lightFormField: string;
   textWhite: string;
+  buttonDisabled: string;
+  buttonDisabledText: string;
 }

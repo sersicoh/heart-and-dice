@@ -53,6 +53,12 @@ const variantStyles = (variant: IFieldsType['variant']) => {
       return css`
         background-color: ${({ theme }) => theme.colors.secondaryFormField};
         color: ${({ theme }) => theme.colors.textLight};
+        font-size: 2.5rem;
+        line-height: 1.2rem;
+
+        @media ${({ theme }) => theme.devices.mobile} {
+          font-size: 1.25rem;
+        }
       `;
   }
 };
@@ -78,14 +84,19 @@ export const StyledLabel = styled.div`
 export const StyledInput = styled.input`
   width: 100%;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   background: transparent;
   border: none;
   outline: none;
-  color: inherit;
+  color: ${({ theme }) => theme.colors.secondaryFormField};
+  font-weight: 500;
 
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+
+  @media ${({ theme }) => theme.devices.mobile} {
+    font-size: 1rem;
   }
 `;
