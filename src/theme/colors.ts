@@ -17,6 +17,7 @@ export const primitiveColors: IPrimitiveColors = {
 export const LightColorsColections: IColorsCollection = {
   backgroundBase: primitiveColors.mirage,
   textLight: primitiveColors.poloBlue,
+  textDark: primitiveColors.mirage,
   frameBackground: primitiveColors.blueBayoux,
   textWhite: primitiveColors.white,
   mainFormText: primitiveColors.blueBayoux,
@@ -34,10 +35,11 @@ export const LightColorsColections: IColorsCollection = {
 
 export const DarkColorsColections: IColorsCollection = {
   backgroundBase: primitiveColors.mirage,
+  textDark: primitiveColors.mirage,
   textLight: primitiveColors.poloBlue,
   frameBackground: primitiveColors.blueBayoux,
   textWhite: primitiveColors.white,
-  mainFormText: primitiveColors.blueBayoux,
+  mainFormText: primitiveColors.malibu,
   secondFormText: primitiveColors.alto,
   mainFormField: primitiveColors.oxfordBlue,
   secondaryFormField: primitiveColors.ebonyClay,

@@ -15,6 +15,7 @@ export interface IPrimitiveColors {
 export interface IColorsCollection {
   backgroundBase: string;
   textLight: string;
+  textDark: string;
   frameBackground: string;
   mainFormText: string;
   secondFormText: string;

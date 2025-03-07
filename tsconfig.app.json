@@ -31,6 +31,8 @@
       "@assets/*": ["assets/*"],
       "@hooks/*": ["hooks/*"],
       "@views/*": ["views/*"],
+      "@store/*": ["store/*"],
+      "@utils/*": ["utils/*"],
       "@/*": ["*"]
     }
   },
