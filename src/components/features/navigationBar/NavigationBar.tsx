@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import Container from '@components/common/container/Container';
+import { Drawer } from '@components/common/drawer/Drawer';
 import { NavButton } from '@components/features/navigationBar/navButton/NavButton';
 import type { NavigationBarProps } from '@components/features/navigationBar/navigationBar.types';
 import { NavTitle } from '@components/features/navigationBar/navTitle/NavTitle';
@@ -11,9 +12,8 @@ import { useMyTheme } from '@hooks/useMyTheme';
 import GearIcon from '@assets/svg/gear.svg?react';
 import HnDIcon from '@assets/svg/hnd-logo.svg?react';
 
-export const NavigationBar = ({ routes }: NavigationBarProps) => {
+export const NavigationBar = ({ routes, drawerItems }: NavigationBarProps) => {
   const location = useLocation();
-  const navigate = useNavigate();
   const { theme, isMobile } = useMyTheme();
 
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
@@ -48,24 +48,8 @@ export const NavigationBar = ({ routes }: NavigationBarProps) => {
           ))}
         </Container>
       )}
-      {isDrawerOpen && (
-        <div className='drawerOverlay' onClick={() => setIsDrawerOpen(false)}>
-          <div className='drawer' onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setIsDrawerOpen(false)}>X</button>
-
-            {isHome ? (
-              <>
-                <button onClick={() => console.log('Polski')}>Polski</button>
-                <button onClick={() => console.log('English')}>English</button>
-              </>
-            ) : (
-              <>
-                <button onClick={() => navigate('/heart/settings')}>Powrót do Ustawień</button>
-                <button onClick={() => console.log('Zakończ grę')}>Zakończ grę</button>
-              </>
-            )}
-          </div>
-        </div>
+      {drawerItems && (
+        <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} items={drawerItems} />
       )}
     </Container>
   );

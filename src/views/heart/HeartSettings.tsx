@@ -1,31 +1,46 @@
 // @views/heart/HeartSettings.tsx
+import { useNavigate } from 'react-router-dom';
+
 import Container from '@components/common/container/Container';
+import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { Title } from '@components/common/title/Title';
 import { HeartSettingsWrapper } from '@components/features/heartSettingsWrapper/HeartSettingsWrapper';
+import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
+import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
 import { useMyTheme } from '@hooks/useMyTheme';
 
 export const HeartSettings = () => {
   const { isMobile } = useMyTheme();
+
+  const navigate = useNavigate();
+
+  const drawerItems: IDrawerItems['items'] = [
+    { label: 'Wróc do gry', onClick: () => navigate('/heart/form') },
+    { label: 'Przejdź do strony głównej', onClick: () => navigate('/') },
+    { label: 'Zakończ grę', onClick: () => console.log('Zakończ grę') },
+  ];
   return (
-    <Container
-      variant='flex'
-      flexDirection='column'
-      justifyContent='flex-start'
-      alignItems='center'
-      height='100%'
-    >
+    <>
+      <NavigationBar routes={getNavigationItemsKierki()} drawerItems={drawerItems} />
       <Container
         variant='flex'
-        justifyContent='center'
+        flexDirection='column'
+        justifyContent='flex-start'
         alignItems='center'
-        padding={isMobile ? '16px' : '24px'}
       >
-        <Title label='Ustawienia - Kierki' />
+        <Container
+          variant='flex'
+          justifyContent='center'
+          alignItems='center'
+          padding={isMobile ? '16px' : '24px'}
+        >
+          <Title label='Ustawienia - Kierki' />
+        </Container>
+        <Container variant='flex' flexDirection='column'>
+          <HeartSettingsWrapper />
+        </Container>
       </Container>
-      <Container variant='flex' flexDirection='column'>
-        <HeartSettingsWrapper />
-      </Container>
-    </Container>
+    </>
   );
 };
