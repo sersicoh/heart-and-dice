@@ -32,7 +32,7 @@ export const NavigationBar = ({ routes, drawerItems }: NavigationBarProps) => {
         <Container>
           <HnDIcon width={isMobile ? '48px' : '70px'} height={'100%'} color={theme.colors.logo} />
         </Container>
-        <NavTitle />
+        <NavTitle label='Heart' />
         <GearIcon
           width={isMobile ? '32px' : '48px'}
           height={'100%'}

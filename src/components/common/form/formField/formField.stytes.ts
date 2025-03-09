@@ -28,13 +28,19 @@ const variantStyles = (variant: IFieldsType['variant']) => {
       return css`
         background-color: ${({ theme }) => theme.colors.lightFormField};
         color: ${({ theme }) => theme.colors.textDark};
-        font-weight: 600;
+        font-weight: 700;
       `;
     case 'name':
       return css`
         background-color: ${({ theme }) => theme.colors.secondaryFormField};
         color: ${({ theme }) => theme.colors.mainFormText};
         font-weight: 600;
+        font-size: 2rem;
+        line-height: 1.5rem;
+
+        @media ${({ theme }) => theme.devices.mobile} {
+          font-size: 1rem;
+        }
       `;
     case 'winner':
       return css`
@@ -53,11 +59,11 @@ const variantStyles = (variant: IFieldsType['variant']) => {
       return css`
         background-color: ${({ theme }) => theme.colors.secondaryFormField};
         color: ${({ theme }) => theme.colors.textLight};
-        font-size: 2.5rem;
+        font-size: 2rem;
         line-height: 1.2rem;
 
         @media ${({ theme }) => theme.devices.mobile} {
-          font-size: 1.25rem;
+          font-size: 1rem;
         }
       `;
   }
@@ -84,12 +90,13 @@ export const StyledLabel = styled.div`
 export const StyledInput = styled.input`
   width: 100%;
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 2rem;
   background: transparent;
   border: none;
   outline: none;
   color: ${({ theme }) => theme.colors.secondaryFormField};
   font-weight: 500;
+  font-family: 'Gemunu Libre', sans-serif;
 
   &:disabled {
     opacity: 0.6;

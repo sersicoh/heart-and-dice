@@ -23,6 +23,7 @@ export interface ContainerProps {
   width?: string;
   height?: string;
   maxWidth?: string;
+  minHeight?: string;
   borderRadius?: string;
 
   responsive?: ResponsiveProps;

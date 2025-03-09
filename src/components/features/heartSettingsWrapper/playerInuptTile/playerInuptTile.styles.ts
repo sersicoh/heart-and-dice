@@ -21,13 +21,20 @@ export const StyledInput = styled.input`
   border: none;
   border-radius: 8px;
   outline: none;
+  font-family: 'Gemunu Libre', sans-serif;
 
-  &::placeholder {
-    font-size: 1.75rem;
+  &::-webkit-input-placeholder {
+    font-size: 1.5rem;
     color: ${({ theme }) => theme.colors.frameMainFields};
+    position: relative !important;
+    transform: translateY(-35%) !important;
   }
 
   @media ${({ theme }) => theme.devices.mobile} {
     font-size: 1.75rem;
+
+    &::-webkit-input-placeholder {
+      font-size: 0.875rem;
+    }
   }
 `;

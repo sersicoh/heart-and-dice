@@ -24,7 +24,7 @@ export const FormField: FC<FormFieldProps> = ({
   return (
     <StyledFormField $variant={variant} {...rest}>
       {isEditable ? (
-        <StyledInput value={value ?? ''} onChange={handleChange} />
+        <StyledInput inputMode='numeric' value={value ?? ''} onChange={handleChange} />
       ) : (
         <StyledLabel>{label}</StyledLabel>
       )}

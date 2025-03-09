@@ -42,6 +42,7 @@ const handleBaseStyles = (props: ContainerProps) => css`
   ${props.width && `width: ${props.width};`}
   ${props.height && `height: ${props.height};`}
   ${props.maxWidth && `max-width: ${props.maxWidth};`}
+  ${props.minHeight && `min-height: ${props.minHeight};`}
   ${props.borderRadius && `border-radius: ${props.borderRadius};`}
 
   ${handleVariantStyles(props)}

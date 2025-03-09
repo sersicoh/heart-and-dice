@@ -1,5 +1,13 @@
 import { StyledNavTitle } from '@components/features/navigationBar/navTitle/navTitle.styles';
 
-export const NavTitle = () => {
-  return <StyledNavTitle>Heart and Dice</StyledNavTitle>;
+export interface INavigationTitle {
+  label: string;
+  fontSize?: {
+    tablet: string;
+    mobile?: string;
+  };
+}
+
+export const NavTitle = ({ label, fontSize }: INavigationTitle) => {
+  return <StyledNavTitle fontSize={fontSize}>{label}</StyledNavTitle>;
 };

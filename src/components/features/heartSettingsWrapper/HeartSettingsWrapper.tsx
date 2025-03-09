@@ -1,5 +1,5 @@
+import { BasicButton } from '@components/common/basicButton/BasicButton';
 import Container from '@components/common/container/Container';
-import { StyledButton } from '@components/features/heartSettingsWrapper/heartSettingsWrapper.styles';
 import { PlayerInuptTile } from '@components/features/heartSettingsWrapper/playerInuptTile/PlayerInuptTile';
 
 import { useHeartSettingsLogic } from '@hooks/useHeartSettings';
@@ -38,25 +38,33 @@ export const HeartSettingsWrapper = () => {
           onChange={changeName}
         />
       ))}
-
       <Container
         variant='flex'
         flexDirection='column'
-        gap={isMobile ? '16px' : '24px'}
-        padding={isMobile ? '16px' : '36px'}
+        gap={isMobile ? '16px' : '36px'}
         width='100%'
+        padding='36px'
       >
         {isGameInProgress ? (
-          <StyledButton onClick={returnToGame} disabled={validPlayersCount < 3}>
-            Wróć do gry
-          </StyledButton>
+          <BasicButton
+            onClick={returnToGame}
+            disabled={validPlayersCount < 3}
+            label='Wróć do formularza'
+            fontSize={{ tablet: '48px', mobile: '24px' }}
+          />
         ) : (
-          <StyledButton onClick={startGame} disabled={validPlayersCount < 3}>
-            Start
-          </StyledButton>
+          <BasicButton
+            onClick={startGame}
+            disabled={validPlayersCount < 3}
+            label='Start'
+            fontSize={{ tablet: '48px', mobile: '24px' }}
+          />
         )}
-
-        <StyledButton onClick={resetAll}>Rozpocznij nową grę</StyledButton>
+        <BasicButton
+          onClick={resetAll}
+          label='Rozpocznij nową grę'
+          fontSize={{ tablet: '48px', mobile: '24px' }}
+        />
       </Container>
     </Container>
   );

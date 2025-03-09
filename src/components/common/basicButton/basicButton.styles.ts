@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-export const StyledBasicButton = styled.button`
-  padding: 10px;
+import type { IBasicButton } from '@components/common/basicButton/basicButton.types';
+
+export const StyledBasicButton = styled.button<Pick<IBasicButton, 'fontSize'>>`
+  padding: 12px;
   width: 100%;
   color: ${({ theme }) => theme.colors.textLight};
-  font-size: 2rem;
+  font-size: ${({ fontSize }) => fontSize?.tablet ?? '2rem'};
   font-weight: 600;
   border: none;
   border-radius: 8px;
@@ -16,6 +18,13 @@ export const StyledBasicButton = styled.button`
   }
 
   @media ${({ theme }) => theme.devices.mobile} {
-    font-size: 1rem;
+    font-size: ${({ fontSize }) => fontSize?.mobile ?? '1rem'};
+  }
+
+  &:disabled {
+    /* opacity: 0.6; */
+    cursor: not-allowed;
+    background-color: ${({ theme }) => theme.colors.buttonDisabled};
+    color: ${({ theme }) => theme.colors.buttonDisabledText};
   }
 `;

@@ -10,8 +10,8 @@ export const Results = () => {
   const navigate = useNavigate();
 
   const drawerItems: IDrawerItems['items'] = [
-    { label: 'Przejdź do ustawień', onClick: () => navigate('/heart/settings') },
-    { label: 'Przejdź do strony głównej', onClick: () => navigate('/') },
+    { label: 'Ustawienia gry', onClick: () => navigate('/heart/settings') },
+    { label: 'Strona główna', onClick: () => navigate('/') },
     { label: 'Zakończ grę', onClick: () => console.log('Zakończ grę') },
   ];
   return (

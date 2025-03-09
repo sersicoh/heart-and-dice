@@ -1,27 +1,79 @@
 import { useNavigate } from 'react-router-dom';
 
+import { BasicButton } from '@components/common/basicButton/BasicButton';
 import Container from '@components/common/container/Container';
-import type { IDrawerItems } from '@components/common/drawer/drawer.types';
-import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
+import { Title } from '@components/common/title/Title';
+import { NavTitle } from '@components/features/navigationBar/navTitle/NavTitle';
 
-import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
+import { useMyTheme } from '@hooks/useMyTheme';
+import HnDIcon from '@assets/svg/hnd-logo.svg?react';
 
 export const Home = () => {
   const navigate = useNavigate();
-
-  const drawerItems: IDrawerItems['items'] = [
-    { label: 'Polski', onClick: () => console.log('Polski') },
-    { label: 'English', onClick: () => console.log('English') },
-  ];
-
+  const { theme, isMobile } = useMyTheme();
   return (
-    <>
-      <NavigationBar routes={getNavigationItemsKierki()} drawerItems={drawerItems} />
-      <Container>
-        <h1>Wybierz grę</h1>
-        <button onClick={() => navigate('/heart/settings')}>Kierki</button>
-        <button onClick={() => navigate('/dice/settings')}>Kości</button>
+    <Container
+      variant='grid'
+      gap='24px'
+      gridTemplateRows='1fr 1fr 1fr'
+      margin='0 auto'
+      padding={isMobile ? '24px' : '36px'}
+      height='100%'
+      maxWidth={isMobile ? undefined : '600px'}
+    >
+      <Container
+        variant='flex'
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
+        width='100%'
+      >
+        <HnDIcon
+          width={isMobile ? '150px' : '200px'}
+          height={isMobile ? '150px' : '200px'}
+          color={theme.colors.logo}
+        />
+        <NavTitle label='Heart and Dice' fontSize={{ tablet: '6rem', mobile: '3.5rem' }} />
       </Container>
-    </>
+      <Container
+        variant='flex'
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
+        width='100%'
+      >
+        <Container variant='flex' gap={isMobile ? '16px' : '36px'} width='100%' minHeight='40%'>
+          <BasicButton
+            onClick={() => navigate('/heart/settings')}
+            label={'Kierki'}
+            fontSize={{ tablet: '3rem', mobile: '2rem' }}
+          />
+          <BasicButton
+            disabled={true}
+            onClick={() => navigate('/dice/settings')}
+            label={'Kości - w budowie'}
+            fontSize={{ tablet: '3rem', mobile: '2rem' }}
+          />
+        </Container>
+      </Container>
+      <Container
+        variant='flex'
+        flexDirection='column'
+        alignItems='center'
+        justifyContent='flex-end'
+        width='100%'
+        gap={isMobile ? '16px' : '36px'}
+      >
+        <Title label='Język / Language' />
+        <Container variant='flex' gap={isMobile ? '16px' : '36px'} width='100%'>
+          <BasicButton onClick={() => console.log('Polski')} label={'Polski'} />
+          <BasicButton
+            disabled={true}
+            onClick={() => console.log('English - soon')}
+            label={'English - soon'}
+          />
+        </Container>
+      </Container>
+    </Container>
   );
 };

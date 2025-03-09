@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
-export const StyledNavTitle = styled.h1`
+import type { INavigationTitle } from '@components/features/navigationBar/navTitle/NavTitle';
+
+export const StyledNavTitle = styled.h1<Pick<INavigationTitle, 'fontSize'>>`
   color: ${({ theme }) => theme.colors.textLight};
-  font-size: 3rem;
+  font-size: ${({ fontSize }) => fontSize?.tablet ?? '3rem'};
   text-align: center;
 
   @media ${({ theme }) => theme.devices.mobile} {
-    font-size: 2.5rem;
+    font-size: ${({ fontSize }) => fontSize?.mobile ?? '2.5rem'};
   }
 `;
