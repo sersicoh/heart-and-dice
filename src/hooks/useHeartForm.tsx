@@ -8,7 +8,9 @@ import type {
 } from '@views/heart/form.types';
 
 import { useKierkiStore } from '@store/kierkiStore';
+import { calcRegistry } from '@utils/calcFunctions';
 import { getHeartsFields } from '@utils/getHeartsFields';
+import { recalcAllRows } from '@utils/recalcAllRows';
 
 type THeartRowKey = Exclude<keyof IFormHeartSection, 'result'>;
 type TRaceRowKey = Exclude<keyof IFormRaceSection, 'result'>;
@@ -62,7 +64,7 @@ export function useHeartFormLogic() {
   function setInputValue(
     sectionName: keyof IFormSections,
     rowKey: string,
-    playerInputKey: 'player1Input' | 'player2Input' | 'player3Input' | 'player4Input',
+    playerInputKey: 'p1Input' | 'p2Input' | 'p3Input' | 'p4Input',
     newValue: number | null
   ) {
     setLocalFields((prev) => {
@@ -98,11 +100,33 @@ export function useHeartFormLogic() {
       } else {
         currentRow = cloned.raceSection[cRow];
       }
+
+      const rowId = currentRow.roundType.rowId;
+      const calcFn = rowId ? calcRegistry[rowId] : undefined;
+
+      if (calcFn) {
+        const values = [
+          currentRow.p1Input.value ?? 0,
+          currentRow.p2Input.value ?? 0,
+          currentRow.p3Input.value ?? 0,
+          currentRow.p4Input?.value ?? 0,
+        ];
+        const result = calcFn(values);
+        currentRow.computedPoints = {
+          p1: result.p1,
+          p2: result.p2,
+          p3: result.p3,
+          p4: currentRow.p4Input ? result.p4 : undefined,
+        };
+      }
+
       currentRow.roundType.variant = 'roundType';
-      if (currentRow.player1Input) currentRow.player1Input.variant = 'input';
-      if (currentRow.player2Input) currentRow.player2Input.variant = 'input';
-      if (currentRow.player3Input) currentRow.player3Input.variant = 'input';
-      if (currentRow.player4Input) currentRow.player4Input.variant = 'input';
+      if (currentRow.p1Input) currentRow.p1Input.variant = 'input';
+      if (currentRow.p2Input) currentRow.p2Input.variant = 'input';
+      if (currentRow.p3Input) currentRow.p3Input.variant = 'input';
+      if (currentRow.p4Input) {
+        currentRow.p4Input.variant = 'input';
+      }
 
       if (nSec === 'heartSection') {
         nextRow = cloned.heartSection[nRow];
@@ -110,12 +134,15 @@ export function useHeartFormLogic() {
         nextRow = cloned.raceSection[nRow];
       }
       nextRow.roundType.variant = 'activeRoundType';
-      if (nextRow.player1Input) nextRow.player1Input.variant = 'activeInput';
-      if (nextRow.player2Input) nextRow.player2Input.variant = 'activeInput';
-      if (nextRow.player3Input) nextRow.player3Input.variant = 'activeInput';
-      if (nextRow.player4Input) nextRow.player4Input.variant = 'activeInput';
+      if (nextRow.p1Input) nextRow.p1Input.variant = 'activeInput';
+      if (nextRow.p2Input) nextRow.p2Input.variant = 'activeInput';
+      if (nextRow.p3Input) nextRow.p3Input.variant = 'activeInput';
+      if (nextRow.p4Input) {
+        nextRow.p4Input.variant = 'activeInput';
+      }
 
-      return cloned;
+      const recalculated = recalcAllRows(cloned);
+      return recalculated;
     });
     setActiveIndex((p) => p + 1);
   }
@@ -133,10 +160,10 @@ export function useHeartFormLogic() {
         currentRow = cloned.raceSection[cRow];
       }
       currentRow.roundType.variant = 'roundType';
-      if (currentRow.player1Input) currentRow.player1Input.variant = 'input';
-      if (currentRow.player2Input) currentRow.player2Input.variant = 'input';
-      if (currentRow.player3Input) currentRow.player3Input.variant = 'input';
-      if (currentRow.player4Input) currentRow.player4Input.variant = 'input';
+      if (currentRow.p1Input) currentRow.p1Input.variant = 'input';
+      if (currentRow.p2Input) currentRow.p2Input.variant = 'input';
+      if (currentRow.p3Input) currentRow.p3Input.variant = 'input';
+      if (currentRow.p4Input) currentRow.p4Input.variant = 'input';
 
       if (pSec === 'heartSection') {
         prevRow = cloned.heartSection[pRow];
@@ -144,10 +171,10 @@ export function useHeartFormLogic() {
         prevRow = cloned.raceSection[pRow];
       }
       prevRow.roundType.variant = 'activeRoundType';
-      if (prevRow.player1Input) prevRow.player1Input.variant = 'activeInput';
-      if (prevRow.player2Input) prevRow.player2Input.variant = 'activeInput';
-      if (prevRow.player3Input) prevRow.player3Input.variant = 'activeInput';
-      if (prevRow.player4Input) prevRow.player4Input.variant = 'activeInput';
+      if (prevRow.p1Input) prevRow.p1Input.variant = 'activeInput';
+      if (prevRow.p2Input) prevRow.p2Input.variant = 'activeInput';
+      if (prevRow.p3Input) prevRow.p3Input.variant = 'activeInput';
+      if (prevRow.p4Input) prevRow.p4Input.variant = 'activeInput';
 
       return cloned;
     });

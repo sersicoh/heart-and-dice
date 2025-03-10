@@ -67,14 +67,14 @@ export const useKierkiStore = create(
                 const rowData = updated.heartSection[rowKey];
                 if (!rowData.roundType) return;
                 if (newPlayers.length === 4 && newPlayers[3].name.trim()) {
-                  if (!rowData.player4Input) {
-                    rowData.player4Input = {
+                  if (!rowData.p4Input) {
+                    rowData.p4Input = {
                       value: null,
-                      variant: rowData.player1Input ? rowData.player1Input.variant : 'input',
+                      variant: rowData.p1Input ? rowData.p1Input.variant : 'input',
                     };
                   }
                 } else {
-                  delete rowData.player4Input;
+                  delete rowData.p4Input;
                 }
               }
             );
@@ -87,14 +87,14 @@ export const useKierkiStore = create(
                 const rowData = updated.raceSection[rowKey];
                 if (!rowData.roundType) return;
                 if (newPlayers.length === 4 && newPlayers[3].name.trim()) {
-                  if (!rowData.player4Input) {
-                    rowData.player4Input = {
+                  if (!rowData.p4Input) {
+                    rowData.p4Input = {
                       value: null,
-                      variant: rowData.player1Input ? rowData.player1Input.variant : 'input',
+                      variant: rowData.p1Input ? rowData.p1Input.variant : 'input',
                     };
                   }
                 } else {
-                  delete rowData.player4Input;
+                  delete rowData.p4Input;
                 }
               }
             );
@@ -105,14 +105,14 @@ export const useKierkiStore = create(
                 const rowData = updated.resultSection[rowKey];
                 if (!rowData.roundType) return;
                 if (newPlayers.length === 4 && newPlayers[3].name.trim()) {
-                  if (!rowData.player4Input) {
-                    rowData.player4Input = {
+                  if (!rowData.p4Input) {
+                    rowData.p4Input = {
                       value: null,
-                      variant: rowData.player1Input ? rowData.player1Input.variant : 'input',
+                      variant: rowData.p1Input ? rowData.p1Input.variant : 'input',
                     };
                   }
                 } else {
-                  delete rowData.player4Input;
+                  delete rowData.p4Input;
                 }
               }
             );

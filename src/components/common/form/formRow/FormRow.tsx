@@ -40,55 +40,52 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
       <>
         <FormField variant={row.roundType.variant} label={row.roundType.label} />
         <FormField
-          variant={row.player1Input.variant}
-          label={row.player1Input.value?.toString() ?? ''}
-          value={row.player1Input.value}
+          variant={row.p1Input.variant}
+          label={row.p1Input.value?.toString() ?? ''}
+          value={row.p1Input.value}
           onChangeValue={(newValue) =>
-            onInputValueChange?.(sectionName, rowKey, 'player1Input', newValue)
+            onInputValueChange?.(sectionName, rowKey, 'p1Input', newValue)
           }
-          isEditable={row.player1Input.variant === 'activeInput'}
+          isEditable={row.p1Input.variant === 'activeInput'}
         />
         <FormField
-          variant={row.player2Input.variant}
-          label={row.player2Input.value?.toString() ?? ''}
-          value={row.player2Input.value}
+          variant={row.p2Input.variant}
+          label={row.p2Input.value?.toString() ?? ''}
+          value={row.p2Input.value}
           onChangeValue={(newValue) =>
-            onInputValueChange?.(sectionName, rowKey, 'player2Input', newValue)
+            onInputValueChange?.(sectionName, rowKey, 'p2Input', newValue)
           }
-          isEditable={row.player2Input.variant === 'activeInput'}
+          isEditable={row.p2Input.variant === 'activeInput'}
         />
         <FormField
-          variant={row.player3Input.variant}
-          label={row.player3Input.value?.toString() ?? ''}
-          value={row.player3Input.value}
+          variant={row.p3Input.variant}
+          label={row.p3Input.value?.toString() ?? ''}
+          value={row.p3Input.value}
           onChangeValue={(newValue) =>
-            onInputValueChange?.(sectionName, rowKey, 'player3Input', newValue)
+            onInputValueChange?.(sectionName, rowKey, 'p3Input', newValue)
           }
-          isEditable={row.player3Input.variant === 'activeInput'}
+          isEditable={row.p3Input.variant === 'activeInput'}
         />
-        {row.player4Input && (
+        {row.p4Input && (
           <FormField
-            variant={row.player4Input.variant}
-            label={row.player4Input.value?.toString() ?? ''}
-            value={row.player4Input.value}
+            variant={row.p4Input.variant}
+            label={row.p4Input.value?.toString() ?? ''}
+            value={row.p4Input.value}
             onChangeValue={(newValue) =>
-              onInputValueChange?.(sectionName, rowKey, 'player4Input', newValue)
+              onInputValueChange?.(sectionName, rowKey, 'p4Input', newValue)
             }
-            isEditable={row.player4Input.variant === 'activeInput'}
+            isEditable={row.p4Input.variant === 'activeInput'}
           />
         )}
       </>
     );
   };
-  console.log(rowData);
   const getNumberOfPlayers = (row: INamesFormRow | IFormRow) => {
-    console.log(row);
-
     if (isNamesFormRow(row)) {
       const possible = ['player1', 'player2', 'player3', 'player4'] as const;
       return possible.filter((p) => row[p] !== undefined).length;
     } else {
-      const possible = ['player1Input', 'player2Input', 'player3Input', 'player4Input'] as const;
+      const possible = ['p1Input', 'p2Input', 'p3Input', 'p4Input'] as const;
       return possible.filter((p) => row[p] !== undefined).length;
     }
   };

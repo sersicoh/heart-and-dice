@@ -1,3 +1,5 @@
+import type { calcRegistry } from '@utils/calcFunctions';
+
 export interface IFieldsType {
   tileDescription: string;
   inputField: number | null;
@@ -42,31 +44,43 @@ export interface INamesFormRow {
   };
 }
 
+export type TCalcFunction = (playerValues: Array<number | null>) => {
+  [key: string]: number | undefined;
+};
+
 export interface IFormRow {
   roundType: {
     label: IFieldsType['tileDescription'];
     variant?: IFieldsType['variant'];
     placeholder?: IFieldsType['placeholder'];
+    rowId?: keyof typeof calcRegistry;
   };
-  player1Input: {
+  p1Input: {
     variant?: IFieldsType['variant'];
     placeholder?: IFieldsType['placeholder'];
     value: IFieldsType['inputField'];
   };
-  player2Input: {
+  p2Input: {
     variant?: IFieldsType['variant'];
     placeholder?: IFieldsType['placeholder'];
     value: IFieldsType['inputField'];
   };
-  player3Input: {
+  p3Input: {
     variant?: IFieldsType['variant'];
     placeholder?: IFieldsType['placeholder'];
     value: IFieldsType['inputField'];
   };
-  player4Input?: {
+  p4Input?: {
     variant?: IFieldsType['variant'];
     placeholder?: IFieldsType['placeholder'];
     value: IFieldsType['inputField'];
+  };
+
+  computedPoints?: {
+    p1?: number;
+    p2?: number;
+    p3?: number;
+    p4?: number;
   };
 }
 
@@ -106,6 +120,6 @@ export interface IFormSections {
 export type IFormInputChange = (
   sectionName: keyof IFormSections,
   rowKey: string,
-  playerInputKey: 'player1Input' | 'player2Input' | 'player3Input' | 'player4Input',
+  playerInputKey: 'p1Input' | 'p2Input' | 'p3Input' | 'p4Input',
   newValue: number | null
 ) => void;
