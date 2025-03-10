@@ -1,15 +1,15 @@
 import type { TCalcFunction } from '@/views/heart/form.types';
 
 export const calcNoLions: TCalcFunction = (playerValues) => {
-  const p1 = playerValues[0] ?? 0;
-  const p2 = playerValues[1] ?? 0;
-  const p3 = playerValues[2] ?? 0;
-  const p4 = playerValues[3] ?? 0;
+  // const p1 = playerValues[0] ?? 0;
+  // const p2 = playerValues[1] ?? 0;
+  // const p3 = playerValues[2] ?? 0;
+  // const p4 = playerValues[3] ?? 0;
 
-  const total = p1 + p2 + p3 + p4;
-  if (total !== 260) {
-    alert('Suma musi wynosić 260!');
-  }
+  // const total = p1 + p2 + p3 + p4;
+  // if (total !== 260) {
+  //   alert('Suma musi wynosić 260!');
+  // }
 
   return {
     p1: playerValues[0] ?? 0,

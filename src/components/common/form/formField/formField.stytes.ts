@@ -45,13 +45,25 @@ const variantStyles = (variant: IFieldsType['variant']) => {
     case 'winner':
       return css`
         background-color: ${({ theme }) => theme.colors.winFormField};
-        color: ${({ theme }) => theme.colors.textLight};
+        color: ${({ theme }) => theme.colors.secondFormText};
+        font-weight: 600;
+      `;
+    case 'manyWinner':
+      return css`
+        background-color: ${({ theme }) => theme.colors.manyWinFormField};
+        color: ${({ theme }) => theme.colors.secondFormText};
         font-weight: 600;
       `;
     case 'looser':
       return css`
         background-color: ${({ theme }) => theme.colors.looseFormField};
-        color: ${({ theme }) => theme.colors.textLight};
+        color: ${({ theme }) => theme.colors.secondFormText};
+        font-weight: 600;
+      `;
+    case 'manyLooser':
+      return css`
+        background-color: ${({ theme }) => theme.colors.manyLooseFormField};
+        color: ${({ theme }) => theme.colors.secondFormText};
         font-weight: 600;
       `;
     case 'input':

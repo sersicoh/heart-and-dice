@@ -12,7 +12,9 @@ export interface IFieldsType {
     | 'input'
     | 'activeInput'
     | 'winner'
+    | 'manyWinner'
     | 'looser'
+    | 'manyLooser'
     | 'resultTitle';
 }
 

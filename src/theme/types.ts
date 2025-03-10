@@ -7,7 +7,9 @@ export interface IPrimitiveColors {
   alto: string;
   oxfordBlue: string;
   greenPea: string;
+  greenPeaLight: string;
   bullShot: string;
+  bullShotLight: string;
   mirage: string;
   blueBayoux: string;
 }
@@ -22,7 +24,9 @@ export interface IColorsCollection {
   mainFormField: string;
   secondaryFormField: string;
   looseFormField: string;
+  manyLooseFormField: string;
   winFormField: string;
+  manyWinFormField: string;
   buttonBackground: string;
   frameMainFields: string;
   logo: string;
