@@ -11,6 +11,7 @@ import { useKierkiStore } from '@store/kierkiStore';
 import { calcRegistry } from '@utils/calcFunctions';
 import { getHeartsFields } from '@utils/getHeartsFields';
 import { recalcAllRows } from '@utils/recalcAllRows';
+import { useCustomSnackbar } from '@hooks/useCustomSnackbar';
 
 type THeartRowKey = Exclude<keyof IFormHeartSection, 'result'>;
 type TRaceRowKey = Exclude<keyof IFormRaceSection, 'result'>;
@@ -50,6 +51,8 @@ export function useHeartFormLogic() {
     });
     return idx >= 0 ? idx : 0;
   });
+
+  const { showSnackbar } = useCustomSnackbar();
 
   useEffect(() => {
     if (fields) {
@@ -118,7 +121,11 @@ export function useHeartFormLogic() {
 
     const result = calcFn(values);
     if (!result.valid) {
-      alert(result.errorMessage);
+      showSnackbar({
+        message: result.errorMessage ?? '',
+        variant: 'warning',
+        autoHideDuration: 5000,
+      });
       return;
     }
 
@@ -191,7 +198,21 @@ export function useHeartFormLogic() {
       }
       const result = calcFn(values);
       if (!result.valid) {
-        alert(result.errorMessage);
+        showSnackbar({
+          message: result.errorMessage ?? '',
+          variant: 'warning',
+          autoHideDuration: 5000,
+        });
+        // enqueueSnackbar(result.errorMessage, {
+        //   variant: 'warning',
+        //   anchorOrigin: { horizontal: 'left', vertical: 'top' },
+        //   hideIconVariant: true,
+        //   transitionDuration: { enter: 500, exit: 200 },
+        //   disableWindowBlurListener: true,
+        //   style: {
+        //     fontSize: '20px',
+        //   },
+        // });
         return;
       }
     }

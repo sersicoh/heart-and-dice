@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 
+import { SnackbarProvider } from 'notistack';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 
@@ -13,8 +14,10 @@ function Root() {
   return (
     <StrictMode>
       <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <App />
+        <SnackbarProvider>
+          <GlobalStyles />
+          <App />
+        </SnackbarProvider>
       </ThemeProvider>
     </StrictMode>
   );

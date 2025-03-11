@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useKierkiStore } from '@store/kierkiStore';
+import { useCustomSnackbar } from '@hooks/useCustomSnackbar';
 
 function initTempPlayers(playersFromStore: { name: string }[]): string[] {
   const arr = playersFromStore.map((p) => p.name);
@@ -32,6 +33,8 @@ export function useHeartSettingsLogic() {
     players.length > 0 ? initTempPlayers(players) : ['', '', '', '']
   );
 
+  const { showSnackbar } = useCustomSnackbar();
+
   useEffect(() => {
     if (players.length === 0) {
       setTempPlayers(['', '', '', '']);
@@ -60,9 +63,15 @@ export function useHeartSettingsLogic() {
   const returnToGame = () => {
     const countNow = syncPlayers(tempPlayers).length;
     if (isGameInProgress && initialPlayersCount !== null && countNow !== initialPlayersCount) {
-      alert(
-        `W aktualniej grze formularz był przygotowany na ${initialPlayersCount} osoby, uzupełnij dotychczasowe pola z imionami lub rozpocznij nową grę`
-      );
+      const message = `W aktualniej grze formularz był przygotowany na ${initialPlayersCount} osoby, uzupełnij dotychczasowe pola z imionami lub rozpocznij nową grę`;
+
+      showSnackbar({
+        message,
+        variant: 'info',
+        autoHideDuration: 10000,
+        closeButton: true,
+      });
+
       return;
     }
     navigate('/heart/form');

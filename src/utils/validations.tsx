@@ -7,7 +7,7 @@ export function validateSumIs(
 ): string | null {
   const total = p1 + p2 + p3 + p4;
   if (total !== expectedSum) {
-    return `Suma w rundzie musi wynosić ${expectedSum}`;
+    return `Suma w tej rundzie musi wynosić ${expectedSum}`;
   }
   return null;
 }
