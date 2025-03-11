@@ -134,7 +134,6 @@ export const calculateFinal = (cloned: IFormSections) => {
     p4: raceSum.p4 - heartSum.p4,
   };
 
-  // Wstawiamy do wiersza "resultSection.result"
   const finalRow = cloned.resultSection.result;
   if (finalRow.roundType.rowId) {
     const finalCalcFn = calcRegistry[finalRow.roundType.rowId];

@@ -89,62 +89,133 @@ export function useHeartFormLogic() {
   }
 
   function goToNextRow() {
-    if (activeIndex >= activableRows.length - 1) return;
+    if (activeIndex >= activableRows.length - 1) {
+      return;
+    }
+
     const [cSec, cRow] = activableRows[activeIndex];
-    const [nSec, nRow] = activableRows[activeIndex + 1];
+    let currentRow: IFormRow;
+    if (cSec === 'heartSection') {
+      currentRow = localFields.heartSection[cRow];
+    } else {
+      currentRow = localFields.raceSection[cRow];
+    }
+    const rowId = currentRow.roundType.rowId;
+    const calcFn = rowId ? calcRegistry[rowId] : undefined;
+    if (!calcFn) {
+      setActiveIndex((p) => p + 1);
+      return;
+    }
+
+    const values = [
+      currentRow.p1Input.value ?? 0,
+      currentRow.p2Input.value ?? 0,
+      currentRow.p3Input.value ?? 0,
+    ];
+    if (currentRow.p4Input) {
+      values.push(currentRow.p4Input.value ?? 0);
+    }
+
+    const result = calcFn(values);
+    if (!result.valid) {
+      alert(result.errorMessage);
+      return;
+    }
+
     setLocalFields((prev) => {
       const cloned = structuredClone(prev);
-      let currentRow: IFormRow, nextRow: IFormRow;
+
+      let cur: IFormRow;
       if (cSec === 'heartSection') {
-        currentRow = cloned.heartSection[cRow];
+        cur = cloned.heartSection[cRow];
       } else {
-        currentRow = cloned.raceSection[cRow];
+        cur = cloned.raceSection[cRow];
       }
 
-      const rowId = currentRow.roundType.rowId;
-      const calcFn = rowId ? calcRegistry[rowId] : undefined;
+      cur.computedPoints = {
+        p1: result.p1,
+        p2: result.p2,
+        p3: result.p3,
+        p4: cur.p4Input ? result.p4 : undefined,
+      };
 
-      if (calcFn) {
-        const values = [
-          currentRow.p1Input.value ?? 0,
-          currentRow.p2Input.value ?? 0,
-          currentRow.p3Input.value ?? 0,
-          currentRow.p4Input?.value ?? 0,
-        ];
-        const result = calcFn(values);
-        currentRow.computedPoints = {
-          p1: result.p1,
-          p2: result.p2,
-          p3: result.p3,
-          p4: currentRow.p4Input ? result.p4 : undefined,
-        };
+      cur.roundType.variant = 'roundType';
+      cur.p1Input.variant = 'input';
+      cur.p2Input.variant = 'input';
+      cur.p3Input.variant = 'input';
+      if (cur.p4Input) {
+        cur.p4Input.variant = 'input';
       }
 
-      currentRow.roundType.variant = 'roundType';
-      if (currentRow.p1Input) currentRow.p1Input.variant = 'input';
-      if (currentRow.p2Input) currentRow.p2Input.variant = 'input';
-      if (currentRow.p3Input) currentRow.p3Input.variant = 'input';
-      if (currentRow.p4Input) {
-        currentRow.p4Input.variant = 'input';
-      }
-
+      const [nSec, nRow] = activableRows[activeIndex + 1];
+      let nxt: IFormRow;
       if (nSec === 'heartSection') {
-        nextRow = cloned.heartSection[nRow];
+        nxt = cloned.heartSection[nRow];
       } else {
-        nextRow = cloned.raceSection[nRow];
+        nxt = cloned.raceSection[nRow];
       }
-      nextRow.roundType.variant = 'activeRoundType';
-      if (nextRow.p1Input) nextRow.p1Input.variant = 'activeInput';
-      if (nextRow.p2Input) nextRow.p2Input.variant = 'activeInput';
-      if (nextRow.p3Input) nextRow.p3Input.variant = 'activeInput';
-      if (nextRow.p4Input) {
-        nextRow.p4Input.variant = 'activeInput';
+
+      nxt.roundType.variant = 'activeRoundType';
+      nxt.p1Input.variant = 'activeInput';
+      nxt.p2Input.variant = 'activeInput';
+      nxt.p3Input.variant = 'activeInput';
+      if (nxt.p4Input) {
+        nxt.p4Input.variant = 'activeInput';
       }
 
       const recalculated = recalcAllRows(cloned);
       return recalculated;
     });
+
     setActiveIndex((p) => p + 1);
+  }
+
+  function finishGame() {
+    const [cSec, cRow] = activableRows[activeIndex];
+    let currentRow: IFormRow;
+    if (cSec === 'heartSection') {
+      currentRow = localFields.heartSection[cRow];
+    } else {
+      currentRow = localFields.raceSection[cRow];
+    }
+    const rowId = currentRow.roundType.rowId;
+    const calcFn = rowId ? calcRegistry[rowId] : undefined;
+    if (calcFn) {
+      const values = [
+        currentRow.p1Input.value ?? 0,
+        currentRow.p2Input.value ?? 0,
+        currentRow.p3Input.value ?? 0,
+      ];
+      if (currentRow.p4Input) {
+        values.push(currentRow.p4Input.value ?? 0);
+      }
+      const result = calcFn(values);
+      if (!result.valid) {
+        alert(result.errorMessage);
+        return;
+      }
+    }
+
+    setLocalFields((prev) => {
+      const cloned = structuredClone(prev);
+
+      let row: IFormRow;
+      if (cSec === 'heartSection') {
+        row = cloned.heartSection[cRow];
+      } else {
+        row = cloned.raceSection[cRow];
+      }
+
+      row.roundType.variant = 'roundType';
+      row.p1Input.variant = 'input';
+      row.p2Input.variant = 'input';
+      row.p3Input.variant = 'input';
+      if (row.p4Input) {
+        row.p4Input.variant = 'input';
+      }
+
+      return recalcAllRows(cloned);
+    });
   }
 
   function undoLastRow() {
@@ -184,8 +255,10 @@ export function useHeartFormLogic() {
   return {
     fields: localFields,
     activeIndex,
+    activableRows,
     setInputValue,
     goToNextRow,
+    finishGame,
     undoLastRow,
   };
 }

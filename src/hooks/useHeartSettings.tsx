@@ -18,7 +18,15 @@ function syncPlayers(tempPlayers: string[]) {
 
 export function useHeartSettingsLogic() {
   const navigate = useNavigate();
-  const { players, isGameInProgress, setPlayers, setGameInProgress, resetGame } = useKierkiStore();
+  const {
+    players,
+    isGameInProgress,
+    setPlayers,
+    setGameInProgress,
+    resetGame,
+    initialPlayersCount,
+    setInitialPlayersCount,
+  } = useKierkiStore();
 
   const [tempPlayers, setTempPlayers] = useState<string[]>(() =>
     players.length > 0 ? initTempPlayers(players) : ['', '', '', '']
@@ -36,18 +44,27 @@ export function useHeartSettingsLogic() {
     setTempPlayers((prev) => {
       const arr = [...prev];
       arr[index] = newName;
+
       setPlayers(syncPlayers(arr));
       return arr;
     });
   };
 
   const startGame = () => {
-    setPlayers(syncPlayers(tempPlayers));
+    const count = syncPlayers(tempPlayers).length;
+    setInitialPlayersCount(count);
     setGameInProgress(true);
     navigate('/heart/form');
   };
 
   const returnToGame = () => {
+    const countNow = syncPlayers(tempPlayers).length;
+    if (isGameInProgress && initialPlayersCount !== null && countNow !== initialPlayersCount) {
+      alert(
+        `W aktualniej grze formularz był przygotowany na ${initialPlayersCount} osoby, uzupełnij dotychczasowe pola z imionami lub rozpocznij nową grę`
+      );
+      return;
+    }
     navigate('/heart/form');
   };
 

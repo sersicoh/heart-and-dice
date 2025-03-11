@@ -1,4 +1,6 @@
 // @views/heart/HeartForm.tsx
+import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
 import { BasicButton } from '@components/common/basicButton/BasicButton';
@@ -14,13 +16,33 @@ import { useMyTheme } from '@hooks/useMyTheme';
 export const HeartForm = () => {
   const { theme, isMobile } = useMyTheme();
   const navigate = useNavigate();
+  const [finished, setFinished] = useState(false);
+
+  const finishAll = () => {
+    finishGame();
+    setFinished(true);
+  };
+
+  const goBack = () => {
+    undoLastRow();
+    setFinished(false);
+  };
+
   const drawerItems: IDrawerItems['items'] = [
     { label: 'Ustawieia gry', onClick: () => navigate('/heart/settings') },
     { label: 'Strona główna', onClick: () => navigate('/') },
     { label: 'Zakończ grę', onClick: () => console.log('Zakończ grę') },
   ];
 
-  const { fields, goToNextRow, undoLastRow, setInputValue } = useHeartFormLogic();
+  const {
+    fields,
+    goToNextRow,
+    finishGame,
+    undoLastRow,
+    setInputValue,
+    activableRows,
+    activeIndex,
+  } = useHeartFormLogic();
 
   return (
     <>
@@ -38,9 +60,13 @@ export const HeartForm = () => {
           padding={isMobile ? '4px' : '12px'}
           backgroundColor={theme.colors.frameBackground}
         >
-          <BasicButton onClick={goToNextRow} label={'Następna runda'} />
-          <BasicButton onClick={undoLastRow} label={'Cofnij'} />
-          <BasicButton onClick={undoLastRow} label={'Zapisz grę'} />
+          <BasicButton onClick={goBack} label={'Cofnij'} disabled={activeIndex === 0} />
+          <BasicButton
+            onClick={activeIndex < activableRows.length - 1 ? goToNextRow : finishAll}
+            label={activeIndex < activableRows.length - 1 ? 'Następna runda' : 'Zakończ grę'}
+            disabled={finished}
+          />
+          <BasicButton onClick={goBack} label={'Zapisz grę'} />
         </Container>
       </Container>
     </>

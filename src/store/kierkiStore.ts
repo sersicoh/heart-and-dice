@@ -18,9 +18,11 @@ export interface Player {
 interface KierkiState {
   players: Player[];
   isGameInProgress: boolean;
+  initialPlayersCount: number | null;
   fields: IFormSections | null;
   setPlayers: (players: Player[]) => void;
   setGameInProgress: (inProgress: boolean) => void;
+  setInitialPlayersCount: (count: number) => void;
   setFields: (newFields: IFormSections) => void;
   resetGame: () => void;
 }
@@ -30,6 +32,7 @@ export const useKierkiStore = create(
     (set) => ({
       players: [],
       isGameInProgress: false,
+      initialPlayersCount: null,
       fields: getHeartsFields([]),
       setPlayers: (newPlayers) => {
         set((state) => {
@@ -127,6 +130,9 @@ export const useKierkiStore = create(
       setGameInProgress: (inProgress) => {
         set({ isGameInProgress: inProgress });
       },
+      setInitialPlayersCount: (count: number) => {
+        set({ initialPlayersCount: count });
+      },
       setFields: (newFields) => {
         set({ fields: newFields });
       },
@@ -134,6 +140,7 @@ export const useKierkiStore = create(
         set({
           players: [],
           isGameInProgress: false,
+          initialPlayersCount: null,
           fields: getHeartsFields([]),
         });
       },

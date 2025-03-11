@@ -15,7 +15,8 @@ export interface IFieldsType {
     | 'manyWinner'
     | 'looser'
     | 'manyLooser'
-    | 'resultTitle';
+    | 'resultTitle'
+    | 'gameFinished';
 }
 
 export interface INamesFormRow {
@@ -46,9 +47,16 @@ export interface INamesFormRow {
   };
 }
 
-export type TCalcFunction = (playerValues: Array<number | null>) => {
-  [key: string]: number | undefined;
+export type TCalcResult = {
+  p1?: number;
+  p2?: number;
+  p3?: number;
+  p4?: number;
+  valid: boolean;
+  errorMessage?: string;
 };
+
+export type TCalcFunction = (playerValues: Array<number | null>) => TCalcResult;
 
 export interface IFormRow {
   roundType: {
