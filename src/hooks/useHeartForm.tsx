@@ -123,7 +123,8 @@ export function useHeartFormLogic() {
     if (!result.valid) {
       showSnackbar({
         message: result.errorMessage ?? '',
-        variant: 'warning',
+        variant: 'error',
+        hideIconVariant: false,
         autoHideDuration: 5000,
       });
       return;
@@ -200,19 +201,9 @@ export function useHeartFormLogic() {
       if (!result.valid) {
         showSnackbar({
           message: result.errorMessage ?? '',
-          variant: 'warning',
+          variant: 'error',
           autoHideDuration: 5000,
         });
-        // enqueueSnackbar(result.errorMessage, {
-        //   variant: 'warning',
-        //   anchorOrigin: { horizontal: 'left', vertical: 'top' },
-        //   hideIconVariant: true,
-        //   transitionDuration: { enter: 500, exit: 200 },
-        //   disableWindowBlurListener: true,
-        //   style: {
-        //     fontSize: '20px',
-        //   },
-        // });
         return;
       }
     }

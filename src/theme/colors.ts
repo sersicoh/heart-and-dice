@@ -14,6 +14,8 @@ export const primitiveColors: IPrimitiveColors = {
   bullShotLight: '#572e14',
   mirage: '#141c29',
   blueBayoux: '#4c5d7b',
+  indochine: '#b86800',
+  redBerry: '#991200',
 };
 
 export const LightColorsColections: IColorsCollection = {
@@ -37,6 +39,16 @@ export const LightColorsColections: IColorsCollection = {
   lightFormField: primitiveColors.poloBlue,
   buttonDisabled: primitiveColors.oxfordBlue,
   buttonDisabledText: primitiveColors.blueBayoux,
+  errorMessageBackground: primitiveColors.ebonyClay,
+  errorMessageText: primitiveColors.white,
+  warningMessageBackground: primitiveColors.ebonyClay,
+  warningMessageText: primitiveColors.white,
+  successMessageBackground: primitiveColors.greenPea,
+  successMessageText: primitiveColors.white,
+  infoMessageBackground: primitiveColors.malibu,
+  infoMessageText: primitiveColors.white,
+  defaultMessageBackground: primitiveColors.alto,
+  defaultMessageText: primitiveColors.white,
 };
 
 export const DarkColorsColections: IColorsCollection = {
@@ -60,4 +72,14 @@ export const DarkColorsColections: IColorsCollection = {
   lightFormField: primitiveColors.poloBlue,
   buttonDisabled: primitiveColors.oxfordBlue,
   buttonDisabledText: primitiveColors.blueBayoux,
+  errorMessageBackground: primitiveColors.redBerry,
+  errorMessageText: primitiveColors.alto,
+  warningMessageBackground: primitiveColors.indochine,
+  warningMessageText: primitiveColors.alto,
+  successMessageBackground: primitiveColors.greenPea,
+  successMessageText: primitiveColors.alto,
+  infoMessageBackground: primitiveColors.ebonyClay,
+  infoMessageText: primitiveColors.alto,
+  defaultMessageBackground: primitiveColors.oxfordBlue,
+  defaultMessageText: primitiveColors.alto,
 };

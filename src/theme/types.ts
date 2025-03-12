@@ -12,6 +12,8 @@ export interface IPrimitiveColors {
   bullShotLight: string;
   mirage: string;
   blueBayoux: string;
+  indochine: string;
+  redBerry: string;
 }
 
 export interface IColorsCollection {
@@ -35,4 +37,14 @@ export interface IColorsCollection {
   textWhite: string;
   buttonDisabled: string;
   buttonDisabledText: string;
+  errorMessageBackground: string;
+  errorMessageText: string;
+  warningMessageBackground: string;
+  warningMessageText: string;
+  successMessageBackground: string;
+  successMessageText: string;
+  infoMessageBackground: string;
+  infoMessageText: string;
+  defaultMessageBackground: string;
+  defaultMessageText: string;
 }

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
 import { BasicButton } from '@components/common/basicButton/BasicButton';
@@ -5,12 +7,16 @@ import Container from '@components/common/container/Container';
 import { Title } from '@components/common/title/Title';
 import { NavTitle } from '@components/features/navigationBar/navTitle/NavTitle';
 
+import { useCustomSnackbar } from '@hooks/useCustomSnackbar';
 import { useMyTheme } from '@hooks/useMyTheme';
 import HnDIcon from '@assets/svg/hnd-logo.svg?react';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const { showSnackbar } = useCustomSnackbar();
   const { theme, isMobile } = useMyTheme();
+  const [diceDisabled, setDiceDisabled] = useState(false);
+  const [englishDisabled, setEnglishDisabled] = useState(false);
   return (
     <Container
       variant='grid'
@@ -46,13 +52,20 @@ export const Home = () => {
           <BasicButton
             onClick={() => navigate('/heart/settings')}
             label={'Kierki'}
-            fontSize={{ tablet: '3rem', mobile: '2rem' }}
+            fontSize={{ tablet: '4rem', mobile: '2rem' }}
           />
           <BasicButton
-            disabled={true}
-            onClick={() => navigate('/dice/settings')}
-            label={'Kości - w budowie'}
-            fontSize={{ tablet: '3rem', mobile: '2rem' }}
+            onClick={() => {
+              showSnackbar({
+                message: `Spokojnie przed Przebrodzinem będą gotowe`,
+                variant: 'info',
+              });
+              setDiceDisabled(true);
+            }}
+            // onClick={() => navigate('/dice/settings')}
+            label={'Kości'}
+            disabled={diceDisabled}
+            fontSize={{ tablet: '4rem', mobile: '2rem' }}
           />
         </Container>
       </Container>
@@ -68,9 +81,12 @@ export const Home = () => {
         <Container variant='flex' gap={isMobile ? '16px' : '36px'} width='100%'>
           <BasicButton onClick={() => console.log('Polski')} label={'Polski'} />
           <BasicButton
-            disabled={true}
-            onClick={() => console.log('English - soon')}
-            label={'English - soon'}
+            onClick={() => {
+              showSnackbar({ message: `Sorry, it's not ready yet`, variant: 'info' });
+              setEnglishDisabled(true);
+            }}
+            disabled={englishDisabled}
+            label={'English'}
           />
         </Container>
       </Container>

@@ -67,7 +67,7 @@ export function useHeartSettingsLogic() {
 
       showSnackbar({
         message,
-        variant: 'info',
+        variant: 'warning',
         autoHideDuration: 10000,
         closeButton: true,
       });

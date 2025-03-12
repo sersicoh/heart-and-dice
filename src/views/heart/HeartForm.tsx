@@ -66,7 +66,16 @@ export const HeartForm = () => {
             label={activeIndex < activableRows.length - 1 ? 'Następna runda' : 'Zakończ grę'}
             disabled={finished}
           />
-          <BasicButton onClick={goBack} label={'Zapisz grę'} />
+          <BasicButton
+            onClick={
+              finished
+                ? () => {
+                    console.log(fields);
+                  }
+                : goBack
+            }
+            label={finished ? 'Podmusowanie' : 'Zapisz grę'}
+          />
         </Container>
       </Container>
     </>

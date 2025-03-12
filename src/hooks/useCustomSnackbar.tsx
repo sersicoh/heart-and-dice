@@ -25,29 +25,29 @@ function getVariantStyle(variant: string, theme: DefaultTheme) {
   switch (variant) {
     case 'success':
       return {
-        backgroundColor: theme.colors.winFormField,
-        color: theme.colors.textLight,
+        backgroundColor: theme.colors.successMessageBackground,
+        color: theme.colors.successMessageText,
       };
     case 'error':
       return {
-        backgroundColor: '#f44336',
-        color: theme.colors.textLight,
+        backgroundColor: theme.colors.errorMessageBackground,
+        color: theme.colors.errorMessageText,
       };
     case 'info':
       return {
-        backgroundColor: theme.colors.mainFormField,
-        color: theme.colors.textWhite,
+        backgroundColor: theme.colors.infoMessageBackground,
+        color: theme.colors.infoMessageText,
       };
     case 'warning':
       return {
-        backgroundColor: theme.colors.looseFormField,
-        color: theme.colors.textWhite,
+        backgroundColor: theme.colors.warningMessageBackground,
+        color: theme.colors.warningMessageText,
       };
 
     default:
       return {
-        backgroundColor: theme.colors.frameMainFields,
-        color: theme.colors.textWhite,
+        backgroundColor: theme.colors.defaultMessageBackground,
+        color: theme.colors.defaultMessageText,
       };
   }
 }
