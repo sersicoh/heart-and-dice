@@ -49,6 +49,7 @@ export const LightColorsColections: IColorsCollection = {
   infoMessageText: primitiveColors.white,
   defaultMessageBackground: primitiveColors.alto,
   defaultMessageText: primitiveColors.white,
+  modalBackground: primitiveColors.ebonyClay,
 };
 
 export const DarkColorsColections: IColorsCollection = {
@@ -82,4 +83,5 @@ export const DarkColorsColections: IColorsCollection = {
   infoMessageText: primitiveColors.alto,
   defaultMessageBackground: primitiveColors.oxfordBlue,
   defaultMessageText: primitiveColors.alto,
+  modalBackground: primitiveColors.ebonyClay,
 };

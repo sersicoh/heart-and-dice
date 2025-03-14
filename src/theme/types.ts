@@ -47,4 +47,5 @@ export interface IColorsCollection {
   infoMessageText: string;
   defaultMessageBackground: string;
   defaultMessageText: string;
+  modalBackground: string;
 }

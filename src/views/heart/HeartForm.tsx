@@ -1,14 +1,18 @@
 // @views/heart/HeartForm.tsx
 import { useState } from 'react';
 
+import ReactMarkdown from 'react-markdown';
 import { useNavigate } from 'react-router-dom';
+import remarkGfm from 'remark-gfm';
 
 import { BasicButton } from '@components/common/basicButton/BasicButton';
 import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { FormWrapper } from '@components/common/form/FormWrapper';
+import { Modal } from '@components/common/modal/Modal';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
+import { generateGameSummary } from '@utils/generateGameSummary';
 import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
 import { useHeartFormLogic } from '@hooks/useHeartForm';
 import { useMyTheme } from '@hooks/useMyTheme';
@@ -17,16 +21,7 @@ export const HeartForm = () => {
   const { theme, isMobile } = useMyTheme();
   const navigate = useNavigate();
   const [finished, setFinished] = useState(false);
-
-  const finishAll = () => {
-    finishGame();
-    setFinished(true);
-  };
-
-  const goBack = () => {
-    undoLastRow();
-    setFinished(false);
-  };
+  const [modalOpen, setModalOpen] = useState(false);
 
   const drawerItems: IDrawerItems['items'] = [
     { label: 'Ustawieia gry', onClick: () => navigate('/heart/settings') },
@@ -43,6 +38,18 @@ export const HeartForm = () => {
     activableRows,
     activeIndex,
   } = useHeartFormLogic();
+
+  const finishAll = () => {
+    finishGame();
+    setFinished(true);
+  };
+
+  const goBack = () => {
+    undoLastRow();
+    setFinished(false);
+  };
+
+  const summaryMarkdown = generateGameSummary(fields);
 
   return (
     <>
@@ -70,6 +77,7 @@ export const HeartForm = () => {
             onClick={
               finished
                 ? () => {
+                    setModalOpen(true);
                     console.log(fields);
                   }
                 : goBack
@@ -78,6 +86,9 @@ export const HeartForm = () => {
           />
         </Container>
       </Container>
+      <Modal isOpen={modalOpen} title='Podsumowanie' onClose={() => setModalOpen(false)}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{summaryMarkdown}</ReactMarkdown>
+      </Modal>
     </>
   );
 };
