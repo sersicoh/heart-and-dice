@@ -204,7 +204,7 @@ export function useHeartFormLogic() {
           variant: 'error',
           autoHideDuration: 5000,
         });
-        return;
+        return false;
       }
     }
 
@@ -228,6 +228,7 @@ export function useHeartFormLogic() {
 
       return recalcAllRows(cloned);
     });
+    return true;
   }
 
   function undoLastRow() {

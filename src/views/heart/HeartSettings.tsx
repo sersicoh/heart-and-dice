@@ -17,7 +17,6 @@ export const HeartSettings = () => {
   const drawerItems: IDrawerItems['items'] = [
     { label: 'Wróć do formularza', onClick: () => navigate('/heart/form') },
     { label: 'Strona główna', onClick: () => navigate('/') },
-    { label: 'Zakończ grę', onClick: () => console.log('Zakończ grę') },
   ];
   return (
     <>

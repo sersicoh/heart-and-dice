@@ -12,6 +12,7 @@ import { FormWrapper } from '@components/common/form/FormWrapper';
 import { Modal } from '@components/common/modal/Modal';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
+import { useKierkiStore } from '@store/kierkiStore';
 import { generateGameSummary } from '@utils/generateGameSummary';
 import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
 import { useHeartFormLogic } from '@hooks/useHeartForm';
@@ -26,8 +27,9 @@ export const HeartForm = () => {
   const drawerItems: IDrawerItems['items'] = [
     { label: 'Ustawieia gry', onClick: () => navigate('/heart/settings') },
     { label: 'Strona główna', onClick: () => navigate('/') },
-    { label: 'Zakończ grę', onClick: () => console.log('Zakończ grę') },
   ];
+
+  const { endGame } = useKierkiStore();
 
   const {
     fields,
@@ -40,7 +42,11 @@ export const HeartForm = () => {
   } = useHeartFormLogic();
 
   const finishAll = () => {
-    finishGame();
+    const success = finishGame();
+    if (!success) {
+      return;
+    }
+    endGame();
     setFinished(true);
   };
 
@@ -67,22 +73,22 @@ export const HeartForm = () => {
           padding={isMobile ? '4px' : '12px'}
           backgroundColor={theme.colors.frameBackground}
         >
-          <BasicButton onClick={goBack} label={'Cofnij'} disabled={activeIndex === 0} />
+          <BasicButton onClick={goBack} label={'Cofnij'} disabled={activeIndex === 0 || finished} />
           <BasicButton
-            onClick={activeIndex < activableRows.length - 1 ? goToNextRow : finishAll}
-            label={activeIndex < activableRows.length - 1 ? 'Następna runda' : 'Zakończ grę'}
-            disabled={finished}
+            onClick={goToNextRow}
+            label={'Następna runda'}
+            disabled={activeIndex == activableRows.length - 1}
           />
           <BasicButton
             onClick={
               finished
                 ? () => {
                     setModalOpen(true);
-                    console.log(fields);
                   }
-                : goBack
+                : finishAll
             }
-            label={finished ? 'Podmusowanie' : 'Zapisz grę'}
+            label={finished ? 'Podmusowanie' : 'Zakończ grę'}
+            disabled={activeIndex !== activableRows.length - 1}
           />
         </Container>
       </Container>

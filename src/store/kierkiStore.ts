@@ -6,34 +6,21 @@ import type {
   IFormHeartSection,
   IFormRaceSection,
   IFormResultSection,
-  IFormSections,
 } from '@views/heart/form.types';
 
+import type { IFinishedGame, KierkiState } from '@store/kierkiStore.types';
 import { getHeartsFields } from '@utils/getHeartsFields';
-
-export interface Player {
-  name: string;
-}
-
-interface KierkiState {
-  players: Player[];
-  isGameInProgress: boolean;
-  initialPlayersCount: number | null;
-  fields: IFormSections | null;
-  setPlayers: (players: Player[]) => void;
-  setGameInProgress: (inProgress: boolean) => void;
-  setInitialPlayersCount: (count: number) => void;
-  setFields: (newFields: IFormSections) => void;
-  resetGame: () => void;
-}
 
 export const useKierkiStore = create(
   persist<KierkiState>(
-    (set) => ({
+    (set, get) => ({
       players: [],
       isGameInProgress: false,
       initialPlayersCount: null,
       fields: getHeartsFields([]),
+      currentGameName: null,
+      currentGameStartTime: null,
+      finishedGames: [],
       setPlayers: (newPlayers) => {
         set((state) => {
           const oldFields = state.fields;
@@ -127,6 +114,38 @@ export const useKierkiStore = create(
           };
         });
       },
+      setGameNameAndStart: () => {
+        const now = Date.now();
+        const newName = `Kierki - ${new Date(now).toLocaleString()}`;
+
+        set({
+          currentGameName: newName,
+          currentGameStartTime: now,
+        });
+      },
+      endGame: () => {
+        const state = get();
+
+        if (!state.isGameInProgress) {
+          return;
+        }
+
+        const now = Date.now();
+        const newId = String(now);
+
+        const finishedGame: IFinishedGame = {
+          id: newId,
+          name: state.currentGameName ?? 'Kierki (bez nazwy)',
+          startTimestamp: state.currentGameStartTime ?? now,
+          endTimestamp: now,
+          playersSnapshot: state.players,
+          fieldsSnapshot: state.fields!,
+        };
+
+        set({
+          finishedGames: [...state.finishedGames, finishedGame],
+        });
+      },
       setGameInProgress: (inProgress) => {
         set({ isGameInProgress: inProgress });
       },
@@ -142,6 +161,8 @@ export const useKierkiStore = create(
           isGameInProgress: false,
           initialPlayersCount: null,
           fields: getHeartsFields([]),
+          currentGameName: null,
+          currentGameStartTime: null,
         });
       },
     }),

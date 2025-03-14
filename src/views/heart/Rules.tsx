@@ -12,7 +12,6 @@ export const Rules = () => {
   const drawerItems: IDrawerItems['items'] = [
     { label: 'Ustawieia gry', onClick: () => navigate('/heart/settings') },
     { label: 'Strona główna', onClick: () => navigate('/') },
-    { label: 'Zakończ grę', onClick: () => console.log('Zakończ grę') },
   ];
   return (
     <>

@@ -37,6 +37,7 @@ export const CloseButton = styled.button`
   justify-content: flex-end;
   background: none;
   border: none;
+  padding: 16px 0;
   cursor: pointer;
 `;
 

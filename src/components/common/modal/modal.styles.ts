@@ -23,11 +23,12 @@ export const ModalWrapper = styled.div`
   border-radius: 16px;
   width: 100%;
   max-width: 700px;
-  padding: 24px;
+  padding: 8px 24px 24px 24px;
   margin: 0 48px;
 
   @media ${({ theme }) => theme.devices.mobile} {
-    padding: 12px;
+    padding: 4px 16px 16px 16px;
+    margin: 0 32px;
   }
 `;
 

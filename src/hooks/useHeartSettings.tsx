@@ -27,6 +27,7 @@ export function useHeartSettingsLogic() {
     resetGame,
     initialPlayersCount,
     setInitialPlayersCount,
+    setGameNameAndStart,
   } = useKierkiStore();
 
   const [tempPlayers, setTempPlayers] = useState<string[]>(() =>
@@ -57,6 +58,7 @@ export function useHeartSettingsLogic() {
     const count = syncPlayers(tempPlayers).length;
     setInitialPlayersCount(count);
     setGameInProgress(true);
+    setGameNameAndStart();
     navigate('/heart/form');
   };
 
