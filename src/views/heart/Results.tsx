@@ -39,7 +39,7 @@ export const Results = () => {
           <>
             <Title label='Trochę tu pusto' />
             <BasicButton
-              label='Zagraj'
+              content='Zagraj'
               onClick={() => navigate('/heart/settings')}
               fontSize={{ tablet: '48px', mobile: '24px' }}
             />

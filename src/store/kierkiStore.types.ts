@@ -28,4 +28,5 @@ export interface KierkiState {
   resetGame: () => void;
   setGameNameAndStart: () => void;
   endGame: () => void;
+  removeFinishedGame: (gameId: string) => void;
 }

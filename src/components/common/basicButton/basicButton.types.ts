@@ -1,11 +1,14 @@
 import type { ReactNode } from 'react';
 
+export type TButtonVariant = 'default' | 'dark' | 'light';
 export interface IBasicButton {
   onClick: () => void;
-  label: ReactNode | string;
+  content: ReactNode | string;
   disabled?: boolean;
+  padding?: string;
   fontSize?: {
     tablet: string;
     mobile?: string;
   };
+  variant?: TButtonVariant;
 }

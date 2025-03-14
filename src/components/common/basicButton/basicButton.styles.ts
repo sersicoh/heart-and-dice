@@ -2,15 +2,26 @@ import styled from 'styled-components';
 
 import type { IBasicButton } from '@components/common/basicButton/basicButton.types';
 
-export const StyledBasicButton = styled.button<Pick<IBasicButton, 'fontSize'>>`
-  padding: 12px;
+export const StyledBasicButton = styled.button<
+  Pick<IBasicButton, 'fontSize' | 'padding' | 'variant'>
+>`
+  padding: ${({ padding }) => padding ?? '12px'};
   width: 100%;
   color: ${({ theme }) => theme.colors.textLight};
   font-size: ${({ fontSize }) => fontSize?.tablet ?? '2rem'};
   font-weight: 600;
   border: none;
   border-radius: 8px;
-  background: ${({ theme }) => theme.colors.buttonBackground};
+  background: ${({ theme, variant }) => {
+    switch (variant) {
+      case 'dark':
+        return theme.colors.backgroundBase;
+      case 'light':
+        return theme.colors.frameBackground;
+      default:
+        return theme.colors.buttonBackground;
+    }
+  }};
   cursor: pointer;
   &:hover {
     background: ${({ theme }) => theme.colors.mainFormField};

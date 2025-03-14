@@ -165,6 +165,12 @@ export const useKierkiStore = create(
           currentGameStartTime: null,
         });
       },
+
+      removeFinishedGame: (gameId: string) => {
+        set((state) => ({
+          finishedGames: state.finishedGames.filter((g) => g.id !== gameId),
+        }));
+      },
     }),
     {
       name: 'kierki-game-storage',

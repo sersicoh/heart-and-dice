@@ -49,20 +49,20 @@ export const HeartSettingsWrapper = () => {
           <BasicButton
             onClick={returnToGame}
             disabled={validPlayersCount < 3}
-            label='Wróć do formularza'
+            content='Wróć do formularza'
             fontSize={{ tablet: '48px', mobile: '24px' }}
           />
         ) : (
           <BasicButton
             onClick={startGame}
             disabled={validPlayersCount < 3}
-            label='Start'
+            content='Start'
             fontSize={{ tablet: '48px', mobile: '24px' }}
           />
         )}
         <BasicButton
           onClick={resetAll}
-          label='Rozpocznij nową grę'
+          content='Rozpocznij nową grę'
           fontSize={{ tablet: '48px', mobile: '24px' }}
         />
       </Container>

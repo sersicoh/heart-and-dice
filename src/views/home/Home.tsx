@@ -51,7 +51,7 @@ export const Home = () => {
         <Container variant='flex' gap={isMobile ? '16px' : '36px'} width='100%' minHeight='40%'>
           <BasicButton
             onClick={() => navigate('/heart/settings')}
-            label={'Kierki'}
+            content={'Kierki'}
             fontSize={{ tablet: '4rem', mobile: '2rem' }}
           />
           <BasicButton
@@ -63,7 +63,7 @@ export const Home = () => {
               setDiceDisabled(true);
             }}
             // onClick={() => navigate('/dice/settings')}
-            label={'Kości'}
+            content={'Kości'}
             disabled={diceDisabled}
             fontSize={{ tablet: '4rem', mobile: '2rem' }}
           />
@@ -79,14 +79,14 @@ export const Home = () => {
       >
         <Title label='Język / Language' />
         <Container variant='flex' gap={isMobile ? '16px' : '36px'} width='100%'>
-          <BasicButton onClick={() => console.log('Polski')} label={'Polski'} />
+          <BasicButton onClick={() => console.log('Polski')} content={'Polski'} />
           <BasicButton
             onClick={() => {
               showSnackbar({ message: `Sorry, it's not ready yet`, variant: 'info' });
               setEnglishDisabled(true);
             }}
             disabled={englishDisabled}
-            label={'English'}
+            content={'English'}
           />
         </Container>
       </Container>

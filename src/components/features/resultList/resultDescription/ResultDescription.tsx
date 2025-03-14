@@ -3,6 +3,7 @@ import {
   NameDescrition,
   PrimaryDescrition,
   ScoreDescrition,
+  SecondaryDescrition,
 } from '@components/features/resultList/resultDescription/resultDescription.styles';
 
 import type { IFinishedGame } from '@store/kierkiStore.types';
@@ -48,15 +49,24 @@ export const ResultDescription = ({ selectedGame }: { selectedGame: IFinishedGam
         justifyContent='center'
         alignItems='flex-start'
       >
-        <PrimaryDescrition>
-          Start gry: {new Date(selectedGame.startTimestamp).toLocaleString()}
-        </PrimaryDescrition>
+        <Container variant='flex' gap={isMobile ? '12px' : '24px'} alignItems='center'>
+          <PrimaryDescrition>Start gry: </PrimaryDescrition>
+          <SecondaryDescrition>
+            {new Date(selectedGame.startTimestamp).toLocaleString()}
+          </SecondaryDescrition>
+        </Container>
         {selectedGame.endTimestamp && (
           <>
-            <PrimaryDescrition>
-              Koniec gry: {new Date(selectedGame.endTimestamp).toLocaleString()}
-            </PrimaryDescrition>
-            <PrimaryDescrition>Czas trwania: {gameDuration}</PrimaryDescrition>
+            <Container variant='flex' gap={isMobile ? '12px' : '24px'} alignItems='center'>
+              <PrimaryDescrition>Koniec gry: </PrimaryDescrition>
+              <SecondaryDescrition>
+                {new Date(selectedGame.endTimestamp).toLocaleString()}
+              </SecondaryDescrition>
+            </Container>
+            <Container variant='flex' gap={isMobile ? '12px' : '24px'} alignItems='center'>
+              <PrimaryDescrition>Czas trwania: </PrimaryDescrition>
+              <SecondaryDescrition> {gameDuration} </SecondaryDescrition>
+            </Container>
           </>
         )}
       </Container>
@@ -68,27 +78,20 @@ export const ResultDescription = ({ selectedGame }: { selectedGame: IFinishedGam
           gap={isMobile ? '4px' : '8px'}
           width='max-content'
         >
-          <NameDescrition>{selectedGame.playersSnapshot[0]?.name || 'Gracz 1'}:</NameDescrition>
-          <ScoreDescrition>
-            {selectedGame.fieldsSnapshot?.resultSection?.result?.computedPoints?.p1 ?? 0}
-          </ScoreDescrition>
-          <NameDescrition>{selectedGame.playersSnapshot[1]?.name || 'Gracz 2'}:</NameDescrition>
-          <ScoreDescrition>
-            {selectedGame.fieldsSnapshot?.resultSection?.result?.computedPoints?.p2 ?? 0}
-          </ScoreDescrition>
-          <NameDescrition>{selectedGame.playersSnapshot[2]?.name || 'Gracz 3'}:</NameDescrition>
-          <ScoreDescrition>
-            {selectedGame.fieldsSnapshot?.resultSection?.result?.computedPoints?.p3 ?? 0}
-          </ScoreDescrition>
-          {/* Jeśli była czwórka graczy: */}
-          {selectedGame.playersSnapshot[3] && (
-            <>
-              <NameDescrition>{selectedGame.playersSnapshot[3]?.name || 'Gracz 4'}:</NameDescrition>
-              <ScoreDescrition>
-                {selectedGame.fieldsSnapshot?.resultSection?.result?.computedPoints?.p4 ?? 0}
-              </ScoreDescrition>
-            </>
-          )}
+          {selectedGame.playersSnapshot.map((player, index) => {
+            const playerKey =
+              `p${index + 1}` as keyof typeof selectedGame.fieldsSnapshot.resultSection.result.computedPoints;
+            return (
+              <>
+                <NameDescrition>{player?.name || `Gracz${index + 1}`}:</NameDescrition>
+                <ScoreDescrition key={player?.name}>
+                  {selectedGame.fieldsSnapshot?.resultSection?.result?.computedPoints?.[
+                    playerKey
+                  ] ?? 0}
+                </ScoreDescrition>
+              </>
+            );
+          })}
         </Container>
       </Container>
     </Container>

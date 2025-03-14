@@ -73,10 +73,14 @@ export const HeartForm = () => {
           padding={isMobile ? '4px' : '12px'}
           backgroundColor={theme.colors.frameBackground}
         >
-          <BasicButton onClick={goBack} label={'Cofnij'} disabled={activeIndex === 0 || finished} />
+          <BasicButton
+            onClick={goBack}
+            content={'Cofnij'}
+            disabled={activeIndex === 0 || finished}
+          />
           <BasicButton
             onClick={goToNextRow}
-            label={'Następna runda'}
+            content={'Następna runda'}
             disabled={activeIndex == activableRows.length - 1}
           />
           <BasicButton
@@ -87,7 +91,7 @@ export const HeartForm = () => {
                   }
                 : finishAll
             }
-            label={finished ? 'Podmusowanie' : 'Zakończ grę'}
+            content={finished ? 'Podmusowanie' : 'Zakończ grę'}
             disabled={activeIndex !== activableRows.length - 1}
           />
         </Container>
