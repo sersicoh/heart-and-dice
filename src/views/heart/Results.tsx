@@ -11,9 +11,12 @@ import { ResultList } from '@components/features/resultList/ResultList';
 
 import { useKierkiStore } from '@store/kierkiStore';
 import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
+import { useMyTheme } from '@hooks/useMyTheme';
 
 export const Results = () => {
   const navigate = useNavigate();
+
+  const { isMobile } = useMyTheme();
 
   const { finishedGames } = useKierkiStore();
 
@@ -28,7 +31,7 @@ export const Results = () => {
       <Container
         variant='flex'
         flexDirection='column'
-        padding='16px'
+        padding={isMobile ? '16px' : '24px'}
         gap='16px'
         justifyContent='center'
         alignItems='center'

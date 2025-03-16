@@ -33,6 +33,7 @@
       "@views/*": ["views/*"],
       "@store/*": ["store/*"],
       "@utils/*": ["utils/*"],
+      "@docs/*": ["docs/*"],
       "@/*": ["*"]
     }
   },

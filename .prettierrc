@@ -18,8 +18,9 @@
     "@store",
     "@utils",
     "@hooks",
-    "@assets",
     "@theme",
+    "@assets",
+    "@docs",
     "",
     "^./(.*)$"
   ],

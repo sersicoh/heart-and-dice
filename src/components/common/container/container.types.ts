@@ -7,6 +7,7 @@ interface ResponsiveProps {
 }
 
 export interface ContainerProps {
+  id?: string;
   variant?: ContainerVariant;
   backgroundColor?: string;
   padding?: string;
@@ -17,11 +18,13 @@ export interface ContainerProps {
   flexDirection?: string;
 
   gridTemplateColumns?: string;
+  gridAutoFlow?: string;
   gridTemplateRows?: string;
   gap?: string;
 
   width?: string;
   height?: string;
+  minWidth?: string;
   maxWidth?: string;
   minHeight?: string;
   borderRadius?: string;

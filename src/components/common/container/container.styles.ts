@@ -9,6 +9,7 @@ const handleVariantStyles = ({
   flexDirection,
   gridTemplateColumns,
   gridTemplateRows,
+  gridAutoFlow,
   gap,
 }: ContainerProps) => {
   switch (variant) {
@@ -25,6 +26,7 @@ const handleVariantStyles = ({
         display: grid;
         ${gridTemplateColumns && `grid-template-columns: ${gridTemplateColumns};`}
         ${gridTemplateRows && `grid-template-rows: ${gridTemplateRows};`}
+        ${gridAutoFlow && `grid-auto-flow: ${gridAutoFlow};`}
         ${gap && `gap: ${gap};`}
       `;
     default:
@@ -42,6 +44,7 @@ const handleBaseStyles = (props: ContainerProps) => css`
   ${props.width && `width: ${props.width};`}
   ${props.height && `height: ${props.height};`}
   ${props.maxWidth && `max-width: ${props.maxWidth};`}
+  ${props.minWidth && `min-width: ${props.minWidth};`}
   ${props.minHeight && `min-height: ${props.minHeight};`}
   ${props.borderRadius && `border-radius: ${props.borderRadius};`}
 

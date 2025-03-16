@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
+import { RulesWrapper } from '@components/features/rulesWrapper/RulesWrapper';
 
 import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
 
@@ -16,7 +16,7 @@ export const Rules = () => {
   return (
     <>
       <NavigationBar routes={getNavigationItemsKierki()} drawerItems={drawerItems} />
-      <Container>Rules</Container>
+      <RulesWrapper />
     </>
   );
 };

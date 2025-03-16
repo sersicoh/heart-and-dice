@@ -8,5 +8,6 @@ export const StyledTitle = styled.div<{ lineHeight?: number }>`
 
   @media ${({ theme }) => theme.devices.mobile} {
     font-size: 1.5rem;
+    line-height: ${({ lineHeight }) => (lineHeight ? `${lineHeight}rem` : '2.5rem')};
   }
 `;
