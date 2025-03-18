@@ -27,7 +27,8 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.colors.textWhite};
     font-family: 'Gemunu Libre', sans-serif;
     line-height: 1.5;
-    /* Możesz dodać płynne przejście przy zmianie theme */
+    max-width: 1280px;
+    margin: 0 auto;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
@@ -40,11 +41,29 @@ export const GlobalStyles = createGlobalStyle`
     opacity: 0.8;
   }
 
+  p {
+    font-size: 1.25rem;
+
+    @media ${({ theme }) => theme.devices.mobile} {
+      font-size: 1rem;
+      }
+  }
+
   /* Przykładowe style dla przycisków */
   button {
     cursor: pointer;
     font-family: 'Gemunu Libre', sans-serif;
   }
+
+  h2 {
+  padding-top: 0.375rem;
+  font-size: 1.5rem;
+
+  @media ${({ theme }) => theme.devices.mobile} {
+      padding-top: 0.25rem;
+      font-size: 1.125rem;
+      }
+    }
 
   h3 {
     font-size: 32px;

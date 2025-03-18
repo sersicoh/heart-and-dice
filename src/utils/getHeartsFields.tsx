@@ -1,6 +1,6 @@
 import type { IFormSections } from '@views/heart/form.types';
 
-import type { Player } from '@store/kierkiStore';
+import type { Player } from '@store/kierkiStore.types';
 
 export const getHeartsFields = (players: Player[]): IFormSections => {
   const fourthNotEmpty = players[3] && players[3].name.trim().length > 0;
@@ -207,7 +207,7 @@ export const getHeartsFields = (players: Player[]): IFormSections => {
     resultSection: {
       result: {
         roundType: {
-          label: 'Razem',
+          label: 'Ogólnie',
           variant: 'resultTitle',
           rowId: 'finalResult',
           placeholder: undefined,

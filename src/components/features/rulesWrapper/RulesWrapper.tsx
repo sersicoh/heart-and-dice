@@ -23,12 +23,12 @@ export const RulesWrapper = () => {
         variant='grid'
         gridTemplateColumns='1fr auto'
         gap='8px'
-        padding={isMobile ? '8px' : '8px'}
+        padding={isMobile ? '4px' : '8px'}
       >
         <TableOfContents items={HeartRules} />
         <Container>
-          {HeartRules.map(({ id, title, content }) => {
-            return <RuleTile key={id} id={id} title={title} content={content} />;
+          {HeartRules.map(({ id, title, content, image }) => {
+            return <RuleTile key={id} id={id} title={title} content={content} image={image} />;
           })}
         </Container>
       </Container>
