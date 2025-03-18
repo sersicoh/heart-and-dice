@@ -26,6 +26,7 @@ export const HeartSettings = () => {
         flexDirection='column'
         justifyContent='flex-start'
         alignItems='center'
+        margin={isMobile ? '112px auto 0' : '145px auto 0'}
       >
         <Container
           variant='flex'

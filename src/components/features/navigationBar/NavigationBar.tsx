@@ -21,36 +21,54 @@ export const NavigationBar = ({ routes, drawerItems }: NavigationBarProps) => {
   const isHome = location.pathname === '/';
 
   return (
-    <Container variant='flex' flexDirection='column' margin={isMobile ? '0 0 8px 0' : '0 0 12px 0'}>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+      }}
+    >
       <Container
         variant='flex'
-        alignItems='center'
-        width='100%'
-        justifyContent='space-between'
-        padding={isMobile ? '12px 24px 0' : '16px 48px 0'}
+        flexDirection='column'
+        margin={isMobile ? '0 0 8px 0' : '0 0 12px 0'}
+        backgroundColor={theme.colors.backgroundBase}
       >
-        <Container>
-          <HnDIcon width={isMobile ? '48px' : '70px'} height={'100%'} color={theme.colors.logo} />
+        <Container
+          variant='flex'
+          alignItems='center'
+          width='100%'
+          justifyContent='space-between'
+          padding={isMobile ? '12px 24px 0' : '16px 48px 0'}
+        >
+          <Container>
+            <HnDIcon width={isMobile ? '48px' : '70px'} height={'100%'} color={theme.colors.logo} />
+          </Container>
+          <NavTitle label='Heart' />
+          <GearIcon
+            width={isMobile ? '32px' : '48px'}
+            height={'100%'}
+            color={theme.colors.logo}
+            onClick={() => setIsDrawerOpen(true)}
+            style={{ cursor: 'pointer' }}
+          />
         </Container>
-        <NavTitle label='Heart' />
-        <GearIcon
-          width={isMobile ? '32px' : '48px'}
-          height={'100%'}
-          color={theme.colors.logo}
-          onClick={() => setIsDrawerOpen(true)}
-          style={{ cursor: 'pointer' }}
-        />
+        {!isHome && (
+          <Container variant='flex' justifyContent='space-between' alignItems='flex-end'>
+            {routes.map((route) => (
+              <NavButton key={route.path} title={route.title} to={route.path} />
+            ))}
+          </Container>
+        )}
+        {drawerItems && (
+          <Drawer
+            isOpen={isDrawerOpen}
+            onClose={() => setIsDrawerOpen(false)}
+            items={drawerItems}
+          />
+        )}
       </Container>
-      {!isHome && (
-        <Container variant='flex' justifyContent='space-between' alignItems='flex-end'>
-          {routes.map((route) => (
-            <NavButton key={route.path} title={route.title} to={route.path} />
-          ))}
-        </Container>
-      )}
-      {drawerItems && (
-        <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} items={drawerItems} />
-      )}
-    </Container>
+    </div>
   );
 };

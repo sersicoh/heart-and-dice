@@ -36,7 +36,7 @@ export const Results = () => {
         justifyContent='center'
         alignItems='center'
         width='90%'
-        margin='0 auto'
+        margin={isMobile ? '112px auto 0' : '145px auto 0'}
       >
         {finishedGames.length === 0 ? (
           <>

@@ -12,11 +12,12 @@ export const ListWrapper = styled.ul`
 export const NavWrapper = styled.nav`
   list-style: none;
   position: sticky;
-  top: 48px;
+  top: 140px;
   align-self: start;
   height: fit-content;
+  z-index: 2;
 
   @media ${({ theme }) => theme.devices.mobile} {
-    top: 16px;
+    top: 110px;
   }
 `;

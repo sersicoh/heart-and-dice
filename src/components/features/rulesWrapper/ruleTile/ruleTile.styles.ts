@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const RuleTitle = styled.h3`
+export const RuleTitle = styled.h4`
   font-size: 32px;
-  padding: 12px 0;
-  color: ${({ theme }) => theme.colors.textLight};
+  padding: 24px 0 0 0;
+  color: ${({ theme }) => theme.colors.mainFormText};
 
   @media ${({ theme }) => theme.devices.mobile} {
     font-size: 20px;
-    padding: 8px 0;
+    padding: 8px 0 0 0;
   }
 `;
 

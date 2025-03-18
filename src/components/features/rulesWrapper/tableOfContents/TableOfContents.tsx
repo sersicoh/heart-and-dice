@@ -31,7 +31,12 @@ export const TableOfContents = ({ items }: ITableOfContentsProps) => {
               <BasicButton
                 key={item.id}
                 onClick={() => {
-                  document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                  const element = document.getElementById(item.id);
+                  if (element) {
+                    const yOffset = isMobile ? -104 : -130;
+                    const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
                 }}
                 content={item.title}
               />

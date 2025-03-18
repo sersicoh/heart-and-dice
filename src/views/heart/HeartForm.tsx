@@ -64,6 +64,7 @@ export const HeartForm = () => {
         variant='flex'
         flexDirection='column'
         padding='0 8px'
+        margin={isMobile ? '112px auto 0' : '145px auto 0'}
         gap={isMobile ? '4px' : '8px'}
       >
         <FormWrapper heartsFields={fields} onInputValueChange={setInputValue} />

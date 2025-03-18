@@ -16,6 +16,7 @@ export const RulesWrapper = () => {
         justifyContent='center'
         alignItems='center'
         padding={isMobile ? '16px' : '24px'}
+        margin={isMobile ? '112px auto 0' : '145px auto 0'}
       >
         <Title label='Zasady rozgrywek' />
       </Container>

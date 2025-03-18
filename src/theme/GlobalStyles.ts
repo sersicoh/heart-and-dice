@@ -9,16 +9,11 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
-
-  /* Ewentualne globalne ustawienia, np. font-size.
-     Możesz także dodać coś w rodzaju:
-     html { font-size: 16px; }
-     jeśli chcesz mieć kontrolę nad rem. */
-
-  /* Ustawienia dla html i body */
   html, body, #root {
     width: 100%;
     height: 100%;
+    position: relative;
+    z-index: 0;
   }
 
   body {
@@ -28,6 +23,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Gemunu Libre', sans-serif;
     line-height: 1.5;
     max-width: 1280px;
+    height: auto;
     margin: 0 auto;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
@@ -58,9 +54,11 @@ export const GlobalStyles = createGlobalStyle`
   h2 {
   padding-top: 0.375rem;
   font-size: 1.5rem;
+  color: ${({ theme }) => theme.colors.textLight};
+  font-weight: 500;
 
   @media ${({ theme }) => theme.devices.mobile} {
-      padding-top: 0.25rem;
+      padding-top: 0.125rem;
       font-size: 1.125rem;
       }
     }
