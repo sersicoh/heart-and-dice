@@ -23,7 +23,7 @@ export const RuleTile = ({ id, title, content, image }: IRuleProps) => {
       <RuleTitle>{title}</RuleTitle>
       {image && (
         <RuleImageWrapper>
-          <RuleImage src={`/src/assets/img/${image}`} alt={title} />
+          <RuleImage src={`/img/${image}`} alt={title} />
           <RuleDescriptionWrapper>
             <RuleDescription>Kier</RuleDescription>
             <RuleDescription>Caro</RuleDescription>
