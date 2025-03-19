@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import { HeartForm } from '@views/heart/HeartForm';
 // import { DiceSettings } from '@views/dice/Settings'; // Plik do utworzenia
@@ -9,7 +9,7 @@ import { Home } from '@views/home/Home';
 
 function App() {
   return (
-    <BrowserRouter basename='/heart-and-dice'>
+    <HashRouter basename='/heart-and-dice'>
       <Routes>
         <Route path='/' element={<Home />} />
 
@@ -23,7 +23,7 @@ function App() {
 
         {/* Możesz też dodać route na /wyniki i /zasady, jeśli chcesz je zachować */}
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
