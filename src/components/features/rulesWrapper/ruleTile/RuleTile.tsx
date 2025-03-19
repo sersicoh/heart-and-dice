@@ -13,7 +13,7 @@ import {
 interface IRuleProps {
   id: string;
   title: string;
-  content: string;
+  content: string[];
   image?: string;
 }
 
@@ -33,7 +33,7 @@ export const RuleTile = ({ id, title, content, image }: IRuleProps) => {
           <RuleImageBackground />
         </RuleImageWrapper>
       )}
-      <ReactMarkdown>{content}</ReactMarkdown>
+      {content && <ReactMarkdown>{content.join('\n\n')}</ReactMarkdown>}
     </Container>
   );
 };

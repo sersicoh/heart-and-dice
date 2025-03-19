@@ -27,7 +27,7 @@ export const RulesWrapper = () => {
         padding={isMobile ? '4px' : '8px'}
       >
         <TableOfContents items={HeartRules} />
-        <Container>
+        <Container margin='0 0 48px 0'>
           {HeartRules.map(({ id, title, content, image }) => {
             return <RuleTile key={id} id={id} title={title} content={content} image={image} />;
           })}

@@ -3,51 +3,216 @@
     "id": "general_info",
     "title": "Wstęp",
     "image": "cadrs-colors.jpeg",
-    "content": "## Pojęcia\n\n**Tura** - pojedyncza kolejka w której wszyscy gracze wyłożą po jednej karcie\n\n**Runda/Rozdanie** - rozegranie tylu tur by pozbyć się wszystkich kart\n\n**Wyjście** - położenie pierwszej karty na stół w danej turze\n\n**Bitka/Lewa** - zebrane karty przez gracza po turze\n\n**Czysta** - bitka bez punktów karnych\n\n**Bawić się** - tasować\n\n**Kierki** - pierwsza część rozgrywki\n\n**Wyścig** - druga część rozgrywki"
+    "content": [
+      "## Pojęcia",
+      "**Tura** - pojedyncza kolejka w której wszyscy gracze wyłożą po jednej karcie",
+      "**Runda/Rozdanie** - rozegranie 13 tur by pozbyć się wszystkich kart",
+      "**Wyjście** - położenie pierwszej karty na stół w danej turze",
+      "**Bitka** - zebrane karty przez gracza po turze",
+      "**Czysta** - bitka bez punktów karnych",
+      "**Kierki** - pierwsza część całej gry",
+      "**Wyścig** - druga część całej gry",
+      "\n\n&nbsp;\n\n",
+      "---"
+    ]
   },
   {
     "id": "general_rules-heart",
     "title": "Zasady - kierki",
-    "content": "Poniższe zasady dotyczą ilości kart i punktów w grze dla czterech graczy. Zasady dla trzech graczy zostaną rozpisane w kolejnej aktualizacji\n\n## Cel rozgrywki\n\nZdobyć jak najmniej punktów - w kierkach zdobyte punkty są punktami karnymi.\n\n## Jak zacząć\n\nDo gry w kierki potrzebna będzie pełna talia 52 kart (bez jokerów), gdzie as jest kartą najwyższą.\n\nPodczas rozpoczęcia gry gracz na pierwszej pozycji w rozpisce rozdaje potasowane wcześniej karty. Rozdaje wszystkie karty z talii - po rozdaniu każdy gracz powinien mieć po 13 kart. Jeśli tak nie jest, należy potasować i rozdać na nowo.\n\nCo każdą rundę następuje zmiana rozdającego na kolejną osobę z rozpiski. Aby przyspieszyć rozgrywkę, można użyć drugiej talii i potasować ją na następną rundę.\n\n## Przebieg tury\n\nGracze, zgodnie z kolejnością w rozpisce (zalecane zgodnie z kierunkiem wskazówek zegara), wykładają po jednej karcie na stół.\n\n## Przebieg rundy\n\nPo każdej rozegranej turze gracz, który zdobył bitkę, odkłada ją obok siebie (awersem w dół) i tym samym „przejmuje głos”, czyli będzie wychodził w następnej turze.\n\nPo zakończeniu rundy należy podliczyć zdobyte punkty, a karty potasować na kolejne rozdanie.\n\nW trakcie tury każdy gracz ma możliwość podejrzenia bitki zdobytej w **ostatniej turze**, aby przypomnieć sobie, jakie karty zostały już zagrane.\n\n## Kolejność wykładania kart\n\nGracz, który wychodzi, decyduje, jaki kolor będzie kolorem wiodącym w turze. Reszta graczy, jeśli posiada karty w tym kolorze, musi wyrzucić jedną z nich. Jeśli nie posiada, może zagrać dowolną kartę.\n\nGracz wychodzący musi przestrzegać zasady „kiery na końcu” - jeśli w jego ręce pozostały już tylko kiery, może je wtedy zagrać. Ta zasada nie dotyczy pozostałych graczy w danej turze.\n\nGracz, który wyrzuci najwyższą kartę w kolorze wiodącym, zbiera bitkę.\n\nPrzykład:\n\n--\n\nGracz nr 1 wychodzi z piątki trefl,\n\nGracz nr 2 ma przynajmniej jednego trefla, więc musi go wyrzucić - wyrzuca siódemkę trefl,\n\nGracz nr 3 nie ma trefla, więc może wyrzucić dowolną kartę, nawet kier - wyrzuca króla kier,\n\nGracz nr 4 ma trefla, więc musi go wyrzucić - wyrzuca trójkę trefl.\n\nPodsumowanie tury: Gracz nr 2 wyrzucił najwyższą kartę w kolorze wiodącym, więc zbiera bitkę i będzie wychodził w następnej turze. (Podpowiedź: mógł specjalnie wziąć tę bitkę, by przejąć głos.)\n\n--\n\nPo zakończeniu rundy należy odwrócić zebrane bitki i policzyć punkty.\n\n## Punktacja i rozkład rund\n\nW każdej rundzie pula punktów wynosi 260.\n\nPoniżej znajduje się 7 sekcji z opisem i punktacją bitek/kart dla każdej rundy. Nie musisz czytać wszystkich sekcji od razu - wystarczy zapoznać się z zasadami dla jednej rundy, a po jej rozegraniu przeczytać zasady dla kolejnych.\n\n"
+    "content": [
+      "Poniższe zasady dotyczą ilości kart i punktów w grze dla czterech graczy.",
+      "Zasady dla trzech graczy zostaną rozpisane w kolejnej aktualizacji.",
+
+      "## Cel rozgrywki",
+      "Zdobyć jak najmniej punktów - w kierkach zdobyte punkty są punktami karnymi.",
+
+      "## Przygotowanie do gry",
+      "Do gry w kierki potrzebna będzie pełna talia 52 kart (bez jokerów), gdzie as jest kartą najwyższą.",
+      "Najbardziej optymalnym układem graczy jest 'naprzeciw' czyli po czterech stronach stołu.",
+      "Grę rozpoczyna dowolny gracz, rozdającym jest gracz po prawej stronie zaczynającego, a tasującym gracz naprzeciw zaczynającego.",
+
+      "\n\n&nbsp;\n\n",
+      "Należy rozdać całą talię między wszystkich graczy po równej ilości kart.",
+      "Co każdą rundę następuje zmiana rozdającego na kolejną osobę z rozpiski. Aby przyspieszyć rozgrywkę, można użyć drugiej talii i potasować ją na następną rundę.",
+
+      "## Przebieg tury",
+      "Gracze, zgodnie z kolejnością w rozpisce (zalecane zgodnie z kierunkiem wskazówek zegara), wykładają po jednej karcie na stół.",
+      "\n\n&nbsp;\n\n",
+      "Gracz, który wychodzi, decyduje, jaki kolor będzie kolorem wiodącym w turze. Reszta graczy, jeśli posiada karty w tym kolorze, musi wyrzucić jedną z nich. Jeśli nie posiada, może zagrać dowolną kartę.",
+      "Gracz wychodzący musi przestrzegać zasady „kiery na końcu” - jeśli w jego ręce pozostały już tylko kiery, może je wtedy zagrać. Ta zasada nie dotyczy pozostałych graczy w danej turze.",
+      "Gracz, który wyrzuci najwyższą kartę w kolorze wiodącym, zbiera bitkę.",
+      "\n\n&nbsp;\n\n",
+      "**Przykład:**",
+      "--",
+      "Gracz nr 1 wychodzi z piątki trefl,",
+      "Gracz nr 2 ma przynajmniej jednego trefla, więc musi go wyrzucić - wyrzuca siódemkę trefl,",
+      "Gracz nr 3 nie ma trefla, więc może wyrzucić dowolną kartę, nawet kier - wyrzuca króla kier,",
+      "Gracz nr 4 ma trefla, więc musi go wyrzucić - wyrzuca trójkę trefl.",
+      "--",
+      "Podsumowanie tury: Gracz nr 2 wyrzucił najwyższą kartę w kolorze wiodącym, więc zbiera bitkę i będzie wychodził w następnej turze. (Podpowiedź: mógł specjalnie wziąć tę bitkę, by przejąć głos.)",
+
+      "## Przebieg rundy",
+      "Po każdej rozegranej turze gracz, który zdobył bitkę, odkłada ją obok siebie (awersem w dół) i tym samym „przejmuje głos”, czyli będzie wychodził w następnej turze.",
+      "Po zakończeniu rundy należy podliczyć zdobyte punkty, a karty potasować na kolejne rozdanie.",
+
+      "W trakcie tury każdy gracz ma możliwość podejrzenia bitki zdobytej w ***ostatniej turze***, aby przypomnieć sobie, jakie karty zostały już zagrane.",
+
+      "## Punktacja i rozkład rund",
+      "W każdej rundzie (poza rozbójnikiem) pula punktów wynosi 260",
+      "\n\n&nbsp;\n\n",
+      "Poniżej znajduje się 7 sekcji z opisem i punktacją bitek/kart dla każdej rundy. Nie musisz czytać wszystkich sekcji od razu - wystarczy zapoznać się z zasadami dla jednej rundy, a po jej rozegraniu przeczytać zasady dla kolejnych.",
+      "\n\n&nbsp;\n\n",
+      "---"
+    ]
   },
   {
     "id": "bez-lew",
     "title": "Bez Lew",
-    "content": "## Punktacja\n\n **1 bitka - 20 punktów**\n\nCelem gracza jest zebranie jak najmniejszej ilości bitek."
+    "content": [
+      "## Punktacja",
+      "**1 bitka - 20 punktów**",
+
+      "Celem gracza jest zebranie jak najmniejszej ilości bitek.",
+      "\n\n&nbsp;\n\n",
+      "---"
+    ]
   },
   {
     "id": "bez-pan",
     "title": "Bez Pań",
-    "content": "## Punktacja\n\n**1 Dama - 65 punktów**\n\nCelem gracza jest unikanie zbierania Dam. Jeśli jesteście pewni, że wszystkie Damy już zeszły, można zakończyć rundę bez rozgrywania pozostałych kart, ponieważ nie mają one już znaczenia ani nie przynoszą punktów karnych."
+    "content": [
+      "## Punktacja",
+      "**1 Dama - 65 punktów**",
+
+      "Celem gracza jest unikanie zbierania Dam. Jeśli jesteście pewni, że wszystkie Damy już zeszły, można zakończyć rundę bez rozgrywania pozostałych kart, ponieważ nie mają one już znaczenia ani nie przynoszą punktów karnych.",
+      "\n\n&nbsp;\n\n",
+      "---"
+    ]
   },
   {
     "id": "bez-panow",
     "title": "Bez Panów",
-    "content": "## Punktacja\n\n **1 Jupek - 25 punktów**\n\n **1 Król - 40 punktów**\n\nAnalogicznie jak w przypadku poprzedniej rundy unikamy Panów czyli Jupków i Króli."
+    "content": [
+      "## Punktacja",
+      "**1 Walet - 25 punktów**",
+      "**1 Król - 40 punktów**",
+
+      "Analogicznie jak w przypadku poprzedniej rundy unikamy Panów czyli Waletów i Króli.",
+      "\n\n&nbsp;\n\n",
+      "---"
+    ]
   },
   {
     "id": "7-13",
     "title": "7 / 13",
-    "content": "## Punktacja\n\n **Siódma bitka - 130 punktów**\n\n **Trzynasta bitka - 130 punktów**\n\nMaksymalnie dwóch graczy może zdobyć punkty karne. Punktowana jest siódma w kolejności bitka oraz trzynasta, czyli ostatnia. Reszta bitek nie jest punktowana - można to wykorzystać, by przejąć głos w odpowiednim momencie i np. wyjść w siódmej turze z niskiej karty.\n\nUWAGA - bitki muszą być poukładane w taki sposób, aby każdy z graczy mógł je łatwo policzyć na stole (ma być estetycznie).\n\nNie przypominamy graczom, która aktualnie jest tura - każdy musi sam pilnować, by nie wziąć siódmej ani ostatniej bitki.\n\n"
+    "content": [
+      "## Punktacja",
+      "**Siódma bitka - 130 punktów**",
+      "**Trzynasta bitka - 130 punktów**",
+
+      "Maksymalnie dwóch graczy może zdobyć punkty karne. Punktowana jest siódma w kolejności bitka oraz trzynasta, czyli ostatnia. Reszta bitek nie jest punktowana - można to wykorzystać, by przejąć głos w odpowiednim momencie i np. wyjść w siódmej turze z niskiej karty.",
+      "\n\n&nbsp;\n\n",
+      "***UWAGA*** - bitki muszą być poukładane w taki sposób, aby każdy z graczy mógł je łatwo policzyć na stole (ma być estetycznie).",
+      "\n\n&nbsp;\n\n",
+      "Nie przypominamy graczom, która aktualnie jest tura - każdy musi sam pilnować, by nie wziąć siódmej ani ostatniej bitki.",
+      "\n\n&nbsp;\n\n",
+      "---"
+    ]
   },
   {
     "id": "kierki-round",
     "title": "Bez Kierów",
-    "content": "## Punktacja\n\n **1 kier - 20 punktów**\n\nWszystkie karty w kolorze kier są kartami punktowanymi. \n\nPrzypominam o zasadzie z kierów wychodzimy na końcu. Oczywiście można się ich pozbywać jeśli nie mamy koloru wiodącego."
+    "content": [
+      "## Punktacja",
+      "**1 kier - 20 punktów**",
+
+      "Wszystkie karty w kolorze kier są kartami punktowanymi.",
+      "\n\n&nbsp;\n\n",
+      "Przypominam o zasadzie z kierów wychodzimy na końcu. Oczywiście można się ich pozbywać jeśli nie mamy koloru wiodącego.",
+      "\n\n&nbsp;\n\n",
+      "---"
+    ]
   },
   {
     "id": "krol-kier",
     "title": "Król Kier",
-    "content": "## Punktacja\n\n **Król Kier - 260 punktów**\n\nPunktowana jest tylko jedna karta, czyli Król Kier. Po jego wyrzuceniu rozgrywanie kolejnych tur nie ma już sensu, więc można zakończyć rundę.\n\nDodatkowa zasada - Król kier nie może paść w pierwszej turze, nawet jeśli gracz nie ma koloru wiodącego."
+    "content": [
+      "## Punktacja",
+      "**Król Kier - 260 punktów**",
+
+      "Punktowana jest tylko jedna karta, czyli Król Kier. Po jego wyrzuceniu rozgrywanie kolejnych tur nie ma już sensu, więc można zakończyć rundę.",
+      "\n\n&nbsp;\n\n",
+      "Dodatkowa zasada - Król kier nie może paść w pierwszej turze, nawet jeśli gracz nie ma koloru wiodącego.",
+      "\n\n&nbsp;\n\n",
+      "---"
+    ]
   },
   {
     "id": "rozbojnik",
     "title": "Rozbójnik",
-    "content": "## Pula punktów - 1560\n\nRunda, w której wszystko może się odwrócić. Jest to zbiór wszystkich rozegranych rund do tej pory, więc zdobywa się tu punkty za wszystko, co tylko możliwe.\n\nZa bitki, za kiery, za siódmą i trzynastą, za Panie i Panów oraz za samego Króla Kiera.\n\n--\n\n**Przykład 1:**\n\nW trzeciej turze padły karty:\n\n2 trefl, 5 trefl, Dama Pik i 10 trefl.\n\nKolorem wiodącym był trefl, a najwyższą kartą koloru wiodącego była 10, co oznacza, że gracz, który ją wyrzucił, zbiera bitkę i dostaje punkty za:\n\nbitkę oraz za Damę - razem 85 punktów (20 - bitka, 65 - Dama).\n\n--\n\n**Przykład 2:**\n\nW siódmej turze padły karty:\n\n5 pik, Jupek Pik, 8 kier i Król Kier.\n\nKolorem wiodącym był pik, a najwyższą kartą koloru wiodącego był Jupek, co oznacza, że gracz, który go wyrzucił, zbiera bitkę i dostaje punkty za:\n\nbitkę, Jupka, Króla, 2 kiery (8 i Król Kier), Króla Kiera oraz za siódmą bitkę, co przekłada się na punkty:\n\n20 - bitka, 25 - Jupek, 40 - Król, 2x20 - kiery, Król Kier - 260, siódma - 130, co razem daje 515 punktów :)."
+    "content": [
+      "## Pula punktów - 1560",
+
+      "Runda, w której wszystko może się odwrócić. Jest to zbiór wszystkich rozegranych rund do tej pory, więc zdobywa się tu punkty za wszystko, co tylko możliwe.",
+      "Za bitki, za kiery, za siódmą i trzynastą, za Panie i Panów oraz za samego Króla Kiera.",
+
+      "\n\n&nbsp;\n\n",
+      "**Przykład 1:**",
+      "\n\n&nbsp;\n\n",
+      "W trzeciej turze padły karty:",
+      "2 trefl, 5 trefl, Dama Pik i 10 trefl.",
+      "\n\n&nbsp;\n\n",
+      "Kolorem wiodącym był trefl, a najwyższą kartą koloru wiodącego była 10, co oznacza, że gracz, który ją wyrzucił, zbiera bitkę i dostaje punkty za:",
+      "bitkę oraz za Damę - razem 85 punktów (20 - bitka, 65 - Dama).",
+
+      "\n\n&nbsp;\n\n",
+      "**Przykład 2:**",
+      "\n\n&nbsp;\n\n",
+      "W siódmej turze padły karty:",
+      "5 pik, Walet Pik, 8 kier i Król Kier.",
+      "\n\n&nbsp;\n\n",
+      "Kolorem wiodącym był pik, a najwyższą kartą koloru wiodącego był Walet, co oznacza, że gracz, który go wyrzucił, zbiera bitkę i dostaje punkty za:",
+      "bitkę, Waleta, Króla, 2 kiery (8 i Król Kier), Króla Kiera oraz za siódmą bitkę, co przekłada się na punkty:",
+      "20 - bitka, 25 - Walet, 40 - Król, 2x20 - kiery, Król Kier - 260, siódma - 130, co razem daje 515 punktów :).",
+      "\n\n&nbsp;\n\n",
+      "---",
+      "---",
+      "---"
+    ]
   },
   {
     "id": "race",
     "title": "Zasady - wyścig",
-    "content": "Druga część rozgrywki, w której gracze zdobywają punkty na plus.\n\n## Cel rozgrywki\n\nZdobyć jak najwięcej punktów we wszystkich rundach. Im szybciej gracz pozbędzie się wszystkich kart, tym więcej punktów zdobędzie. Każda z czterech rund ma te same zasady.\n\n## Punktacja\n\nPierwsze miejsce - 400 punktów\n\nDrugie - 250\n\nTrzecie - 130\n\nCzwarte - 0.\n\n## Jak zacząć\n\nNiezmiennie używamy 52 kart bez jokerów, gdzie as jest najwyższą kartą. Kolejność rozdawania wynika z poprzednich rozdań - rozdajemy wszystkie karty.\n\n## Przebieg rundy\n\nW tej rozgrywce nie ma pojęcia tury - gra jest ciągła do ostatniej karty. Każdy gracz wykłada kartę awersem do góry. Gra przypomina pasjansa.\n\nGracz, który ma siódemkę kier na ręce, wykłada ją na stół - ta karta zawsze ustala kolejność rozpoczęcia rundy. Następni gracze dokładają kolejne karty, np. ósemkę kier, potem dziewiątkę kier itd., zawsze po kolei (tak samo w dół). Jeśli gracz nie ma karty pasującej do stosu w danym kolorze, ale ma siódemkę w innym kolorze, musi ją wyłożyć, aby otworzyć nowy stos. Po wyłożeniu wszystkich kart powstaną stosy od dwójki do asa w każdym kolorze, a runda się zakończy.\n\nCzęsto zdarzy się sytuacja, w której gracz nie będzie mógł dołożyć karty do stosu, ponieważ nie ma odpowiednich kart na ręce. W takim przypadku mówi „stoję”, a kolejny gracz wykonuje swój ruch. Jeśli gracz nie zauważy pasującej karty na ręce, gra toczy się dalej. Nie można wstrzymywać innych graczy, mówiąc „stoję”, jeśli posiada się pasujące karty.\n\nZdarzą się także sytuacje, w których gracz będzie miał kilka opcji dołożenia do stosu - wtedy sam podejmuje decyzję, którą kartę wyłożyć.\n\n## Strategia\n\nNajlepsza sytuacja dla gracza to taka, w której przez całą rundę nie musi ani razu powiedzieć „stoję”. Warto układać karty w stosie w taki sposób, aby blokować innych. Przykładowo, jeśli gracz ma dwie opcje dołożenia karty - dwójkę pik i dziewiątkę trefl - to lepiej wyłożyć dwójkę, ponieważ ta karta nie otworzy możliwości dla innych graczy, a my będziemy mieć jedną kartę mniej na ręce.\n\n**UWAGA** - jeśli jednak za tą dziewiątką w treflach mamy np. króla, warto otworzyć drogę innym graczom, aby mogli szybciej dokładać karty, co pozwoli nam pozbyć się tego króla."
+    "content": [
+      "Druga część rozgrywki, w której gracze zdobywają punkty na plus.",
+
+      "## Cel rozgrywki",
+      "Zdobyć jak najwięcej punktów we wszystkich rundach. Im szybciej gracz pozbędzie się wszystkich kart, tym więcej punktów zdobędzie. Każda z czterech rund ma te same zasady.",
+
+      "## Punktacja",
+      "Pierwsze miejsce - 400 punktów",
+      "Drugie - 250",
+      "Trzecie - 130",
+      "Czwarte - 0.",
+
+      "## Jak zacząć",
+      "Niezmiennie używamy 52 kart bez jokerów, gdzie as jest najwyższą kartą. Kolejność rozdawania wynika z poprzednich rozdań - rozdajemy wszystkie karty.",
+
+      "## Przebieg rundy",
+      "W tej rozgrywce nie ma pojęcia tury - gra jest ciągła do ostatniej karty. Każdy gracz wykłada kartę awersem do góry. Gra przypomina pasjansa.",
+      "\n\n&nbsp;\n\n",
+      "Gracz, który ma siódemkę kier na ręce, wykłada ją na stół - ta karta zawsze ustala kolejność rozpoczęcia rundy. Następni gracze dokładają kolejne karty, np. ósemkę kier, potem dziewiątkę kier itd., zawsze po kolei (tak samo w dół). Jeśli gracz nie ma karty pasującej do stosu w danym kolorze, ale ma siódemkę w innym kolorze, musi ją wyłożyć, aby otworzyć nowy stos. Po wyłożeniu wszystkich kart powstaną stosy od dwójki do asa w każdym kolorze, a runda się zakończy.",
+      "\n\n&nbsp;\n\n",
+      "Często będzie dochodzić do sytuacji, w której gracz nie będzie mógł dołożyć karty do stosu, ponieważ nie ma odpowiednich kart na ręce. W takim przypadku mówi „stoję”, a kolejny gracz wykonuje swój ruch. Jeśli gracz nie zauważy pasującej karty na ręce, gra toczy się dalej.",
+      "Nie można wstrzymywać innych graczy, mówiąc „stoję”, jeśli posiada się pasujące karty.",
+      "\n\n&nbsp;\n\n",
+      "Zdarzą się także sytuacje, w których gracz będzie miał kilka opcji dołożenia do stosu - wtedy sam podejmuje decyzję, którą kartę wyłożyć.",
+      "\n\n&nbsp;\n\n",
+      "## Strategia",
+      "Najlepsza sytuacja dla gracza to taka, w której przez całą rundę nie musi ani razu powiedzieć „stoję”. Warto układać karty w stosie w taki sposób, aby blokować innych.",
+      "Przykładowo, jeśli gracz ma dwie opcje dołożenia karty - dwójkę pik i dziewiątkę trefl - to lepiej wyłożyć dwójkę, ponieważ ta karta nie otworzy możliwości dla innych graczy, a my będziemy mieć jedną kartę mniej na ręce.",
+      "\n\n&nbsp;\n\n",
+      "***UWAGA*** - jeśli jednak za tą dziewiątką w treflach mamy np. króla, warto otworzyć drogę innym graczom, aby mogli szybciej dokładać karty, co pozwoli nam pozbyć się tego króla."
+    ]
   }
 ]
