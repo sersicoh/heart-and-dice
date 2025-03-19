@@ -9,7 +9,7 @@ import { Home } from '@views/home/Home';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/heart-and-dice'>
       <Routes>
         <Route path='/' element={<Home />} />
 
