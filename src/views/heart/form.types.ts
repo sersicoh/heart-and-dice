@@ -60,6 +60,7 @@ export type TCalcFunction = (playerValues: Array<number | null>) => TCalcResult;
 
 export interface IFormRow {
   roundType: {
+    id?: string;
     label: IFieldsType['tileDescription'];
     variant?: IFieldsType['variant'];
     placeholder?: IFieldsType['placeholder'];

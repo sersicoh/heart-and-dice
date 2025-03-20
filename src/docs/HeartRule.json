@@ -66,7 +66,7 @@
     ]
   },
   {
-    "id": "bez-lew",
+    "id": "noLions",
     "title": "Bez Lew",
     "content": [
       "## Punktacja",
@@ -78,7 +78,7 @@
     ]
   },
   {
-    "id": "bez-pan",
+    "id": "noMadam",
     "title": "Bez Pań",
     "content": [
       "## Punktacja",
@@ -90,7 +90,7 @@
     ]
   },
   {
-    "id": "bez-panow",
+    "id": "noGentlemen",
     "title": "Bez Panów",
     "content": [
       "## Punktacja",
@@ -103,7 +103,7 @@
     ]
   },
   {
-    "id": "7-13",
+    "id": "sevenAndLast",
     "title": "7 / 13",
     "content": [
       "## Punktacja",
@@ -120,7 +120,7 @@
     ]
   },
   {
-    "id": "kierki-round",
+    "id": "hearts",
     "title": "Bez Kierów",
     "content": [
       "## Punktacja",
@@ -134,7 +134,7 @@
     ]
   },
   {
-    "id": "krol-kier",
+    "id": "heartKing",
     "title": "Król Kier",
     "content": [
       "## Punktacja",
@@ -148,7 +148,7 @@
     ]
   },
   {
-    "id": "rozbojnik",
+    "id": "robber",
     "title": "Rozbójnik",
     "content": [
       "## Pula punktów - 1560",
@@ -181,7 +181,7 @@
     ]
   },
   {
-    "id": "race",
+    "id": "raceRound",
     "title": "Zasady - wyścig",
     "content": [
       "Druga część rozgrywki, w której gracze zdobywają punkty na plus.",

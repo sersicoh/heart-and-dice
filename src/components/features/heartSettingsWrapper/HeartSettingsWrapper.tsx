@@ -1,4 +1,7 @@
+import { useState } from 'react';
+
 import { BasicButton } from '@components/common/basicButton/BasicButton';
+import { ConfirmModal } from '@components/common/confirmModal/ConfirmModal';
 import Container from '@components/common/container/Container';
 import { PlayerInuptTile } from '@components/features/heartSettingsWrapper/playerInuptTile/PlayerInuptTile';
 
@@ -17,6 +20,22 @@ export const HeartSettingsWrapper = () => {
     tempPlayers,
     changeName,
   } = useHeartSettingsLogic();
+
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+  const openConfirmModal = () => {
+    setIsConfirmModalOpen(true);
+  };
+
+  const closeConfirmModal = () => {
+    setIsConfirmModalOpen(false);
+  };
+
+  const handleConfirmNewGame = () => {
+    resetAll();
+    closeConfirmModal();
+  };
+
   return (
     <Container
       variant='flex'
@@ -61,9 +80,18 @@ export const HeartSettingsWrapper = () => {
           />
         )}
         <BasicButton
-          onClick={resetAll}
+          onClick={openConfirmModal}
           content='Rozpocznij nową grę'
           fontSize={{ tablet: '48px', mobile: '24px' }}
+        />
+        <ConfirmModal
+          isOpen={isConfirmModalOpen}
+          onClose={closeConfirmModal}
+          title='Rozpocznij nową grę'
+          content='Czy na pewno chcesz rozpocząć nową grę? Obecna rozgrywka zostanie zresetowana.'
+          onConfirm={handleConfirmNewGame}
+          confirmText='Tak, resetuj'
+          cancelText='Nie'
         />
       </Container>
     </Container>

@@ -4,8 +4,8 @@ import {
   StyledFormField,
   StyledInput,
   StyledLabel,
-} from '@components/common/form/formField/formField.stytes';
-import type { FormFieldProps } from '@components/common/form/formField/formField.types';
+} from '@components/common/formField/formField.stytes';
+import type { FormFieldProps } from '@components/common/formField/formField.types';
 
 export const FormField: FC<FormFieldProps> = ({
   variant = 'input',
@@ -13,6 +13,8 @@ export const FormField: FC<FormFieldProps> = ({
   value,
   onChangeValue,
   label,
+  onTitleClick,
+  isClickable,
   ...rest
 }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +24,7 @@ export const FormField: FC<FormFieldProps> = ({
   };
 
   return (
-    <StyledFormField $variant={variant} {...rest}>
+    <StyledFormField $variant={variant} isClickable={isClickable} onClick={onTitleClick} {...rest}>
       {isEditable ? (
         <StyledInput inputMode='numeric' value={value ?? ''} onChange={handleChange} />
       ) : (

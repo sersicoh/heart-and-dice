@@ -81,12 +81,16 @@ const variantStyles = (variant: IFieldsType['variant']) => {
   }
 };
 
-export const StyledFormField = styled.div<{ $variant: IFieldsType['variant'] }>`
+export const StyledFormField = styled.div<{
+  $variant: IFieldsType['variant'];
+  isClickable?: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   padding: 8px 0;
+  cursor: ${({ isClickable }) => (isClickable ? 'pointer' : 'default')};
   @media ${({ theme }) => theme.devices.mobile} {
     font-size: 0.875rem;
     padding: 4px 0;

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { BasicButton } from '@components/common/basicButton/BasicButton';
+import { ConfirmModal } from '@components/common/confirmModal/ConfirmModal';
 import Container from '@components/common/container/Container';
 import { Modal } from '@components/common/modal/Modal';
 import { ResultDescription } from '@components/features/resultList/resultDescription/ResultDescription';
@@ -96,23 +97,13 @@ export const ResultList = ({ finishedGames }: ResultListProps) => {
       >
         {selectedGame && <ResultDescription selectedGame={selectedGame} />}
       </Modal>
-      <Modal isOpen={isDeleteModalOpen} onClose={closeDeleteModal} title='Potwierdź usunięcie'>
-        <h4>Czy na pewno chcesz usunąć tę grę z historii?</h4>
-        <Container variant='flex' gap='16px' margin='24px 0 0 0' width='100%'>
-          <BasicButton
-            onClick={handleConfirmDelete}
-            content='Tak'
-            variant='dark'
-            fontSize={{ tablet: '32px', mobile: '16px' }}
-          />
-          <BasicButton
-            onClick={closeDeleteModal}
-            content='Nie'
-            variant='dark'
-            fontSize={{ tablet: '32px', mobile: '16px' }}
-          />
-        </Container>
-      </Modal>
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={closeDeleteModal}
+        title='Potwierdź usunięcie'
+        content='Czy na pewno chcesz usunąć tę grę z historii?'
+        onConfirm={handleConfirmDelete}
+      />
     </>
   );
 };

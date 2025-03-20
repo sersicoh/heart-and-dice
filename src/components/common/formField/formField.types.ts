@@ -11,4 +11,6 @@ export interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
   type?: 'text' | 'number';
   disabled?: boolean;
   placeholder?: string;
+  onTitleClick?: () => void;
+  isClickable?: boolean;
 }
