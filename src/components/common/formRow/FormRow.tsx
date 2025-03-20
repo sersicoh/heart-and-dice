@@ -1,5 +1,10 @@
+import { useState } from 'react';
+
+import ReactMarkdown from 'react-markdown';
+
 import Container from '@components/common/container/Container';
-import { FormField } from '@components/common/form/formField/FormField';
+import { FormField } from '@components/common/formField/FormField';
+import { Modal } from '@components/common/modal/Modal';
 import type {
   IFormInputChange,
   IFormRow,
@@ -8,6 +13,7 @@ import type {
 } from '@views/heart/form.types';
 
 import { useMyTheme } from '@hooks/useMyTheme';
+import HeartRules from '@docs/HeartRule.json';
 
 interface FormRowProps {
   rowKey: string;
@@ -18,6 +24,27 @@ interface FormRowProps {
 
 export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: FormRowProps) => {
   const { isMobile } = useMyTheme();
+
+  const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
+  const [selectedRules, setSelectedRules] = useState<{ title: string; content: string[] } | null>(
+    null
+  );
+
+  const handleOpenRulesModal = (ruleId: string) => {
+    const foundRule = HeartRules.find((rule) => rule.id === ruleId);
+    if (foundRule) {
+      setSelectedRules({
+        title: foundRule.title,
+        content: foundRule.content,
+      });
+      setIsRulesModalOpen(true);
+    }
+  };
+
+  const handleCloseRulesModal = () => {
+    setSelectedRules(null);
+    setIsRulesModalOpen(false);
+  };
 
   function isNamesFormRow(row: INamesFormRow | IFormRow): row is INamesFormRow {
     return (row as INamesFormRow).gameTitle !== undefined;
@@ -36,9 +63,19 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
   };
 
   const renderPointsRow = (row: IFormRow) => {
+    const onRoundTypeClick = () => {
+      if (row.roundType.rowId) {
+        handleOpenRulesModal(row.roundType.rowId);
+      }
+    };
     return (
       <>
-        <FormField variant={row.roundType.variant} label={row.roundType.label} />
+        <FormField
+          variant={row.roundType.variant}
+          label={row.roundType.label}
+          onTitleClick={onRoundTypeClick}
+          isClickable={Boolean(row.roundType.id)}
+        />
         <FormField
           variant={row.p1Input.variant}
           label={row.p1Input.value?.toString() ?? ''}
@@ -80,6 +117,7 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
       </>
     );
   };
+
   const getNumberOfPlayers = (row: INamesFormRow | IFormRow) => {
     if (isNamesFormRow(row)) {
       const possible = ['player1', 'player2', 'player3', 'player4'] as const;
@@ -94,13 +132,22 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
   const numCols = 1 + nPlayers;
 
   return (
-    <Container
-      variant='grid'
-      gridTemplateColumns={`repeat(${numCols}, 1fr)`}
-      gap={isMobile ? '2px' : '8px'}
-      width='100%'
-    >
-      {isNamesFormRow(rowData) ? renderNamesRow(rowData) : renderPointsRow(rowData)}
-    </Container>
+    <>
+      <Container
+        variant='grid'
+        gridTemplateColumns={`repeat(${numCols}, 1fr)`}
+        gap={isMobile ? '2px' : '8px'}
+        width='100%'
+      >
+        {isNamesFormRow(rowData) ? renderNamesRow(rowData) : renderPointsRow(rowData)}
+      </Container>
+      <Modal isOpen={isRulesModalOpen} onClose={handleCloseRulesModal} title={selectedRules?.title}>
+        {selectedRules?.content && (
+          <Container>
+            <ReactMarkdown>{selectedRules.content.join('\n\n')}</ReactMarkdown>
+          </Container>
+        )}
+      </Modal>
+    </>
   );
 };

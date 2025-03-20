@@ -8,8 +8,8 @@ import remarkGfm from 'remark-gfm';
 import { BasicButton } from '@components/common/basicButton/BasicButton';
 import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
-import { FormWrapper } from '@components/common/form/FormWrapper';
 import { Modal } from '@components/common/modal/Modal';
+import { FormWrapper } from '@components/features/form/FormWrapper';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
 import { useKierkiStore } from '@store/kierkiStore';

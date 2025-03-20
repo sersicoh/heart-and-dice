@@ -1,5 +1,5 @@
 import Container from '@components/common/container/Container';
-import { FormRow } from '@components/common/form/formRow/FormRow';
+import { FormRow } from '@components/common/formRow/FormRow';
 import type { IFormInputChange, IFormSections } from '@views/heart/form.types';
 
 import { useMyTheme } from '@hooks/useMyTheme';
