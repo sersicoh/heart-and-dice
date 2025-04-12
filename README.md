@@ -2,6 +2,8 @@
 
 > Projekt **Heart and Dice** to zestaw gier karcianych i kościanych, mający na celu zapewnienie rozrywki, nauki strategii i wspólnej zabawy w gronie przyjaciół lub rodziny. W skład zestawu wchodzi klasyczna gra w **Kierki** oraz moduł gry w **kości**, a całość napisana jest w języku [tu wstaw język programowania / framework].
 
+[Demo](https://sersicoh.github.io/heart-and-dice/)
+
 ## Spis treści
 
 - [Funkcjonalności](#funkcjonalności)
