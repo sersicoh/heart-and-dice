@@ -5,36 +5,25 @@ import { ConfirmModal } from '@components/common/confirmModal/ConfirmModal';
 import Container from '@components/common/container/Container';
 import { PlayerInuptTile } from '@components/common/playerInuptTile/PlayerInuptTile';
 
-import { useHeartSettingsLogic } from '@hooks/useHeartSettings';
+import { useDiceSettingsLogic } from '@hooks/useDiceSettings';
 import { useMyTheme } from '@hooks/useMyTheme';
+import PlusIcon from '@assets/svg/plus.svg?react';
 
-export const HeartSettingsWrapper = () => {
+export const DiceSettingsWrapper = () => {
   const { isMobile } = useMyTheme();
 
   const {
     isGameInProgress,
-    validPlayersCount,
+    canStart,
     startGame,
     returnToGame,
     resetAll,
     tempPlayers,
     changeName,
-  } = useHeartSettingsLogic();
+    addPlayerField,
+  } = useDiceSettingsLogic();
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-
-  const openConfirmModal = () => {
-    setIsConfirmModalOpen(true);
-  };
-
-  const closeConfirmModal = () => {
-    setIsConfirmModalOpen(false);
-  };
-
-  const handleConfirmNewGame = () => {
-    resetAll();
-    closeConfirmModal();
-  };
 
   return (
     <Container
@@ -47,16 +36,32 @@ export const HeartSettingsWrapper = () => {
       height='100%'
       gap={isMobile ? '16px' : '24px'}
     >
+      {/* ---------- pola imion ---------- */}
       {tempPlayers.map((playerName, idx) => (
         <PlayerInuptTile
           key={idx}
           idx={idx}
           label={`Gracz ${idx + 1}:`}
-          placeholder={idx === 3 ? 'pozostaw puste jeśli gracie w trójkę' : ''}
           value={playerName}
+          placeholder='wpisz imię'
           onChange={changeName}
         />
       ))}
+
+      {/* ---------- przycisk Dodaj gracza ---------- */}
+      {tempPlayers.length < 10 && (
+        <BasicButton
+          padding={isMobile ? '12px' : '16px'}
+          onClick={addPlayerField}
+          borderRadius={isMobile ? '12px' : '8px'}
+          content={
+            <PlusIcon width={isMobile ? '40px' : '48px'} height={isMobile ? '40px' : '48px'} />
+          }
+          aria-label='Dodaj gracza'
+        />
+      )}
+
+      {/* ---------- przyciski Start / Wróć / Reset ---------- */}
       <Container
         variant='flex'
         flexDirection='column'
@@ -67,29 +72,34 @@ export const HeartSettingsWrapper = () => {
         {isGameInProgress ? (
           <BasicButton
             onClick={returnToGame}
-            disabled={validPlayersCount < 3}
+            disabled={!canStart}
             content='Wróć do formularza'
             fontSize={{ tablet: '48px', mobile: '24px' }}
           />
         ) : (
           <BasicButton
             onClick={startGame}
-            disabled={validPlayersCount < 3}
+            disabled={!canStart}
             content='Start'
             fontSize={{ tablet: '48px', mobile: '24px' }}
           />
         )}
+
         <BasicButton
-          onClick={openConfirmModal}
+          onClick={() => setIsConfirmModalOpen(true)}
           content='Rozpocznij nową grę'
           fontSize={{ tablet: '48px', mobile: '24px' }}
         />
+
         <ConfirmModal
           isOpen={isConfirmModalOpen}
-          onClose={closeConfirmModal}
+          onClose={() => setIsConfirmModalOpen(false)}
           title='Rozpocznij nową grę'
           content='Czy na pewno chcesz rozpocząć nową grę? Obecna rozgrywka zostanie zresetowana.'
-          onConfirm={handleConfirmNewGame}
+          onConfirm={() => {
+            resetAll();
+            setIsConfirmModalOpen(false);
+          }}
           confirmText='Tak, resetuj'
           cancelText='Nie'
         />

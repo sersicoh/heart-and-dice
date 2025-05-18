@@ -37,8 +37,12 @@ export const CloseButton = styled.button`
   justify-content: flex-end;
   background: none;
   border: none;
-  padding: 16px 0;
+  padding: 16px 44px;
   cursor: pointer;
+
+  @media ${({ theme }) => theme.devices.mobile} {
+    padding: 0;
+  }
 `;
 
 export const DrawerButton = styled.button`

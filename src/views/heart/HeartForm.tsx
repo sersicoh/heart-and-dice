@@ -14,7 +14,7 @@ import { NavigationBar } from '@components/features/navigationBar/NavigationBar'
 
 import { useKierkiStore } from '@store/kierkiStore';
 import { generateGameSummary } from '@utils/generateGameSummary';
-import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
+import { getNavigationItemsKierki } from '@utils/getNavigationItems';
 import { useHeartFormLogic } from '@hooks/useHeartForm';
 import { useMyTheme } from '@hooks/useMyTheme';
 

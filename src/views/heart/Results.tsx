@@ -10,7 +10,7 @@ import { NavigationBar } from '@components/features/navigationBar/NavigationBar'
 import { ResultList } from '@components/features/resultList/ResultList';
 
 import { useKierkiStore } from '@store/kierkiStore';
-import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
+import { getNavigationItemsKierki } from '@utils/getNavigationItems';
 import { useMyTheme } from '@hooks/useMyTheme';
 
 export const Results = () => {

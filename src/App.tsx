@@ -1,7 +1,7 @@
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
+import { DiceSettings } from '@views/dice/DiceSettings';
 import { HeartForm } from '@views/heart/HeartForm';
-// import { DiceSettings } from '@views/dice/Settings'; // Plik do utworzenia
 import { HeartSettings } from '@views/heart/HeartSettings';
 import { Results } from '@views/heart/Results';
 import { Rules } from '@views/heart/Rules';
@@ -18,8 +18,10 @@ function App() {
         <Route path='/heart/results' element={<Results />} />
         <Route path='/heart/rules' element={<Rules />} />
 
-        {/* <Route path='/dice/settings' element={<DiceSettings />} />
-        <Route path='/dice/form' element={<DiceForm />} /> */}
+        <Route path='/dice/settings' element={<DiceSettings />} />
+        <Route path='/heart/form' element={<HeartForm />} />
+        <Route path='/heart/results' element={<Results />} />
+        <Route path='/heart/rules' element={<Rules />} />
 
         {/* Możesz też dodać route na /wyniki i /zasady, jeśli chcesz je zachować */}
       </Routes>
