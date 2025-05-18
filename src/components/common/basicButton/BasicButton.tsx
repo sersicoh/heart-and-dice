@@ -5,6 +5,7 @@ export const BasicButton = ({
   onClick,
   content: label,
   disabled,
+  borderRadius,
   fontSize,
   padding,
   variant = 'default',
@@ -15,6 +16,7 @@ export const BasicButton = ({
       fontSize={fontSize}
       disabled={disabled}
       padding={padding}
+      borderRadius={borderRadius}
       onClick={onClick}
     >
       {label}

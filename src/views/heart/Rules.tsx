@@ -4,7 +4,7 @@ import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 import { RulesWrapper } from '@components/features/rulesWrapper/RulesWrapper';
 
-import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
+import { getNavigationItemsKierki } from '@utils/getNavigationItems';
 
 export const Rules = () => {
   const navigate = useNavigate();

@@ -15,7 +15,7 @@ export const Home = () => {
   const navigate = useNavigate();
   const { showSnackbar } = useCustomSnackbar();
   const { theme, isMobile } = useMyTheme();
-  const [diceDisabled, setDiceDisabled] = useState(false);
+  // const [diceDisabled, setDiceDisabled] = useState(false);
   const [englishDisabled, setEnglishDisabled] = useState(false);
   return (
     <Container
@@ -55,16 +55,16 @@ export const Home = () => {
             fontSize={{ tablet: '4rem', mobile: '2rem' }}
           />
           <BasicButton
-            onClick={() => {
-              showSnackbar({
-                message: `Spokojnie przed Przebrodzinem będą gotowe`,
-                variant: 'info',
-              });
-              setDiceDisabled(true);
-            }}
-            // onClick={() => navigate('/dice/settings')}
+            // onClick={() => {
+            //   showSnackbar({
+            //     message: `Spokojnie przed Przebrodzinem będą gotowe`,
+            //     variant: 'info',
+            //   });
+            //   setDiceDisabled(true);
+            // }}
+            onClick={() => navigate('/dice/settings')}
             content={'Kości'}
-            disabled={diceDisabled}
+            // disabled={diceDisabled}
             fontSize={{ tablet: '4rem', mobile: '2rem' }}
           />
         </Container>

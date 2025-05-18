@@ -20,6 +20,8 @@ export const NavigationBar = ({ routes, drawerItems }: NavigationBarProps) => {
 
   const isHome = location.pathname === '/';
 
+  const isHeart = location.pathname.includes('/heart');
+
   return (
     <div
       style={{
@@ -45,10 +47,10 @@ export const NavigationBar = ({ routes, drawerItems }: NavigationBarProps) => {
           <Container>
             <HnDIcon width={isMobile ? '48px' : '70px'} height={'100%'} color={theme.colors.logo} />
           </Container>
-          <NavTitle label='Heart' />
+          <NavTitle label={isHeart ? 'Heart' : 'Dice'} />
           <GearIcon
-            width={isMobile ? '32px' : '48px'}
-            height={'100%'}
+            width={isMobile ? '48px' : '70px'}
+            height={isMobile ? '32px' : '48px'}
             color={theme.colors.logo}
             onClick={() => setIsDrawerOpen(true)}
             style={{ cursor: 'pointer' }}
