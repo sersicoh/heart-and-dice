@@ -2,10 +2,10 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 
 import { DiceForm } from '@views/dice/DiceForm';
 import { HeartForm } from '@views/heart/HeartForm';
-import { Results } from '@views/heart/HeartResults';
-import { Rules } from '@views/heart/Rules';
-import { Home } from '@views/home/Home';
-import { SettingsView } from '@views/settings/SettingsView';
+import { Home } from '@views/Home';
+import { Results } from '@views/Results';
+import { Rules } from '@views/Rules';
+import { SettingsView } from '@views/SettingsView';
 
 function App() {
   return (
