@@ -8,7 +8,7 @@ import {
   RuleImageBackground,
   RuleImageWrapper,
   RuleTitle,
-} from '@components/features/rulesWrapper/ruleTile/ruleTile.styles';
+} from '@components/features/heartRulesWrapper/ruleTile/ruleTile.styles';
 
 interface IRuleProps {
   id: string;

@@ -4,7 +4,7 @@ import { Title } from '@components/common/title/Title';
 import {
   ListWrapper,
   NavWrapper,
-} from '@components/features/rulesWrapper/tableOfContents/tableOfContents.styles';
+} from '@components/features/heartRulesWrapper/tableOfContents/tableOfContents.styles';
 
 import { useMyTheme } from '@hooks/useMyTheme';
 

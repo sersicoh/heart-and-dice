@@ -1,22 +1,25 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
+import { DiceRulesWrapper } from '@components/features/diceRulesWrapper/DiceRulesWrapper';
+import { HeartRulesWrapper } from '@components/features/heartRulesWrapper/HeartRulesWrapper';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
-import { RulesWrapper } from '@components/features/rulesWrapper/RulesWrapper';
 
-import { getNavigationItemsKierki } from '@utils/getNavigationItems';
+import { getNavigationItems } from '@utils/getNavigationItems';
 
 export const Rules = () => {
+  const { game } = useParams();
+  const isKierki = game === 'kierki';
   const navigate = useNavigate();
 
   const drawerItems: IDrawerItems['items'] = [
-    { label: 'Ustawieia gry', onClick: () => navigate('/heart/settings') },
+    { label: 'Wróć do formularza', onClick: () => navigate(`/${game}/settings`) },
     { label: 'Strona główna', onClick: () => navigate('/') },
   ];
   return (
     <>
-      <NavigationBar routes={getNavigationItemsKierki()} drawerItems={drawerItems} />
-      <RulesWrapper />
+      <NavigationBar routes={getNavigationItems(game)} drawerItems={drawerItems} />
+      {isKierki ? <HeartRulesWrapper /> : <DiceRulesWrapper />}
     </>
   );
 };

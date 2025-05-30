@@ -18,14 +18,15 @@ import { getNavigationItems } from '@utils/getNavigationItems';
 import { useHeartFormLogic } from '@hooks/useHeartForm';
 import { useMyTheme } from '@hooks/useMyTheme';
 
-export const HeartForm = () => {
+export const DiceForm = () => {
   const { theme, isMobile } = useMyTheme();
+
   const navigate = useNavigate();
   const [finished, setFinished] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   const drawerItems: IDrawerItems['items'] = [
-    { label: 'Ustawieia gry', onClick: () => navigate(`/heart/settings`) },
+    { label: 'Ustawieia gry', onClick: () => navigate(`/dice/settings`) },
     { label: 'Strona główna', onClick: () => navigate('/') },
   ];
 
@@ -59,7 +60,7 @@ export const HeartForm = () => {
 
   return (
     <>
-      <NavigationBar routes={getNavigationItems('heart')} drawerItems={drawerItems} />
+      <NavigationBar routes={getNavigationItems('dice')} drawerItems={drawerItems} />
       <Container
         variant='flex'
         flexDirection='column'

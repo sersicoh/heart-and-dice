@@ -31,7 +31,7 @@ export const useDiceStore = create(
       fields: getDiceFields([]),
       currentGameName: null,
       currentGameStartTime: null,
-
+      finishedGames: [],
       setPlayers: (newPlayers) =>
         set(() => ({
           players: newPlayers,
