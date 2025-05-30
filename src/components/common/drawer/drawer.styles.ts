@@ -37,7 +37,7 @@ export const CloseButton = styled.button`
   justify-content: flex-end;
   background: none;
   border: none;
-  padding: 16px 44px;
+  padding: 16px;
   cursor: pointer;
 
   @media ${({ theme }) => theme.devices.mobile} {

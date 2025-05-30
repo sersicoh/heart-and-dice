@@ -3,7 +3,7 @@ import { useRef } from 'react';
 
 import Container from '@components/common/container/Container';
 import { CloseButton } from '@components/common/drawer/drawer.styles';
-import { ModalOverlay, ModalWrapper } from '@components/common/modal/modal.styles';
+import { ModalContent, ModalOverlay, ModalWrapper } from '@components/common/modal/modal.styles';
 import { Title } from '@components/common/title/Title';
 
 import { useMyTheme } from '@hooks/useMyTheme';
@@ -42,14 +42,7 @@ export const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
             <CloseSvg width={'24px'} height={'24px'} color={theme.colors.textLight} />
           </CloseButton>
         </Container>
-        <Container
-          variant='flex'
-          flexDirection='column'
-          justifyContent='center'
-          alignItems='center'
-        >
-          {children}
-        </Container>
+        <ModalContent>{children}</ModalContent>
       </ModalWrapper>
     </ModalOverlay>
   );
