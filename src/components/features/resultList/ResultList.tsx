@@ -7,7 +7,7 @@ import { Modal } from '@components/common/modal/Modal';
 import { ResultDescription } from '@components/features/resultList/resultDescription/ResultDescription';
 
 import { useKierkiStore } from '@store/kierkiStore';
-import type { IFinishedGame } from '@store/kierkiStore.types';
+import type { IFinishedGame } from '@store/store.types';
 import { useCustomSnackbar } from '@hooks/useCustomSnackbar';
 import { useMyTheme } from '@hooks/useMyTheme';
 import TrashIcon from '@assets/svg/trash.svg?react';

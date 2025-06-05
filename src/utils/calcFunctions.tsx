@@ -1,11 +1,11 @@
 import { validateAllowedValues, validateMultiplesOf, validateSumIs } from '@utils/validations';
 
-import type { TCalcFunction } from '@/views/heart/form.types';
+import type { THeartCalcFunction } from '@views/heart/heartForm.types';
 
 const heartSum = 260;
 const raceSum = 780;
 
-export const calcNoLions: TCalcFunction = (playerValues) => {
+export const calcNoLions: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;
@@ -24,7 +24,7 @@ export const calcNoLions: TCalcFunction = (playerValues) => {
   return { p1, p2, p3, p4, valid: true };
 };
 
-export const calcNoMadam: TCalcFunction = (playerValues) => {
+export const calcNoMadam: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;
@@ -43,7 +43,7 @@ export const calcNoMadam: TCalcFunction = (playerValues) => {
   return { p1, p2, p3, p4, valid: true };
 };
 
-export const calcNoGentlemen: TCalcFunction = (playerValues) => {
+export const calcNoGentlemen: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;
@@ -57,7 +57,7 @@ export const calcNoGentlemen: TCalcFunction = (playerValues) => {
   return { p1, p2, p3, p4, valid: true };
 };
 
-export const calcSevenAndLast: TCalcFunction = (playerValues) => {
+export const calcSevenAndLast: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;
@@ -75,7 +75,7 @@ export const calcSevenAndLast: TCalcFunction = (playerValues) => {
   return { p1, p2, p3, p4, valid: true };
 };
 
-export const calcHearts: TCalcFunction = (playerValues) => {
+export const calcHearts: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;
@@ -94,7 +94,7 @@ export const calcHearts: TCalcFunction = (playerValues) => {
   return { p1, p2, p3, p4, valid: true };
 };
 
-export const calcHeartKing: TCalcFunction = (playerValues) => {
+export const calcHeartKing: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;
@@ -113,7 +113,7 @@ export const calcHeartKing: TCalcFunction = (playerValues) => {
   return { p1, p2, p3, p4, valid: true };
 };
 
-export const calcRobber: TCalcFunction = (playerValues) => {
+export const calcRobber: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;
@@ -128,7 +128,7 @@ export const calcRobber: TCalcFunction = (playerValues) => {
   return { p1, p2, p3, p4, valid: true };
 };
 
-export const calcHeartResult: TCalcFunction = (playerValues) => {
+export const calcHeartResult: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;
@@ -137,7 +137,7 @@ export const calcHeartResult: TCalcFunction = (playerValues) => {
   return { p1, p2, p3, p4, valid: true };
 };
 
-export const calcRaceRound: TCalcFunction = (playerValues) => {
+export const calcRaceRound: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;
@@ -156,7 +156,7 @@ export const calcRaceRound: TCalcFunction = (playerValues) => {
   return { p1, p2, p3, p4, valid: true };
 };
 
-export const calcRaceResult: TCalcFunction = (playerValues) => {
+export const calcRaceResult: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;
@@ -164,7 +164,7 @@ export const calcRaceResult: TCalcFunction = (playerValues) => {
 
   return { p1, p2, p3, p4, valid: true };
 };
-export const calcFinalResult: TCalcFunction = (playerValues) => {
+export const calcFinalResult: THeartCalcFunction = (playerValues) => {
   const p1 = playerValues[0] ?? 0;
   const p2 = playerValues[1] ?? 0;
   const p3 = playerValues[2] ?? 0;

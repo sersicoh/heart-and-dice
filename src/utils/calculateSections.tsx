@@ -1,17 +1,17 @@
 import type {
-  IFormHeartSection,
-  IFormRaceSection,
-  IFormRow,
-  IFormSections,
-} from '@views/heart/form.types';
+  IHeartFormSection,
+  IHeartFormRaceSection,
+  IHeartFormRow,
+  IHeartFormSections,
+} from '@views/heart/heartForm.types';
 
 import { calcRegistry } from '@utils/calcFunctions';
 import { getWinnersAndLosers } from '@utils/getWinnersAndLosers';
 
-export const calculateHearts = (cloned: IFormSections) => {
+export const calculateHearts = (cloned: IHeartFormSections) => {
   const heartSum = { p1: 0, p2: 0, p3: 0, p4: 0 };
   for (const rowKey of Object.keys(cloned.heartSection)) {
-    const row = cloned.heartSection[rowKey as keyof IFormHeartSection];
+    const row = cloned.heartSection[rowKey as keyof IHeartFormSection];
     if (rowKey === 'result') continue;
     const rowId = row.roundType.rowId;
     if (!rowId) continue;
@@ -60,10 +60,10 @@ export const calculateHearts = (cloned: IFormSections) => {
     }
   }
 };
-export const calculateRace = (cloned: IFormSections) => {
+export const calculateRace = (cloned: IHeartFormSections) => {
   const raceSum = { p1: 0, p2: 0, p3: 0, p4: 0 };
   for (const rowKey of Object.keys(cloned.raceSection)) {
-    const row = cloned.raceSection[rowKey as keyof IFormRaceSection];
+    const row = cloned.raceSection[rowKey as keyof IHeartFormRaceSection];
     if (rowKey === 'result') continue;
     const rowId = row.roundType.rowId;
     if (!rowId) continue;
@@ -113,8 +113,8 @@ export const calculateRace = (cloned: IFormSections) => {
 };
 
 function safePoints(
-  points: IFormRow['computedPoints'] | undefined
-): Required<NonNullable<IFormRow['computedPoints']>> {
+  points: IHeartFormRow['computedPoints'] | undefined
+): Required<NonNullable<IHeartFormRow['computedPoints']>> {
   return {
     p1: points?.p1 ?? 0,
     p2: points?.p2 ?? 0,
@@ -123,7 +123,7 @@ function safePoints(
   };
 }
 
-export const calculateFinal = (cloned: IFormSections) => {
+export const calculateFinal = (cloned: IHeartFormSections) => {
   const heartSum = safePoints(cloned.heartSection.result.computedPoints);
   const raceSum = safePoints(cloned.raceSection.result.computedPoints);
 

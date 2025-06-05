@@ -58,6 +58,12 @@ export function useDiceSettingsLogic() {
     setGameInProgress(true);
     setGameNameAndStart();
     navigate('/dice/form');
+    showSnackbar({
+      message: `Gra rozpoczęta, zaczyna ${valid[0].name.toUpperCase()}, powodzenia!`,
+      variant: 'success',
+      autoHideDuration: 3000,
+      closeButton: true,
+    });
   };
 
   const returnToGame = () => {
@@ -75,6 +81,31 @@ export function useDiceSettingsLogic() {
       return;
     }
     navigate('/dice/form');
+  };
+
+  const startNewGame = () => {
+    const valid = syncPlayers(tempPlayers);
+    if (valid.length < 2) {
+      showSnackbar({
+        message: 'Aby rozpocząć nową grę, wpisz przynajmniej 2 imiona.',
+        variant: 'error',
+        autoHideDuration: 5000,
+        closeButton: true,
+      });
+      return;
+    }
+    resetGame();
+    setPlayers(valid);
+    setInitialPlayersCount(valid.length);
+    setGameInProgress(true);
+    setGameNameAndStart();
+    navigate('/dice/form');
+    showSnackbar({
+      message: `Następna gra rozpoczęta, zaczyna ${valid[0].name.toUpperCase()}, powodzenia!`,
+      variant: 'success',
+      autoHideDuration: 3000,
+      closeButton: true,
+    });
   };
 
   const resetAll = () => {
@@ -95,6 +126,7 @@ export function useDiceSettingsLogic() {
     changeName,
     addPlayerField,
     startGame,
+    startNewGame,
     returnToGame,
     resetAll,
   };

@@ -1,9 +1,9 @@
 import type { HTMLAttributes } from 'react';
 
-import type { IFieldsType } from '@views/heart/form.types';
+import type { IHeartFieldsType } from '@views/heart/heartForm.types';
 
 export interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: IFieldsType['variant'];
+  variant?: IHeartFieldsType['variant'];
   isEditable?: boolean;
   value?: string | number | null;
   onChangeValue?: (value: number | null) => void;

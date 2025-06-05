@@ -6,20 +6,20 @@ import Container from '@components/common/container/Container';
 import { FormField } from '@components/common/formField/FormField';
 import { Modal } from '@components/common/modal/Modal';
 import type {
-  IFormInputChange,
-  IFormRow,
-  IFormSections,
-  INamesFormRow,
-} from '@views/heart/form.types';
+  IHeartFormInputChange,
+  IHeartFormRow,
+  IHeartFormSections,
+  IHeartNamesFormRow,
+} from '@views/heart/heartForm.types';
 
 import { useMyTheme } from '@hooks/useMyTheme';
 import HeartRules from '@docs/HeartRule.json';
 
 interface FormRowProps {
   rowKey: string;
-  rowData: INamesFormRow | IFormRow;
-  sectionName: keyof IFormSections;
-  onInputValueChange?: IFormInputChange;
+  rowData: IHeartNamesFormRow | IHeartFormRow;
+  sectionName: keyof IHeartFormSections;
+  onInputValueChange?: IHeartFormInputChange;
 }
 
 export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: FormRowProps) => {
@@ -46,11 +46,11 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
     setIsRulesModalOpen(false);
   };
 
-  function isNamesFormRow(row: INamesFormRow | IFormRow): row is INamesFormRow {
-    return (row as INamesFormRow).gameTitle !== undefined;
+  function isNamesFormRow(row: IHeartNamesFormRow | IHeartFormRow): row is IHeartNamesFormRow {
+    return (row as IHeartNamesFormRow).gameTitle !== undefined;
   }
 
-  const renderNamesRow = (row: INamesFormRow) => {
+  const renderNamesRow = (row: IHeartNamesFormRow) => {
     return (
       <>
         <FormField variant={row.gameTitle.variant} label={row.gameTitle.label} />
@@ -62,7 +62,7 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
     );
   };
 
-  const renderPointsRow = (row: IFormRow) => {
+  const renderPointsRow = (row: IHeartFormRow) => {
     const onRoundTypeClick = () => {
       if (row.roundType.rowId) {
         handleOpenRulesModal(row.roundType.rowId);
@@ -118,7 +118,7 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
     );
   };
 
-  const getNumberOfPlayers = (row: INamesFormRow | IFormRow) => {
+  const getNumberOfPlayers = (row: IHeartNamesFormRow | IHeartFormRow) => {
     if (isNamesFormRow(row)) {
       const possible = ['player1', 'player2', 'player3', 'player4'] as const;
       return possible.filter((p) => row[p] !== undefined).length;

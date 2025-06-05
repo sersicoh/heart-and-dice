@@ -14,7 +14,7 @@ export const SettingsView = () => {
   const { isMobile } = useMyTheme();
 
   const { game } = useParams();
-  const isKierki = game === 'kierki';
+  const isKierki = game === 'heart';
   const navigate = useNavigate();
 
   const drawerItems: IDrawerItems['items'] = [

@@ -1,8 +1,8 @@
-import type { IFormSections } from '@views/heart/form.types';
+import type { IHeartFormSections } from '@views/heart/heartForm.types';
 
-import type { Player } from '@store/kierkiStore.types';
+import type { Player } from '@store/store.types';
 
-export const getHeartsFields = (players: Player[]): IFormSections => {
+export const getHeartsFields = (players: Player[]): IHeartFormSections => {
   const fourthNotEmpty = players[3] && players[3].name.trim().length > 0;
   const withPlayer4 = players.length === 4 && fourthNotEmpty;
 

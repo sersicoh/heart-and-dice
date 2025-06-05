@@ -1,10 +1,10 @@
 // utils/generateGameSummary.ts
 
-import type { IFormRow, IFormSections, IFromNamesSection } from '@views/heart/form.types';
+import type { IHeartFormRow, IHeartFormSections, IHeartFromNamesSection } from '@views/heart/heartForm.types';
 
 function getPlayersAndScores(
-  names: IFromNamesSection['names'],
-  computedPoints: IFormRow['computedPoints']
+  names: IHeartFromNamesSection['names'],
+  computedPoints: IHeartFormRow['computedPoints']
 ): { name: string; score: number }[] {
   const mapping = [
     { nameField: 'player1' as const, scoreField: 'p1' as const },
@@ -44,7 +44,7 @@ function buildTableRows(players: { name: string; score: number }[]) {
     .join('\n');
 }
 
-export function generateGameSummary(fields: IFormSections): string {
+export function generateGameSummary(fields: IHeartFormSections): string {
   const finalResultRow = fields.resultSection?.result;
   if (!finalResultRow) {
     return 'Brak wyników końcowych.';

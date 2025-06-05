@@ -2,22 +2,22 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import type { IFormSectionsDice } from '@views/dice/form.types';
+import type { IDiceFormSections } from '@views/dice/diceForm.types';
 
-import type { Player } from '@store/kierkiStore.types';
+import type { Player } from '@store/store.types';
 import { getDiceFields } from '@utils/getDiceFields';
 
 export interface DiceState {
   players: Player[];
   isGameInProgress: boolean;
   initialPlayersCount: number | null;
-  fields: IFormSectionsDice | null;
+  fields: IDiceFormSections | null;
   currentGameName: string | null;
   currentGameStartTime: number | null;
   setPlayers: (players: Player[]) => void;
   setGameInProgress: (inProgress: boolean) => void;
   setInitialPlayersCount: (count: number) => void;
-  setFields: (newFields: IFormSectionsDice) => void;
+  setFields: (newFields: IDiceFormSections) => void;
   resetGame: () => void;
   setGameNameAndStart: () => void;
 }

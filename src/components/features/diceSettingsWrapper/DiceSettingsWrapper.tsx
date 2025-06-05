@@ -19,11 +19,13 @@ export const DiceSettingsWrapper = () => {
     returnToGame,
     resetAll,
     tempPlayers,
+    startNewGame,
     changeName,
     addPlayerField,
   } = useDiceSettingsLogic();
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isConfirmModalOpen2, setIsConfirmModalOpen2] = useState(false);
 
   return (
     <Container
@@ -86,16 +88,33 @@ export const DiceSettingsWrapper = () => {
         )}
 
         <BasicButton
+          onClick={() => setIsConfirmModalOpen2(true)}
+          content='Rozpocznij następną grę'
+          fontSize={{ tablet: '48px', mobile: '24px' }}
+        />
+        <ConfirmModal
+          isOpen={isConfirmModalOpen2}
+          onClose={() => setIsConfirmModalOpen2(false)}
+          title='Rozpocznij następną grę'
+          content='Rozpoczęcie następną gry spowoduje reset obecnej rozgrywki i przeniesie Cię do nowego formularza. Czy chcesz kontynuować?'
+          onConfirm={() => {
+            startNewGame();
+            setIsConfirmModalOpen2(false);
+          }}
+          confirmText='Tak, zaczynajmy'
+          cancelText='Nie'
+        />
+
+        <BasicButton
           onClick={() => setIsConfirmModalOpen(true)}
           content='Rozpocznij nową grę'
           fontSize={{ tablet: '48px', mobile: '24px' }}
         />
-
         <ConfirmModal
           isOpen={isConfirmModalOpen}
           onClose={() => setIsConfirmModalOpen(false)}
           title='Rozpocznij nową grę'
-          content='Czy na pewno chcesz rozpocząć nową grę? Obecna rozgrywka zostanie zresetowana.'
+          content='Rozpoczęcie nowej gry spowoduje reset obecnej rozgrywki, a także zresetuje imiona?'
           onConfirm={() => {
             resetAll();
             setIsConfirmModalOpen(false);

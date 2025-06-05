@@ -1,4 +1,3 @@
-// @views/heart/HeartForm.tsx
 import { useState } from 'react';
 
 import ReactMarkdown from 'react-markdown';

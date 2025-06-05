@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import type {
-  IFormHeartSection,
-  IFormRaceSection,
-  IFormRow,
-  IFormSections,
-} from '@views/heart/form.types';
+  IHeartFormSection,
+  IHeartFormRaceSection,
+  IHeartFormRow,
+  IHeartFormSections,
+} from '@views/heart/heartForm.types';
 
 import { useKierkiStore } from '@store/kierkiStore';
 import { calcRegistry } from '@utils/calcFunctions';
@@ -13,25 +13,25 @@ import { getHeartsFields } from '@utils/getHeartsFields';
 import { recalcAllRows } from '@utils/recalcAllRows';
 import { useCustomSnackbar } from '@hooks/useCustomSnackbar';
 
-type THeartRowKey = Exclude<keyof IFormHeartSection, 'result'>;
-type TRaceRowKey = Exclude<keyof IFormRaceSection, 'result'>;
+type THeartRowKey = Exclude<keyof IHeartFormSection, 'result'>;
+type TRaceRowKey = Exclude<keyof IHeartFormRaceSection, 'result'>;
 type THeartPair = ['heartSection', THeartRowKey];
 type TRacePair = ['raceSection', TRaceRowKey];
 type TActivableRow = THeartPair | TRacePair;
 
-function skipResultRowsHeart(section: IFormHeartSection): THeartRowKey[] {
-  const all = Object.keys(section) as (keyof IFormHeartSection)[];
+function skipResultRowsHeart(section: IHeartFormSection): THeartRowKey[] {
+  const all = Object.keys(section) as (keyof IHeartFormSection)[];
   return all.filter((k) => k !== 'result') as THeartRowKey[];
 }
 
-function skipResultRowsRace(section: IFormRaceSection): TRaceRowKey[] {
-  const all = Object.keys(section) as (keyof IFormRaceSection)[];
+function skipResultRowsRace(section: IHeartFormRaceSection): TRaceRowKey[] {
+  const all = Object.keys(section) as (keyof IHeartFormRaceSection)[];
   return all.filter((k) => k !== 'result') as TRaceRowKey[];
 }
 
 export function useHeartFormLogic() {
   const { players, fields, setFields } = useKierkiStore();
-  const [localFields, setLocalFields] = useState<IFormSections>(fields || getHeartsFields(players));
+  const [localFields, setLocalFields] = useState<IHeartFormSections>(fields || getHeartsFields(players));
 
   const heartActivable = skipResultRowsHeart(localFields.heartSection);
   const raceActivable = skipResultRowsRace(localFields.raceSection);
@@ -65,7 +65,7 @@ export function useHeartFormLogic() {
   }, [localFields, setFields]);
 
   function setInputValue(
-    sectionName: keyof IFormSections,
+    sectionName: keyof IHeartFormSections,
     rowKey: string,
     playerInputKey: 'p1Input' | 'p2Input' | 'p3Input' | 'p4Input',
     newValue: number | null
@@ -74,14 +74,14 @@ export function useHeartFormLogic() {
       const cloned = structuredClone(prev);
       if (sectionName === 'heartSection') {
         if (rowKey in cloned.heartSection) {
-          const rowData = cloned.heartSection[rowKey as keyof IFormHeartSection];
+          const rowData = cloned.heartSection[rowKey as keyof IHeartFormSection];
           if (rowData[playerInputKey]) {
             rowData[playerInputKey].value = newValue;
           }
         }
       } else if (sectionName === 'raceSection') {
         if (rowKey in cloned.raceSection) {
-          const rowData = cloned.raceSection[rowKey as keyof IFormRaceSection];
+          const rowData = cloned.raceSection[rowKey as keyof IHeartFormRaceSection];
           if (rowData[playerInputKey]) {
             rowData[playerInputKey].value = newValue;
           }
@@ -97,7 +97,7 @@ export function useHeartFormLogic() {
     }
 
     const [cSec, cRow] = activableRows[activeIndex];
-    let currentRow: IFormRow;
+    let currentRow: IHeartFormRow;
     if (cSec === 'heartSection') {
       currentRow = localFields.heartSection[cRow];
     } else {
@@ -133,7 +133,7 @@ export function useHeartFormLogic() {
     setLocalFields((prev) => {
       const cloned = structuredClone(prev);
 
-      let cur: IFormRow;
+      let cur: IHeartFormRow;
       if (cSec === 'heartSection') {
         cur = cloned.heartSection[cRow];
       } else {
@@ -156,7 +156,7 @@ export function useHeartFormLogic() {
       }
 
       const [nSec, nRow] = activableRows[activeIndex + 1];
-      let nxt: IFormRow;
+      let nxt: IHeartFormRow;
       if (nSec === 'heartSection') {
         nxt = cloned.heartSection[nRow];
       } else {
@@ -180,7 +180,7 @@ export function useHeartFormLogic() {
 
   function finishGame() {
     const [cSec, cRow] = activableRows[activeIndex];
-    let currentRow: IFormRow;
+    let currentRow: IHeartFormRow;
     if (cSec === 'heartSection') {
       currentRow = localFields.heartSection[cRow];
     } else {
@@ -211,7 +211,7 @@ export function useHeartFormLogic() {
     setLocalFields((prev) => {
       const cloned = structuredClone(prev);
 
-      let row: IFormRow;
+      let row: IHeartFormRow;
       if (cSec === 'heartSection') {
         row = cloned.heartSection[cRow];
       } else {
@@ -237,7 +237,7 @@ export function useHeartFormLogic() {
     const [pSec, pRow] = activableRows[activeIndex - 1];
     setLocalFields((prev) => {
       const cloned = structuredClone(prev);
-      let currentRow: IFormRow, prevRow: IFormRow;
+      let currentRow: IHeartFormRow, prevRow: IHeartFormRow;
       if (cSec === 'heartSection') {
         currentRow = cloned.heartSection[cRow];
       } else {

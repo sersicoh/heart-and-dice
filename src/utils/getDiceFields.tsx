@@ -1,8 +1,8 @@
-import type { IFormSections } from '@views/heart/form.types';
+import type { IDiceFormSections } from '@views/dice/diceForm.types';
 
-import type { Player } from '@store/kierkiStore.types';
+import type { Player } from '@store/store.types';
 
-export const getDiceFields = (players: Player[]): IFormSections => {
+export const getDiceFields = (players: Player[]): IDiceFormSections => {
   const fourthNotEmpty = players[3] && players[3].name.trim().length > 0;
   const withPlayer4 = players.length === 4 && fourthNotEmpty;
 
@@ -217,7 +217,7 @@ export const getDiceFields = (players: Player[]): IFormSections => {
     },
     resultSection: {
       result: {
-        roundType: {
+        fieldType: {
           label: 'Ogólnie',
           variant: 'resultTitle',
           rowId: 'finalResult',

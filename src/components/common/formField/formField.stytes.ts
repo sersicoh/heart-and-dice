@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
-import type { IFieldsType } from '@views/heart/form.types';
+import type { IHeartFieldsType } from '@views/heart/heartForm.types';
 
-const variantStyles = (variant: IFieldsType['variant']) => {
+const variantStyles = (variant: IHeartFieldsType['variant']) => {
   switch (variant) {
     case 'title':
     case 'resultTitle':
@@ -82,7 +82,7 @@ const variantStyles = (variant: IFieldsType['variant']) => {
 };
 
 export const StyledFormField = styled.div<{
-  $variant: IFieldsType['variant'];
+  $variant: IHeartFieldsType['variant'];
   isClickable?: boolean;
 }>`
   display: flex;

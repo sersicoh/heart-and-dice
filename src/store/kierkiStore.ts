@@ -3,12 +3,12 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import type {
-  IFormHeartSection,
-  IFormRaceSection,
-  IFormResultSection,
-} from '@views/heart/form.types';
+  IHeartFormSection,
+  IHeartFormRaceSection,
+  IHeartFormResultSection,
+} from '@views/heart/heartForm.types';
 
-import type { IFinishedGame, KierkiState } from '@store/kierkiStore.types';
+import type { IFinishedGame, KierkiState } from '@store/store.types';
 import { getHeartsFields } from '@utils/getHeartsFields';
 
 export const useKierkiStore = create(
@@ -52,7 +52,7 @@ export const useKierkiStore = create(
           }
 
           if ('heartSection' in updated) {
-            (Object.keys(updated.heartSection) as Array<keyof IFormHeartSection>).forEach(
+            (Object.keys(updated.heartSection) as Array<keyof IHeartFormSection>).forEach(
               (rowKey) => {
                 const rowData = updated.heartSection[rowKey];
                 if (!rowData.roundType) return;
@@ -72,7 +72,7 @@ export const useKierkiStore = create(
 
           // AKTUALIZACJA RACE SECTION
           if ('raceSection' in updated) {
-            (Object.keys(updated.raceSection) as Array<keyof IFormRaceSection>).forEach(
+            (Object.keys(updated.raceSection) as Array<keyof IHeartFormRaceSection>).forEach(
               (rowKey) => {
                 const rowData = updated.raceSection[rowKey];
                 if (!rowData.roundType) return;
@@ -90,7 +90,7 @@ export const useKierkiStore = create(
             );
           }
           if ('resultSection' in updated) {
-            (Object.keys(updated.resultSection) as Array<keyof IFormResultSection>).forEach(
+            (Object.keys(updated.resultSection) as Array<keyof IHeartFormResultSection>).forEach(
               (rowKey) => {
                 const rowData = updated.resultSection[rowKey];
                 if (!rowData.roundType) return;

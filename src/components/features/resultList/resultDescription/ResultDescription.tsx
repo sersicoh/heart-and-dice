@@ -6,7 +6,7 @@ import {
   SecondaryDescrition,
 } from '@components/features/resultList/resultDescription/resultDescription.styles';
 
-import type { IFinishedGame } from '@store/kierkiStore.types';
+import type { IFinishedGame } from '@store/store.types';
 import { useMyTheme } from '@hooks/useMyTheme';
 
 const calculateGameDuration = (startTimestamp: number, endTimestamp?: number) => {
