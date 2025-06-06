@@ -1,6 +1,6 @@
-import { validateAllowedValues, validateMultiplesOf, validateSumIs } from '@utils/validations';
-
 import type { THeartCalcFunction } from '@views/heart/heartForm.types';
+
+import { validateAllowedValues, validateMultiplesOf, validateSumIs } from '@utils/validations';
 
 const heartSum = 260;
 const raceSum = 780;

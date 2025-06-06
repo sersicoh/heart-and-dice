@@ -6,7 +6,7 @@ import {
   SecondaryDescrition,
 } from '@components/features/resultList/resultDescription/resultDescription.styles';
 
-import type { IFinishedGame } from '@store/store.types';
+import type { IFinishedHeartGame } from '@store/store.types';
 import { useMyTheme } from '@hooks/useMyTheme';
 
 const calculateGameDuration = (startTimestamp: number, endTimestamp?: number) => {
@@ -27,7 +27,7 @@ const calculateGameDuration = (startTimestamp: number, endTimestamp?: number) =>
   }
 };
 
-export const ResultDescription = ({ selectedGame }: { selectedGame: IFinishedGame }) => {
+export const ResultDescription = ({ selectedGame }: { selectedGame: IFinishedHeartGame }) => {
   const gameDuration = calculateGameDuration(
     selectedGame.startTimestamp,
     selectedGame.endTimestamp

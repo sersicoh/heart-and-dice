@@ -1,4 +1,4 @@
-import type { calcRegistry } from '@utils/calcFunctions';
+import type { calcRegistryDice } from '@utils/calcFunctionsDice';
 
 export interface IDiceFieldsType {
   tileDescription: string;
@@ -7,10 +7,13 @@ export interface IDiceFieldsType {
   variant:
     | 'title'
     | 'name'
-    | 'roundType'
-    | 'activeRoundType'
+    | 'activePlayer'
+    | 'fieldType'
+    | 'activeFieldsType'
     | 'input'
-    | 'activeInput'
+    | 'inputFilled'
+    | 'inputToFilled'
+    | 'lastInput'
     | 'winner'
     | 'manyWinner'
     | 'looser'
@@ -32,10 +35,9 @@ export interface IDiceNamesFormRow {
   };
 }
 
-type TDicePlayerScores = {
+export type TDicePlayerScores = {
   [P in `p${number}`]?: number;
 };
-
 export type TDiceCalcResult = TDicePlayerScores & {
   valid: boolean;
   errorMessage?: string;
@@ -49,7 +51,7 @@ export interface IDiceFormRow {
     label: IDiceFieldsType['tileDescription'];
     variant?: IDiceFieldsType['variant'];
     placeholder?: IDiceFieldsType['placeholder'];
-    rowId?: keyof typeof calcRegistry;
+    rowId?: keyof typeof calcRegistryDice;
   };
 
   [inputKey: `p${number}Input`]: {
@@ -61,6 +63,10 @@ export interface IDiceFormRow {
   computedPoints?: {
     [playerKey in `p${number}`]?: number;
   };
+}
+
+export interface IDiceFromNamesSection {
+  names: IDiceNamesFormRow;
 }
 export interface IDiceMountainSection {
   ones: IDiceFormRow;
@@ -76,9 +82,10 @@ export interface IDiceFormPokerSection {
   pair: IDiceFormRow;
   twoPairs: IDiceFormRow;
   smallStraight: IDiceFormRow;
+  largeStraight: IDiceFormRow;
   threeOf: IDiceFormRow;
   fourOf: IDiceFormRow;
-  poker: IDiceFormRow;
+  fullHouse: IDiceFormRow;
   full: IDiceFormRow;
   even: IDiceFormRow;
   odd: IDiceFormRow;
@@ -89,13 +96,12 @@ export interface IDiceFormResultSection {
   result: IDiceFormRow;
 }
 export interface IDiceFormSections {
-  namesSection: {
-    names: IDiceNamesFormRow;
-  };
+  namesSection: IDiceFromNamesSection;
   mountainSection: IDiceMountainSection;
   pokerSection: IDiceFormPokerSection;
   resultSection: IDiceFormResultSection;
 }
+
 export type IDiceFormInputChange = (
   sectionName: keyof IDiceFormSections,
   rowKey: string,

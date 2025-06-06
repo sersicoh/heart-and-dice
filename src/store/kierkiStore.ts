@@ -3,12 +3,12 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import type {
-  IHeartFormSection,
   IHeartFormRaceSection,
   IHeartFormResultSection,
+  IHeartFormSection,
 } from '@views/heart/heartForm.types';
 
-import type { IFinishedGame, KierkiState } from '@store/store.types';
+import type { IFinishedHeartGame, KierkiState } from '@store/store.types';
 import { getHeartsFields } from '@utils/getHeartsFields';
 
 export const useKierkiStore = create(
@@ -133,7 +133,7 @@ export const useKierkiStore = create(
         const now = Date.now();
         const newId = String(now);
 
-        const finishedGame: IFinishedGame = {
+        const finishedGame: IFinishedHeartGame = {
           id: newId,
           name: state.currentGameName ?? 'Kierki (bez nazwy)',
           startTimestamp: state.currentGameStartTime ?? now,

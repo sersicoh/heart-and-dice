@@ -9,7 +9,7 @@ import { BasicButton } from '@components/common/basicButton/BasicButton';
 import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { Modal } from '@components/common/modal/Modal';
-import { FormWrapper } from '@components/features/form/FormWrapper';
+import { HeartFormWrapper } from '@components/features/form/FormWrapper';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
 import { useKierkiStore } from '@store/kierkiStore';
@@ -67,7 +67,7 @@ export const HeartForm = () => {
         margin={isMobile ? '112px auto 0' : '145px auto 0'}
         gap={isMobile ? '4px' : '8px'}
       >
-        <FormWrapper heartsFields={fields} onInputValueChange={setInputValue} />
+        <HeartFormWrapper heartsFields={fields} onInputValueChange={setInputValue} />
         <Container
           variant='flex'
           gap={isMobile ? '12px' : '24px'}

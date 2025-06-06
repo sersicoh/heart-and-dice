@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import type {
-  IHeartFormSection,
   IHeartFormRaceSection,
   IHeartFormRow,
+  IHeartFormSection,
   IHeartFormSections,
 } from '@views/heart/heartForm.types';
 
@@ -31,7 +31,9 @@ function skipResultRowsRace(section: IHeartFormRaceSection): TRaceRowKey[] {
 
 export function useHeartFormLogic() {
   const { players, fields, setFields } = useKierkiStore();
-  const [localFields, setLocalFields] = useState<IHeartFormSections>(fields || getHeartsFields(players));
+  const [localFields, setLocalFields] = useState<IHeartFormSections>(
+    fields || getHeartsFields(players)
+  );
 
   const heartActivable = skipResultRowsHeart(localFields.heartSection);
   const raceActivable = skipResultRowsRace(localFields.raceSection);

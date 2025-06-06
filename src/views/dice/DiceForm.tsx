@@ -8,13 +8,14 @@ import { BasicButton } from '@components/common/basicButton/BasicButton';
 import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { Modal } from '@components/common/modal/Modal';
+import { FormWrapperDice } from '@components/features/diceForm/FormWrapperDice';
 import { FormWrapper } from '@components/features/form/FormWrapper';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
-import { useKierkiStore } from '@store/kierkiStore';
+import { useDiceStore } from '@store/diceStore';
 import { generateGameSummary } from '@utils/generateGameSummary';
 import { getNavigationItems } from '@utils/getNavigationItems';
-import { useHeartFormLogic } from '@hooks/useHeartForm';
+import { useDiceFormLogic } from '@hooks/useDiceForm';
 import { useMyTheme } from '@hooks/useMyTheme';
 
 export const DiceForm = () => {
@@ -29,17 +30,17 @@ export const DiceForm = () => {
     { label: 'Strona główna', onClick: () => navigate('/') },
   ];
 
-  const { endGame } = useKierkiStore();
+  const { endGame } = useDiceStore();
 
   const {
     fields,
-    goToNextRow,
+    players,
     finishGame,
-    undoLastRow,
+    activePlayerIndex,
     setInputValue,
-    activableRows,
-    activeIndex,
-  } = useHeartFormLogic();
+    goToNextPlayer,
+    undoLastEntry,
+  } = useDiceFormLogic();
 
   const finishAll = () => {
     const success = finishGame();
@@ -51,7 +52,7 @@ export const DiceForm = () => {
   };
 
   const goBack = () => {
-    undoLastRow();
+    undoLastEntry();
     setFinished(false);
   };
 
@@ -67,7 +68,12 @@ export const DiceForm = () => {
         margin={isMobile ? '112px auto 0' : '145px auto 0'}
         gap={isMobile ? '4px' : '8px'}
       >
-        <FormWrapper heartsFields={fields} onInputValueChange={setInputValue} />
+        <FormWrapperDice
+          diceFields={fields}
+          onInputValueChange={setInputValue}
+          players={players}
+          activePlayerIndex={activePlayerIndex}
+        />
         <Container
           variant='flex'
           gap={isMobile ? '12px' : '24px'}
@@ -77,12 +83,12 @@ export const DiceForm = () => {
           <BasicButton
             onClick={goBack}
             content={'Cofnij'}
-            disabled={activeIndex === 0 || finished}
+            disabled={activePlayerIndex === 0 || finished}
           />
           <BasicButton
-            onClick={goToNextRow}
+            onClick={goToNextPlayer}
             content={'Następna runda'}
-            disabled={activeIndex == activableRows.length - 1}
+            disabled={activePlayerIndex == players.length - 1}
           />
           <BasicButton
             onClick={
@@ -93,7 +99,7 @@ export const DiceForm = () => {
                 : finishAll
             }
             content={finished ? 'Podmusowanie' : 'Zakończ grę'}
-            disabled={activeIndex !== activableRows.length - 1}
+            disabled={activePlayerIndex !== players.length - 1}
           />
         </Container>
       </Container>
