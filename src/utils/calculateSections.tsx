@@ -1,7 +1,7 @@
 import type {
-  IHeartFormSection,
   IHeartFormRaceSection,
   IHeartFormRow,
+  IHeartFormSection,
   IHeartFormSections,
 } from '@views/heart/heartForm.types';
 

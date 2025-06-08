@@ -9,7 +9,7 @@ import { BasicButton } from '@components/common/basicButton/BasicButton';
 import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { Modal } from '@components/common/modal/Modal';
-import { HeartFormWrapper } from '@components/features/form/FormWrapper';
+import { HeartFormWrapper } from '@components/features/heartForm/FormWrapperHeart';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
 import { useKierkiStore } from '@store/kierkiStore';
