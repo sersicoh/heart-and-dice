@@ -9,7 +9,6 @@ import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { Modal } from '@components/common/modal/Modal';
 import { FormWrapperDice } from '@components/features/diceForm/FormWrapperDice';
-import { FormWrapper } from '@components/features/form/FormWrapper';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
 import { useDiceStore } from '@store/diceStore';
@@ -32,15 +31,10 @@ export const DiceForm = () => {
 
   const { endGame } = useDiceStore();
 
-  const {
-    fields,
-    players,
-    finishGame,
-    activePlayerIndex,
-    setInputValue,
-    goToNextPlayer,
-    undoLastEntry,
-  } = useDiceFormLogic();
+  const { fields, players, finishGame, setInputValue, goToNextPlayer, undoLastEntry } =
+    useDiceFormLogic();
+
+  const activePlayerIndex = 0;
 
   const finishAll = () => {
     const success = finishGame();

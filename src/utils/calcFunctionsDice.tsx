@@ -9,9 +9,7 @@ import type { TDiceCalcFunction, TDicePlayerScores } from '@views/dice/diceForm.
 function buildScores(playerValues: Array<number | null>): TDicePlayerScores {
   const scores: TDicePlayerScores = {};
   playerValues.forEach((val, idx) => {
-    const key = `p${idx + 1}` as `p${number}`;
-    // Jeżeli chcesz: domyślnie = val lub 0,
-    // ale logika poszczególnych funkcji może nadpisać to inaczej.
+    const key = `p${idx + 1}` as `player${number}`;
     scores[key] = val ?? 0;
   });
   return scores;
@@ -169,3 +167,5 @@ export const calcRegistryDice = {
   chance: calcChance,
   finalResult: calcFinalResult,
 } as const;
+
+export type CalcRegistryDice = typeof calcRegistryDice;

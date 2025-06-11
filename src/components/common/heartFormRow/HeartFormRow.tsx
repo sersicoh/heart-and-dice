@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import Container from '@components/common/container/Container';
-import { FormField } from '@components/common/formField/FormField';
+import { HeartFormField } from '@components/common/formField/HeartFormField';
 import { Modal } from '@components/common/modal/Modal';
 import type {
   IHeartFormInputChange,
@@ -22,7 +22,12 @@ interface FormRowProps {
   onInputValueChange?: IHeartFormInputChange;
 }
 
-export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: FormRowProps) => {
+export const HeartFormRow = ({
+  rowKey,
+  rowData,
+  sectionName,
+  onInputValueChange,
+}: FormRowProps) => {
   const { isMobile } = useMyTheme();
 
   const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
@@ -53,11 +58,11 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
   const renderNamesRow = (row: IHeartNamesFormRow) => {
     return (
       <>
-        <FormField variant={row.gameTitle.variant} label={row.gameTitle.label} />
-        <FormField variant={row.player1.variant} label={row.player1.label} />
-        <FormField variant={row.player2.variant} label={row.player2.label} />
-        <FormField variant={row.player3.variant} label={row.player3.label} />
-        {row.player4 && <FormField variant={row.player4.variant} label={row.player4.label ?? ''} />}
+        <HeartFormField variant={row.gameTitle.variant} label={row.gameTitle.label} />
+        <HeartFormField variant={row.player1.variant} label={row.player1.label} />
+        <HeartFormField variant={row.player2.variant} label={row.player2.label} />
+        <HeartFormField variant={row.player3.variant} label={row.player3.label} />
+        {row.player4 && <HeartFormField variant={row.player4.variant} label={row.player4.label ?? ''} />}
       </>
     );
   };
@@ -70,13 +75,13 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
     };
     return (
       <>
-        <FormField
+        <HeartFormField
           variant={row.roundType.variant}
           label={row.roundType.label}
           onTitleClick={onRoundTypeClick}
           isClickable={Boolean(row.roundType.id)}
         />
-        <FormField
+        <HeartFormField
           variant={row.p1Input.variant}
           label={row.p1Input.value?.toString() ?? ''}
           value={row.p1Input.value}
@@ -85,7 +90,7 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
           }
           isEditable={row.p1Input.variant === 'activeInput'}
         />
-        <FormField
+        <HeartFormField
           variant={row.p2Input.variant}
           label={row.p2Input.value?.toString() ?? ''}
           value={row.p2Input.value}
@@ -94,7 +99,7 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
           }
           isEditable={row.p2Input.variant === 'activeInput'}
         />
-        <FormField
+        <HeartFormField
           variant={row.p3Input.variant}
           label={row.p3Input.value?.toString() ?? ''}
           value={row.p3Input.value}
@@ -104,7 +109,7 @@ export const FormRow = ({ rowKey, rowData, sectionName, onInputValueChange }: Fo
           isEditable={row.p3Input.variant === 'activeInput'}
         />
         {row.p4Input && (
-          <FormField
+          <HeartFormField
             variant={row.p4Input.variant}
             label={row.p4Input.value?.toString() ?? ''}
             value={row.p4Input.value}

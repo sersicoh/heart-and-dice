@@ -5,9 +5,9 @@ import {
   StyledInput,
   StyledLabel,
 } from '@components/common/formField/formField.stytes';
-import type { FormFieldProps } from '@components/common/formField/formField.types';
+import type { IDiceFormFieldProps } from '@components/common/formField/formField.types';
 
-export const FormField: FC<FormFieldProps> = ({
+export const DiceFormField: FC<IDiceFormFieldProps> = ({
   variant = 'input',
   isEditable = false,
   value,

@@ -1,0 +1,170 @@
+import { useState } from 'react';
+
+import ReactMarkdown from 'react-markdown';
+
+import Container from '@components/common/container/Container';
+import { DiceFormField } from '@components/common/formField/DiceFormField';
+import { Modal } from '@components/common/modal/Modal';
+import type {
+  IDiceFormInputChange,
+  IDiceFormRow,
+  IDiceFormSections,
+  IDiceNamesFormRow,
+} from '@views/dice/diceForm.types';
+
+import type { Player } from '@store/store.types';
+import { useMyTheme } from '@hooks/useMyTheme';
+import HeartRules from '@docs/HeartRule.json';
+
+interface FormRowProps {
+  rowKey: string;
+  rowData: IDiceNamesFormRow | IDiceFormRow;
+  sectionName: keyof IDiceFormSections;
+  onInputValueChange?: IDiceFormInputChange;
+  players: Player[];
+}
+
+export const DiceFormRow = ({
+  rowKey,
+  rowData,
+  sectionName,
+  players,
+  onInputValueChange,
+  activePlayerIndex,
+}: FormRowProps) => {
+  const { isMobile } = useMyTheme();
+
+  const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
+  const [selectedRules, setSelectedRules] = useState<{ title: string; content: string[] } | null>(
+    null
+  );
+
+  const handleOpenRulesModal = (ruleId: string) => {
+    const foundRule = HeartRules.find((rule) => rule.id === ruleId);
+    if (foundRule) {
+      setSelectedRules({
+        title: foundRule.title,
+        content: foundRule.content,
+      });
+      setIsRulesModalOpen(true);
+    }
+  };
+
+  const handleCloseRulesModal = () => {
+    setSelectedRules(null);
+    setIsRulesModalOpen(false);
+  };
+
+  function isNamesFormRow(row: IDiceNamesFormRow | IDiceFormRow): row is IDiceNamesFormRow {
+    return (row as IDiceNamesFormRow).gameTitle !== undefined;
+  }
+
+  const renderNamesRow = (row: IDiceNamesFormRow) => {
+    return (
+      <>
+        <DiceFormField variant={row.gameTitle.variant} label={row.gameTitle.label} />
+        {players.map((player, index) => (
+          <DiceFormField
+            key={index}
+            variant={row[`player${index + 1}`].variant}
+            label={player.name}
+            value={row[`player${index + 1}`].value}
+            onChangeValue={(newValue) =>
+              onInputValueChange?.(sectionName, rowKey, `player${index + 1}`, newValue)
+            }
+            isEditable={row[`player${index + 1}`].variant === 'activeInput'}
+          />
+        ))}
+      </>
+    );
+  };
+
+  const renderPointsRow = (row: IDiceFormRow) => {
+    const onRoundTypeClick = () => {
+      if (row.fieldType.rowId) {
+        handleOpenRulesModal(row.fieldType.rowId);
+      }
+    };
+    return (
+      <>
+        <DiceFormField
+          variant={row.fieldType.variant}
+          label={row.fieldType.label}
+          onTitleClick={onRoundTypeClick}
+          isClickable={Boolean(row.fieldType.id)}
+        />
+        <DiceFormField
+          variant={row.p1Input.variant}
+          label={row.p1Input.value?.toString() ?? ''}
+          value={row.p1Input.value}
+          onChangeValue={(newValue) =>
+            onInputValueChange?.(sectionName, rowKey, 'p1Input', newValue)
+          }
+          isEditable={row.p1Input.variant === 'activeInput'}
+        />
+        <DiceFormField
+          variant={row.p2Input.variant}
+          label={row.p2Input.value?.toString() ?? ''}
+          value={row.p2Input.value}
+          onChangeValue={(newValue) =>
+            onInputValueChange?.(sectionName, rowKey, 'p2Input', newValue)
+          }
+          isEditable={row.p2Input.variant === 'activeInput'}
+        />
+        <DiceFormField
+          variant={row.p3Input.variant}
+          label={row.p3Input.value?.toString() ?? ''}
+          value={row.p3Input.value}
+          onChangeValue={(newValue) =>
+            onInputValueChange?.(sectionName, rowKey, 'p3Input', newValue)
+          }
+          isEditable={row.p3Input.variant === 'activeInput'}
+        />
+        {row.p4Input && (
+          <DiceFormField
+            variant={row.p4Input.variant}
+            label={row.p4Input.value?.toString() ?? ''}
+            value={row.p4Input.value}
+            onChangeValue={(newValue) =>
+              onInputValueChange?.(sectionName, rowKey, 'p4Input', newValue)
+            }
+            isEditable={row.p4Input.variant === 'activeInput'}
+          />
+        )}
+      </>
+    );
+  };
+
+  const getNumberOfPlayers = (row: IDiceNamesFormRow | IDiceFormRow) => {
+    if (isNamesFormRow(row)) {
+      const possible = ['player1', 'player2', 'player3', 'player4'] as const;
+      return possible.filter((p) => row[p] !== undefined).length;
+    } else {
+      const possible = ['p1Input', 'p2Input', 'p3Input', 'p4Input'] as const;
+      return possible.filter((p) => row[p] !== undefined).length;
+    }
+  };
+
+  const nPlayers = getNumberOfPlayers(rowData);
+  const numCols = 1 + nPlayers;
+
+  return (
+    <>
+      <Container
+        variant='grid'
+        gridTemplateColumns={`repeat(${numCols}, 1fr)`}
+        gap={isMobile ? '2px' : '8px'}
+        width='100%'
+      >
+        {isNamesFormRow(rowData) ? renderNamesRow(rowData) : renderPointsRow(rowData)}
+      </Container>
+      <Modal isOpen={isRulesModalOpen} onClose={handleCloseRulesModal} title={selectedRules?.title}>
+        {selectedRules?.content && (
+          <Container>
+            <ReactMarkdown>{selectedRules.content.join('\n\n')}</ReactMarkdown>
+          </Container>
+        )}
+      </Modal>
+    </>
+  );
+};

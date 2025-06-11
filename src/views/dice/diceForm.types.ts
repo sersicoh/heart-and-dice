@@ -1,110 +1,82 @@
-import type { calcRegistryDice } from '@utils/calcFunctionsDice';
+import type { CalcRegistryDice } from '@utils/calcFunctionsDice';
 
-export interface IDiceFieldsType {
-  tileDescription: string;
-  inputField: number | null;
-  placeholder: string;
-  variant:
-    | 'title'
-    | 'name'
-    | 'activePlayer'
-    | 'fieldType'
-    | 'activeFieldsType'
-    | 'input'
-    | 'inputFilled'
-    | 'inputToFilled'
-    | 'lastInput'
-    | 'winner'
-    | 'manyWinner'
-    | 'looser'
-    | 'manyLooser'
-    | 'resultTitle'
-    | 'gameFinished';
-}
-export interface IDiceNamesFormRow {
-  gameTitle: {
-    label: IDiceFieldsType['tileDescription'];
-    variant?: IDiceFieldsType['variant'];
-    placeholder?: IDiceFieldsType['placeholder'];
-  };
+export type PlayerKey<N extends number = number> = `player${N}`;
+export type InputKey<N extends number = number> = `p${N}Input`;
 
-  [playerKey: `player${number}`]: {
-    label: IDiceFieldsType['tileDescription'];
-    variant?: IDiceFieldsType['variant'];
-    placeholder?: IDiceFieldsType['placeholder'];
-  };
+export type DiceFieldVariant =
+  | 'title'
+  | 'name'
+  | 'activePlayer'
+  | 'fieldType'
+  | 'activeFieldsType'
+  | 'input'
+  | 'inputFilled'
+  | 'activeInput'
+  | 'lastInput'
+  | 'winner'
+  | 'manyWinner'
+  | 'looser'
+  | 'manyLooser'
+  | 'resultTitle'
+  | 'gameFinished';
+
+export interface IDiceFieldBase {
+  placeholder?: string;
+  variant?: DiceFieldVariant;
 }
 
-export type TDicePlayerScores = {
-  [P in `p${number}`]?: number;
-};
-export type TDiceCalcResult = TDicePlayerScores & {
+export type TDicePlayerScores<N extends number = number> = Partial<Record<PlayerKey<N>, number>>;
+
+export type TDiceCalcResult<N extends number = number> = TDicePlayerScores<N> & {
   valid: boolean;
   errorMessage?: string;
 };
 
-export type TDiceCalcFunction = (playerValues: Array<number | null>) => TDiceCalcResult;
+export type TDiceCalcFunction<N extends number = number> = (
+  playerValues: Array<number | null>
+) => TDiceCalcResult<N>;
 
-export interface IDiceFormRow {
-  fieldType: {
-    id?: string;
-    label: IDiceFieldsType['tileDescription'];
-    variant?: IDiceFieldsType['variant'];
-    placeholder?: IDiceFieldsType['placeholder'];
-    rowId?: keyof typeof calcRegistryDice;
-  };
+export type IDiceNamesFormRow<N extends number = number> = {
+  gameTitle: { label: string } & IDiceFieldBase;
+} & { [P in PlayerKey<N>]: { label: string } & IDiceFieldBase };
 
-  [inputKey: `p${number}Input`]: {
-    variant?: IDiceFieldsType['variant'];
-    placeholder?: IDiceFieldsType['placeholder'];
-    value: IDiceFieldsType['inputField'];
-  };
+export type RowId = keyof CalcRegistryDice;
 
-  computedPoints?: {
-    [playerKey in `p${number}`]?: number;
-  };
+export type IDiceFormRow<N extends number = number> = {
+  fieldType: { id?: string; label: string; rowId?: RowId } & IDiceFieldBase;
+} & { [P in InputKey<N>]: { value: number | null } & IDiceFieldBase } & {
+  computedPoints?: Partial<Record<PlayerKey<N>, number>>;
+};
+
+export interface IDiceFormSections<N extends number = number> {
+  namesSection: { names: IDiceNamesFormRow<N> };
+
+  mountainSection: Record<
+    'ones' | 'twos' | 'threes' | 'fours' | 'fives' | 'sixes' | 'result',
+    IDiceFormRow<N>
+  >;
+
+  pokerSection: Record<
+    | 'pair'
+    | 'twoPairs'
+    | 'smallStraight'
+    | 'largeStraight'
+    | 'threeOf'
+    | 'fourOf'
+    | 'fullHouse'
+    | 'full'
+    | 'even'
+    | 'odd'
+    | 'chance',
+    IDiceFormRow<N>
+  >;
+
+  resultSection: { result: IDiceFormRow<N> };
 }
 
-export interface IDiceFromNamesSection {
-  names: IDiceNamesFormRow;
-}
-export interface IDiceMountainSection {
-  ones: IDiceFormRow;
-  twos: IDiceFormRow;
-  threes: IDiceFormRow;
-  fours: IDiceFormRow;
-  fives: IDiceFormRow;
-  sixes: IDiceFormRow;
-  result: IDiceFormRow;
-}
-
-export interface IDiceFormPokerSection {
-  pair: IDiceFormRow;
-  twoPairs: IDiceFormRow;
-  smallStraight: IDiceFormRow;
-  largeStraight: IDiceFormRow;
-  threeOf: IDiceFormRow;
-  fourOf: IDiceFormRow;
-  fullHouse: IDiceFormRow;
-  full: IDiceFormRow;
-  even: IDiceFormRow;
-  odd: IDiceFormRow;
-  chance: IDiceFormRow;
-}
-
-export interface IDiceFormResultSection {
-  result: IDiceFormRow;
-}
-export interface IDiceFormSections {
-  namesSection: IDiceFromNamesSection;
-  mountainSection: IDiceMountainSection;
-  pokerSection: IDiceFormPokerSection;
-  resultSection: IDiceFormResultSection;
-}
-
-export type IDiceFormInputChange = (
-  sectionName: keyof IDiceFormSections,
+export type IDiceFormInputChange<N extends number = number> = (
+  sectionName: keyof IDiceFormSections<N>,
   rowKey: string,
-  playerInputKey: `p${number}Input`,
+  playerInputKey: InputKey<N>,
   newValue: number | null
 ) => void;

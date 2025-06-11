@@ -1,5 +1,5 @@
 import Container from '@components/common/container/Container';
-import { FormRow } from '@components/common/formRow/FormRow';
+import { HeartFormRow } from '@components/common/heartFormRow/HeartFormRow';
 import type { IHeartFormInputChange, IHeartFormSections } from '@views/heart/heartForm.types';
 
 import { useMyTheme } from '@hooks/useMyTheme';
@@ -22,7 +22,7 @@ export const FormSection = ({ section, sectionName, onInputValueChange }: Props)
     >
       {Object.entries(section).map(([rowKey, rowValue]) => {
         return (
-          <FormRow
+          <HeartFormRow
             key={rowKey}
             rowKey={rowKey}
             rowData={rowValue}
