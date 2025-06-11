@@ -1,18 +1,19 @@
 import { useState } from 'react';
 
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown';
 import { useNavigate } from 'react-router-dom';
-import remarkGfm from 'remark-gfm';
+
+// import remarkGfm from 'remark-gfm';
 
 import { BasicButton } from '@components/common/basicButton/BasicButton';
 import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
-import { Modal } from '@components/common/modal/Modal';
+// import { Modal } from '@components/common/modal/Modal';
 import { FormWrapperDice } from '@components/features/diceForm/FormWrapperDice';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
 import { useDiceStore } from '@store/diceStore';
-import { generateGameSummary } from '@utils/generateGameSummary';
+// import { generateGameSummary } from '@utils/generateGameSummary';
 import { getNavigationItems } from '@utils/getNavigationItems';
 import { useDiceFormLogic } from '@hooks/useDiceForm';
 import { useMyTheme } from '@hooks/useMyTheme';
@@ -22,7 +23,7 @@ export const DiceForm = () => {
 
   const navigate = useNavigate();
   const [finished, setFinished] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+  // const [modalOpen, setModalOpen] = useState(false);
 
   const drawerItems: IDrawerItems['items'] = [
     { label: 'Ustawieia gry', onClick: () => navigate(`/dice/settings`) },
@@ -31,10 +32,16 @@ export const DiceForm = () => {
 
   const { endGame } = useDiceStore();
 
-  const { fields, players, finishGame, setInputValue, goToNextPlayer, undoLastEntry } =
-    useDiceFormLogic();
-
-  const activePlayerIndex = 0;
+  const {
+    fields,
+    players,
+    finishGame,
+    setInputValue,
+    goToNextPlayer,
+    undoLastEntry,
+    activePlayerIndex,
+    isPlayerColumnComplete,
+  } = useDiceFormLogic();
 
   const finishAll = () => {
     const success = finishGame();
@@ -50,7 +57,9 @@ export const DiceForm = () => {
     setFinished(false);
   };
 
-  const summaryMarkdown = generateGameSummary(fields);
+  const allDone = players.every((_, idx) => isPlayerColumnComplete(fields, idx));
+
+  // const summaryMarkdown = generateGameSummary(fields);
 
   return (
     <>
@@ -62,12 +71,7 @@ export const DiceForm = () => {
         margin={isMobile ? '112px auto 0' : '145px auto 0'}
         gap={isMobile ? '4px' : '8px'}
       >
-        <FormWrapperDice
-          diceFields={fields}
-          onInputValueChange={setInputValue}
-          players={players}
-          activePlayerIndex={activePlayerIndex}
-        />
+        <FormWrapperDice diceFields={fields} onInputValueChange={setInputValue} players={players} />
         <Container
           variant='flex'
           gap={isMobile ? '12px' : '24px'}
@@ -79,27 +83,24 @@ export const DiceForm = () => {
             content={'Cofnij'}
             disabled={activePlayerIndex === 0 || finished}
           />
-          <BasicButton
-            onClick={goToNextPlayer}
-            content={'Następna runda'}
-            disabled={activePlayerIndex == players.length - 1}
-          />
+          <BasicButton onClick={goToNextPlayer} content={'Następna gracz'} disabled={allDone} />
           <BasicButton
             onClick={
               finished
                 ? () => {
-                    setModalOpen(true);
+                    // setModalOpen(true);
+                    console.log('Game finished, show summary or navigate to results');
                   }
                 : finishAll
             }
             content={finished ? 'Podmusowanie' : 'Zakończ grę'}
-            disabled={activePlayerIndex !== players.length - 1}
+            disabled={!allDone}
           />
         </Container>
       </Container>
-      <Modal isOpen={modalOpen} title='Podsumowanie' onClose={() => setModalOpen(false)}>
+      {/* <Modal isOpen={modalOpen} title='Podsumowanie' onClose={() => setModalOpen(false)}>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{summaryMarkdown}</ReactMarkdown>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

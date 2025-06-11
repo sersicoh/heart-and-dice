@@ -9,15 +9,9 @@ interface Props {
   diceFields: IDiceFormSections;
   onInputValueChange?: IDiceFormInputChange;
   players: Player[];
-  activePlayerIndex: number;
 }
 
-export const FormWrapperDice = ({
-  diceFields,
-  onInputValueChange,
-  players,
-  activePlayerIndex,
-}: Props) => {
+export const FormWrapperDice = ({ diceFields, onInputValueChange, players }: Props) => {
   const { isMobile } = useMyTheme();
 
   return (
@@ -29,7 +23,6 @@ export const FormWrapperDice = ({
           section={sectionValue}
           onInputValueChange={onInputValueChange}
           players={players}
-          activePlayerIndex={activePlayerIndex}
         />
       ))}
     </Container>

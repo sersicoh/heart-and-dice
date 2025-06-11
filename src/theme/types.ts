@@ -25,6 +25,7 @@ export interface IColorsCollection {
   secondFormText: string;
   mainFormField: string;
   secondaryFormField: string;
+  thirdFormField: string;
   looseFormField: string;
   manyLooseFormField: string;
   winFormField: string;

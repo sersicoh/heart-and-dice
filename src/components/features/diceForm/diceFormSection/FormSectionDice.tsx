@@ -1,6 +1,5 @@
 import Container from '@components/common/container/Container';
 import { DiceFormRow } from '@components/common/diceFormRow/DiceFormRow';
-import { HeartFormField } from '@components/common/formField/HeartFormField';
 import type { IDiceFormInputChange, IDiceFormSections } from '@views/dice/diceForm.types';
 
 import { useMyTheme } from '@hooks/useMyTheme';
@@ -10,16 +9,9 @@ interface Props {
   section: IDiceFormSections;
   onInputValueChange?: IDiceFormInputChange;
   players: { name: string }[];
-  activePlayerIndex: number;
 }
 
-export const FormSectionDice = ({
-  sectionName,
-  section,
-  onInputValueChange,
-  players,
-  activePlayerIndex,
-}: Props) => {
+export const FormSectionDice = ({ sectionName, section, onInputValueChange, players }: Props) => {
   const { isMobile, theme } = useMyTheme();
 
   return (

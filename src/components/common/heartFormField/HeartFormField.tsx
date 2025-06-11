@@ -4,10 +4,10 @@ import {
   StyledFormField,
   StyledInput,
   StyledLabel,
-} from '@components/common/formField/formField.stytes';
-import type { IDiceFormFieldProps } from '@components/common/formField/formField.types';
+} from '@components/common/heartFormField/formField.stytes';
+import type { IHeartFormFieldProps } from '@components/common/heartFormField/formField.types';
 
-export const DiceFormField: FC<IDiceFormFieldProps> = ({
+export const HeartFormField: FC<IHeartFormFieldProps> = ({
   variant = 'input',
   isEditable = false,
   value,

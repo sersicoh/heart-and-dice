@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import type {
+  DiceFieldVariant,
   IDiceFormRow,
   IDiceFormSections,
   InputKey,
@@ -14,11 +15,10 @@ import { useCustomSnackbar } from '@hooks/useCustomSnackbar';
 
 /* ────────── aliasy ────────── */
 type Sections = IDiceFormSections<number>;
-type SectionName = keyof Sections; // 'namesSection' | …
-type GameSection = Exclude<SectionName, 'namesSection'>;
+type SectionName = keyof IDiceFormSections<number>;
 
 interface LastFilled {
-  section: GameSection;
+  sectionName: SectionName;
   rowKey: string;
   playerIndex: number;
 }
@@ -40,8 +40,7 @@ export function useDiceFormLogic() {
     );
   });
 
-  /* ---------- ostatnia wypełniona komórka ---------- */
-  const lastFilledRef = useRef<LastFilled | null>(null);
+  const lastStackRef = useRef<LastFilled[]>([]);
 
   /* ---------- synchronizacja z store ---------- */
   useEffect(() => {
@@ -54,104 +53,156 @@ export function useDiceFormLogic() {
 
   /* ---------- pomoc: klucze inputów ---------- */
   const playerCnt = players.length;
-  const inputKeys: InputKey[] = Array.from(
-    { length: playerCnt },
-    (_, i) => `p${i + 1}Input` as InputKey
-  );
+  const inputKeys = Array.from({ length: playerCnt }, (_, i) => `p${i + 1}Input` as InputKey);
 
   /* ---------- helper: dostęp do wiersza ---------- */
-  function getRow(obj: Sections, section: GameSection, rowKey: string): IDiceFormRow<number> {
+  function getRow(obj: Sections, section: SectionName, rowKey: string): IDiceFormRow<number> {
     return (obj[section] as Record<string, IDiceFormRow<number>>)[rowKey];
   }
 
-  /* ========== 1. setInputValue ========== */
-  function setInputValue(
-    sectionName: GameSection,
-    rowKey: keyof Sections[typeof sectionName],
-    playerInputKey: InputKey,
-    newValue: number | null
+  function isCell(o: unknown): o is { variant: DiceFieldVariant } {
+    return !!o && typeof o === 'object' && 'variant' in o;
+  }
+
+  function refreshRowVariant(row: IDiceFormRow<number>) {
+    if (row.fieldType.variant === 'resultTitle') return; // zostaw sumy
+
+    const hasActive = Object.values(row).some(
+      (cell) => isCell(cell) && (cell.variant === 'activeInput' || cell.variant === 'lastInput')
+    );
+
+    row.fieldType.variant = hasActive ? 'activeFieldsType' : 'fieldType';
+  }
+
+  /* helpers ------------------------------------------------- */
+  function markPlayerCells(
+    obj: Sections,
+    pIdx: number,
+    variantIfNull: DiceFieldVariant // 'input' | 'activeInput'
   ) {
-    setLocalFields((prev) => {
-      const cloned = structuredClone(prev);
-      const row = getRow(cloned, sectionName, rowKey as string);
-
-      row[playerInputKey].value = newValue;
-      if (row[playerInputKey].variant !== 'inputFilled') {
-        row[playerInputKey].variant = 'inputToFilled';
-      }
-
-      const idx = Number(playerInputKey.slice(1, -5)) - 1;
-      lastFilledRef.current = { section: sectionName, rowKey: rowKey as string, playerIndex: idx };
-
-      return cloned;
-    });
-  }
-
-  /* ---------- wspólny marker komórek dla gracza ---------- */
-  function markPlayerCells(obj: Sections, pIdx: number, variantIfNull: 'input' | 'inputToFilled') {
+    const key = `p${pIdx + 1}Input` as InputKey;
     const mark = (row: IDiceFormRow<number>) => {
-      const key = `p${pIdx + 1}Input` as InputKey;
+      if (row.fieldType.variant === 'resultTitle') return;
       row[key].variant = row[key].value === null ? variantIfNull : 'inputFilled';
+      refreshRowVariant(row);
     };
-    Object.values(obj.mountainSection).forEach(mark);
-    Object.values(obj.pokerSection).forEach(mark);
-    Object.values(obj.resultSection).forEach(mark);
+    [
+      ...Object.values(obj.mountainSection),
+      ...Object.values(obj.pokerSection),
+      ...Object.values(obj.resultSection),
+    ].forEach(mark);
   }
 
-  /* ========== 2. goToNextPlayer ========== */
+  function isPlayerColumnComplete(obj: Sections, pIdx: number): boolean {
+    const key = `p${pIdx + 1}Input` as InputKey;
+
+    const rowsAreFull = (sec: Record<string, IDiceFormRow<number>>) =>
+      Object.entries(sec)
+        .filter(([rowName]) => rowName !== 'result') // pomijamy sumę
+        .every(([, row]) => row[key]?.value !== null);
+
+    return rowsAreFull(obj.mountainSection) && rowsAreFull(obj.pokerSection);
+  }
+
+  /* =========================================================
+   *  goToNextPlayer
+   * ======================================================= */
   function goToNextPlayer() {
     if (playerCnt === 0) return;
 
     setLocalFields((prev) => {
       const cloned = structuredClone(prev);
 
-      /* 2.1 ostatnia komórka -> inputFilled */
-      const ref = lastFilledRef.current;
-      if (ref) {
-        const { section, rowKey, playerIndex } = ref;
-        const row = getRow(cloned, section, rowKey);
+      const prevIdx = activePlayerIndex;
+      let nextIdx = (prevIdx + 1) % playerCnt;
+
+      /* 1. ostatnia edytowana komórka → inputFilled */
+      if (lastStackRef.current.length) {
+        const { sectionName, rowKey, playerIndex } =
+          lastStackRef.current[lastStackRef.current.length - 1];
+
+        const row = getRow(cloned, sectionName, rowKey);
+
         row[`p${playerIndex + 1}Input` as InputKey].variant = 'inputFilled';
+        refreshRowVariant(row);
       }
 
-      /* 2.2 nagłówek gracza */
+      for (let step = 1; step <= playerCnt; step++) {
+        const cand = (prevIdx + step) % playerCnt;
+        if (!isPlayerColumnComplete(cloned, cand)) {
+          nextIdx = cand;
+          break;
+        }
+      }
       const names = cloned.namesSection.names;
-      names[`player${activePlayerIndex + 1}` as PlayerKey].variant = 'name';
-
-      const nextIdx = (activePlayerIndex + 1) % playerCnt;
+      names[`player${prevIdx + 1}` as PlayerKey].variant = 'name';
       names[`player${nextIdx + 1}` as PlayerKey].variant = 'activePlayer';
+
+      /* 3. kolumny */
+      markPlayerCells(cloned, prevIdx, 'input');
+      markPlayerCells(cloned, nextIdx, 'activeInput');
+
       setActivePlayerIndex(nextIdx);
-
-      /* 2.3 ustaw warianty komórek nowego gracza */
-      markPlayerCells(cloned, nextIdx, 'inputToFilled');
-
-      lastFilledRef.current = null;
       return cloned;
     });
   }
 
-  /* ========== 3. undoLastEntry ========== */
+  /* =========================================================
+   *  undoLastEntry
+   * ======================================================= */
   function undoLastEntry() {
-    if (!lastFilledRef.current) return;
+    const last = lastStackRef.current.pop();
+    if (!last) return;
 
     setLocalFields((prev) => {
       const cloned = structuredClone(prev);
-      const { section, rowKey, playerIndex } = lastFilledRef.current!;
-
-      const row = getRow(cloned, section, rowKey);
+      const { sectionName, rowKey, playerIndex } = last;
       const cellKey = `p${playerIndex + 1}Input` as InputKey;
-      row[cellKey].value = null;
-      row[cellKey].variant = 'lastInput';
 
-      /* nagłówek */
+      /* 1. komórka, z której cofamy → lastInput (wartość zostaje) */
+      const row = getRow(cloned, sectionName, rowKey);
+      row[cellKey].variant = 'lastInput';
+      refreshRowVariant(row);
+
+      /* 2. nagłówki */
       const names = cloned.namesSection.names;
       names[`player${activePlayerIndex + 1}` as PlayerKey].variant = 'name';
       names[`player${playerIndex + 1}` as PlayerKey].variant = 'activePlayer';
+
+      markPlayerCells(cloned, activePlayerIndex, 'input');
+
+      const activateWholeColumn = (r: IDiceFormRow<number>) => {
+        if (r.fieldType.variant === 'resultTitle') return;
+        const key = `p${playerIndex + 1}Input` as InputKey;
+        if (r[key].variant !== 'lastInput') r[key].variant = 'activeInput';
+      };
+      [
+        ...Object.values(cloned.mountainSection),
+        ...Object.values(cloned.pokerSection),
+        ...Object.values(cloned.resultSection),
+      ].forEach(activateWholeColumn);
+
       setActivePlayerIndex(playerIndex);
+      return cloned;
+    });
+  }
 
-      /* odśwież warianty kolumny */
-      markPlayerCells(cloned, playerIndex, 'input');
+  function setInputValue(
+    sectionName: SectionName,
+    rowKey: string,
+    playerInputKey: InputKey,
+    newValue: number | null
+  ) {
+    setLocalFields((prev) => {
+      const cloned = structuredClone(prev);
+      getRow(cloned, sectionName, rowKey)[playerInputKey].value = newValue;
+      refreshRowVariant(getRow(cloned, sectionName, rowKey));
 
-      lastFilledRef.current = null;
+      lastStackRef.current.push({
+        sectionName,
+        rowKey,
+        playerIndex: Number(playerInputKey.slice(1, -5)) - 1,
+      });
       return cloned;
     });
   }
@@ -159,7 +210,7 @@ export function useDiceFormLogic() {
   /* ========== 4. finishGame ========== */
   function finishGame(): boolean {
     const isRowComplete = (row: IDiceFormRow<number>) =>
-      inputKeys.every((k) => row[k as keyof IDiceFormRow<number>].value !== null);
+      inputKeys.every((k) => row[k]?.value !== null);
 
     const sectionComplete = (sec: Record<string, IDiceFormRow<number>>) =>
       Object.entries(sec)
@@ -184,8 +235,13 @@ export function useDiceFormLogic() {
       const runCalc = (row: IDiceFormRow<number>) => {
         if (!row.fieldType.rowId) return;
         const calcFn = calcRegistryDice[row.fieldType.rowId];
-        const vals = inputKeys.map((k) => row[k as keyof IDiceFormRow<number>].value);
-        const { valid: _v, errorMessage: _e, ...scores } = calcFn(vals);
+        const vals = inputKeys.map((k) => {
+          const cell = row[k as keyof IDiceFormRow<number>];
+          return cell && typeof cell === 'object' && 'value' in cell
+            ? (cell as { value: number | null }).value
+            : null;
+        });
+        const { ...scores } = calcFn(vals);
         row.computedPoints = scores;
       };
 
@@ -208,5 +264,6 @@ export function useDiceFormLogic() {
     goToNextPlayer,
     undoLastEntry,
     finishGame,
+    isPlayerColumnComplete,
   };
 }

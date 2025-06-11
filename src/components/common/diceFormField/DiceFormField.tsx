@@ -1,13 +1,13 @@
 import type { ChangeEvent, FC } from 'react';
 
-import { StyledFormField } from '@components/common/formField/formField.stytes';
-import type { IHeartFormFieldProps } from '@components/common/formField/formField.types';
 import {
+  StyledFormField,
   StyledInput,
   StyledLabel,
-} from '@components/common/playerInuptTile/playerInuptTile.styles';
+} from '@components/common/diceFormField/formField.stytes';
+import type { IDiceFormFieldProps } from '@components/common/heartFormField/formField.types';
 
-export const HeartFormField: FC<IHeartFormFieldProps> = ({
+export const DiceFormField: FC<IDiceFormFieldProps> = ({
   variant = 'input',
   isEditable = false,
   value,

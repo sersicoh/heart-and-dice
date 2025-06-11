@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import Container from '@components/common/container/Container';
-import { HeartFormField } from '@components/common/formField/HeartFormField';
+import { HeartFormField } from '@components/common/heartFormField/HeartFormField';
 import { Modal } from '@components/common/modal/Modal';
 import type {
   IHeartFormInputChange,
@@ -62,7 +62,9 @@ export const HeartFormRow = ({
         <HeartFormField variant={row.player1.variant} label={row.player1.label} />
         <HeartFormField variant={row.player2.variant} label={row.player2.label} />
         <HeartFormField variant={row.player3.variant} label={row.player3.label} />
-        {row.player4 && <HeartFormField variant={row.player4.variant} label={row.player4.label ?? ''} />}
+        {row.player4 && (
+          <HeartFormField variant={row.player4.variant} label={row.player4.label ?? ''} />
+        )}
       </>
     );
   };

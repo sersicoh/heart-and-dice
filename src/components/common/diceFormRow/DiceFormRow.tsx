@@ -3,13 +3,15 @@ import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import Container from '@components/common/container/Container';
-import { DiceFormField } from '@components/common/formField/DiceFormField';
+import { DiceFormField } from '@components/common/diceFormField/DiceFormField';
 import { Modal } from '@components/common/modal/Modal';
 import type {
   IDiceFormInputChange,
   IDiceFormRow,
   IDiceFormSections,
   IDiceNamesFormRow,
+  InputKey,
+  PlayerKey,
 } from '@views/dice/diceForm.types';
 
 import type { Player } from '@store/store.types';
@@ -30,7 +32,6 @@ export const DiceFormRow = ({
   sectionName,
   players,
   onInputValueChange,
-  activePlayerIndex,
 }: FormRowProps) => {
   const { isMobile } = useMyTheme();
 
@@ -38,6 +39,13 @@ export const DiceFormRow = ({
   const [selectedRules, setSelectedRules] = useState<{ title: string; content: string[] } | null>(
     null
   );
+
+  function isNamesFormRow(row: IDiceNamesFormRow | IDiceFormRow): row is IDiceNamesFormRow {
+    return (row as IDiceNamesFormRow).gameTitle !== undefined;
+  }
+
+  const playerKey = (idx: number) => `player${idx + 1}` as PlayerKey;
+  const inputKey = (idx: number) => `p${idx + 1}Input` as InputKey;
 
   const handleOpenRulesModal = (ruleId: string) => {
     const foundRule = HeartRules.find((rule) => rule.id === ruleId);
@@ -55,29 +63,27 @@ export const DiceFormRow = ({
     setIsRulesModalOpen(false);
   };
 
-  function isNamesFormRow(row: IDiceNamesFormRow | IDiceFormRow): row is IDiceNamesFormRow {
-    return (row as IDiceNamesFormRow).gameTitle !== undefined;
-  }
-
-  const renderNamesRow = (row: IDiceNamesFormRow) => {
-    return (
-      <>
-        <DiceFormField variant={row.gameTitle.variant} label={row.gameTitle.label} />
-        {players.map((player, index) => (
+  const renderNamesRow = (row: IDiceNamesFormRow) => (
+    <>
+      <DiceFormField variant={row.gameTitle.variant} label={row.gameTitle.label} />
+      {players.map((player, idx) => {
+        const pk = playerKey(idx);
+        const field = row[pk];
+        return (
           <DiceFormField
-            key={index}
-            variant={row[`player${index + 1}`].variant}
+            key={pk}
+            variant={field.variant}
             label={player.name}
-            value={row[`player${index + 1}`].value}
-            onChangeValue={(newValue) =>
-              onInputValueChange?.(sectionName, rowKey, `player${index + 1}`, newValue)
+            value={(field as { value?: string | number }).value ?? ''}
+            onChangeValue={(newVal) =>
+              onInputValueChange?.(sectionName, rowKey, inputKey(idx), newVal)
             }
-            isEditable={row[`player${index + 1}`].variant === 'activeInput'}
+            isEditable={field.variant === 'activeInput' || field.variant === 'lastInput'}
           />
-        ))}
-      </>
-    );
-  };
+        );
+      })}
+    </>
+  );
 
   const renderPointsRow = (row: IDiceFormRow) => {
     const onRoundTypeClick = () => {
@@ -85,68 +91,34 @@ export const DiceFormRow = ({
         handleOpenRulesModal(row.fieldType.rowId);
       }
     };
+
     return (
       <>
         <DiceFormField
           variant={row.fieldType.variant}
           label={row.fieldType.label}
           onTitleClick={onRoundTypeClick}
-          isClickable={Boolean(row.fieldType.id)}
+          isClickable={Boolean(row.fieldType.rowId)}
         />
-        <DiceFormField
-          variant={row.p1Input.variant}
-          label={row.p1Input.value?.toString() ?? ''}
-          value={row.p1Input.value}
-          onChangeValue={(newValue) =>
-            onInputValueChange?.(sectionName, rowKey, 'p1Input', newValue)
-          }
-          isEditable={row.p1Input.variant === 'activeInput'}
-        />
-        <DiceFormField
-          variant={row.p2Input.variant}
-          label={row.p2Input.value?.toString() ?? ''}
-          value={row.p2Input.value}
-          onChangeValue={(newValue) =>
-            onInputValueChange?.(sectionName, rowKey, 'p2Input', newValue)
-          }
-          isEditable={row.p2Input.variant === 'activeInput'}
-        />
-        <DiceFormField
-          variant={row.p3Input.variant}
-          label={row.p3Input.value?.toString() ?? ''}
-          value={row.p3Input.value}
-          onChangeValue={(newValue) =>
-            onInputValueChange?.(sectionName, rowKey, 'p3Input', newValue)
-          }
-          isEditable={row.p3Input.variant === 'activeInput'}
-        />
-        {row.p4Input && (
-          <DiceFormField
-            variant={row.p4Input.variant}
-            label={row.p4Input.value?.toString() ?? ''}
-            value={row.p4Input.value}
-            onChangeValue={(newValue) =>
-              onInputValueChange?.(sectionName, rowKey, 'p4Input', newValue)
-            }
-            isEditable={row.p4Input.variant === 'activeInput'}
-          />
-        )}
+        {players.map((_player, idx) => {
+          const ik = inputKey(idx);
+          const field = row[ik as keyof typeof row] as (typeof row)[InputKey];
+          return (
+            <DiceFormField
+              key={`${ik}-${rowKey}`}
+              variant={field?.variant}
+              label={field?.value?.toString() ?? ''}
+              value={field?.value}
+              onChangeValue={(newVal) => onInputValueChange?.(sectionName, rowKey, ik, newVal)}
+              isEditable={field?.variant === 'activeInput' || field?.variant === 'lastInput'}
+            />
+          );
+        })}
       </>
     );
   };
 
-  const getNumberOfPlayers = (row: IDiceNamesFormRow | IDiceFormRow) => {
-    if (isNamesFormRow(row)) {
-      const possible = ['player1', 'player2', 'player3', 'player4'] as const;
-      return possible.filter((p) => row[p] !== undefined).length;
-    } else {
-      const possible = ['p1Input', 'p2Input', 'p3Input', 'p4Input'] as const;
-      return possible.filter((p) => row[p] !== undefined).length;
-    }
-  };
-
-  const nPlayers = getNumberOfPlayers(rowData);
-  const numCols = 1 + nPlayers;
+  const numCols = 1 + players.length;
 
   return (
     <>
@@ -158,6 +130,8 @@ export const DiceFormRow = ({
       >
         {isNamesFormRow(rowData) ? renderNamesRow(rowData) : renderPointsRow(rowData)}
       </Container>
+
+      {/* —— Rules modal —— */}
       <Modal isOpen={isRulesModalOpen} onClose={handleCloseRulesModal} title={selectedRules?.title}>
         {selectedRules?.content && (
           <Container>
