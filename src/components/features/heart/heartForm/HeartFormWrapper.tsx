@@ -1,10 +1,10 @@
 import Container from '@components/common/container/Container';
-import { FormSection } from '@components/features/form/formSection/FormSection';
-import type { IFormInputChange, IFormSections } from '@views/heart/form.types';
+import { HeartFormSection } from '@components/features/heart/heartForm/heartFormSection/HeartFormSection';
+import type { IFormInputChange, IFormSections } from '@views/heart/heartForm.types';
 
 import { useMyTheme } from '@hooks/useMyTheme';
 
-export const FormWrapper = ({
+export const HeartFormWrapper = ({
   heartsFields,
   onInputValueChange,
 }: {
@@ -17,7 +17,7 @@ export const FormWrapper = ({
     <Container variant='flex' flexDirection='column' gap={isMobile ? '4px' : '8px'}>
       {Object.entries(heartsFields).map(([sectionName, sectionValue]) => {
         return (
-          <FormSection
+          <HeartFormSection
             key={sectionName}
             sectionName={sectionName as keyof IFormSections}
             section={sectionValue}

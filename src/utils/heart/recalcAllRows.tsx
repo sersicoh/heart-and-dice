@@ -1,6 +1,6 @@
-import { calculateFinal, calculateHearts, calculateRace } from '@utils/calculateSections';
+import type { IFormRaceSection, IFormSections } from '@views/heart/heartForm.types';
 
-import type { IFormRaceSection, IFormSections } from '@/views/heart/form.types';
+import { calculateFinal, calculateHearts, calculateRace } from '@utils/heart/calculateSections';
 
 export function recalcAllRows(fields: IFormSections): IFormSections {
   const cloned = structuredClone(fields);

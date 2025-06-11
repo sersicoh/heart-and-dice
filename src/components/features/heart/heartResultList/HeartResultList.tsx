@@ -4,7 +4,7 @@ import { BasicButton } from '@components/common/basicButton/BasicButton';
 import { ConfirmModal } from '@components/common/confirmModal/ConfirmModal';
 import Container from '@components/common/container/Container';
 import { Modal } from '@components/common/modal/Modal';
-import { ResultDescription } from '@components/features/resultList/resultDescription/ResultDescription';
+import { HeartResultDescription } from '@components/features/heart/heartResultList/heartResultDescription/HeartResultDescription';
 
 import { useKierkiStore } from '@store/kierkiStore';
 import type { IFinishedGame } from '@store/kierkiStore.types';
@@ -95,7 +95,7 @@ export const ResultList = ({ finishedGames }: ResultListProps) => {
         onClose={closeModal}
         title={selectedGame?.name ?? 'Szczegóły gry'}
       >
-        {selectedGame && <ResultDescription selectedGame={selectedGame} />}
+        {selectedGame && <HeartResultDescription selectedGame={selectedGame} />}
       </Modal>
       <ConfirmModal
         isOpen={isDeleteModalOpen}

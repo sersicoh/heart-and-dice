@@ -1,4 +1,4 @@
-import type { IFormSections } from '@views/heart/form.types';
+import type { IFormSections } from '@views/heart/heartForm.types';
 
 import type { Player } from '@store/kierkiStore.types';
 

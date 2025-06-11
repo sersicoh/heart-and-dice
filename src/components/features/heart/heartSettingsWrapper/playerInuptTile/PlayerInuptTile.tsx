@@ -4,7 +4,7 @@ import Container from '@components/common/container/Container';
 import {
   StyledInput,
   StyledLabel,
-} from '@components/features/heartSettingsWrapper/playerInuptTile/playerInuptTile.styles';
+} from '@components/features/heart/heartSettingsWrapper/playerInuptTile/playerInuptTile.styles';
 
 import { useMyTheme } from '@hooks/useMyTheme';
 

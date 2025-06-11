@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-import type { IFieldsType } from '@views/heart/form.types';
+import type { IFieldsType } from '@views/heart/heartForm.types';
 
 export interface FormFieldProps extends HTMLAttributes<HTMLDivElement> {
   variant?: IFieldsType['variant'];

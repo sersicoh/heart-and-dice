@@ -1,6 +1,10 @@
-import { validateAllowedValues, validateMultiplesOf, validateSumIs } from '@utils/validations';
+import type { TCalcFunction } from '@views/heart/heartForm.types';
 
-import type { TCalcFunction } from '@/views/heart/form.types';
+import {
+  validateAllowedValues,
+  validateMultiplesOf,
+  validateSumIs,
+} from '@utils/heart/validations';
 
 const heartSum = 260;
 const raceSum = 780;
@@ -185,4 +189,5 @@ export const calcRegistry = {
   raceRound: calcRaceRound,
   raceResult: calcRaceResult,
   finalResult: calcFinalResult,
-} as const;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+} as any;

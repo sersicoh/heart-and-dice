@@ -6,14 +6,14 @@ import { BasicButton } from '@components/common/basicButton/BasicButton';
 import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { Title } from '@components/common/title/Title';
+import { ResultList } from '@components/features/heart/heartResultList/HeartResultList';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
-import { ResultList } from '@components/features/resultList/ResultList';
 
 import { useKierkiStore } from '@store/kierkiStore';
-import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
+import { getNavigationItemsKierki } from '@utils/heart/getNavigationItemsKierki';
 import { useMyTheme } from '@hooks/useMyTheme';
 
-export const Results = () => {
+export const HeartResults = () => {
   const navigate = useNavigate();
 
   const { isMobile } = useMyTheme();

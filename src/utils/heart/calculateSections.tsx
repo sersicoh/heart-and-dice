@@ -3,10 +3,10 @@ import type {
   IFormRaceSection,
   IFormRow,
   IFormSections,
-} from '@views/heart/form.types';
+} from '@views/heart/heartForm.types';
 
-import { calcRegistry } from '@utils/calcFunctions';
-import { getWinnersAndLosers } from '@utils/getWinnersAndLosers';
+import { calcRegistry } from '@utils/heart/calcFunctions';
+import { getWinnersAndLosers } from '@utils/heart/getWinnersAndLosers';
 
 export const calculateHearts = (cloned: IFormSections) => {
   const heartSum = { p1: 0, p2: 0, p3: 0, p4: 0 };

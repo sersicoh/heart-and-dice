@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import type { IFieldsType } from '@views/heart/form.types';
+import type { IFieldsType } from '@views/heart/heartForm.types';
 
 const variantStyles = (variant: IFieldsType['variant']) => {
   switch (variant) {

@@ -4,7 +4,7 @@ import {
   PrimaryDescrition,
   ScoreDescrition,
   SecondaryDescrition,
-} from '@components/features/resultList/resultDescription/resultDescription.styles';
+} from '@components/features/heart/heartResultList/heartResultDescription/heartResultDescription.styles';
 
 import type { IFinishedGame } from '@store/kierkiStore.types';
 import { useMyTheme } from '@hooks/useMyTheme';
@@ -27,7 +27,7 @@ const calculateGameDuration = (startTimestamp: number, endTimestamp?: number) =>
   }
 };
 
-export const ResultDescription = ({ selectedGame }: { selectedGame: IFinishedGame }) => {
+export const HeartResultDescription = ({ selectedGame }: { selectedGame: IFinishedGame }) => {
   const gameDuration = calculateGameDuration(
     selectedGame.startTimestamp,
     selectedGame.endTimestamp

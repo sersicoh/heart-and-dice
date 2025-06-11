@@ -10,7 +10,7 @@ import type {
   IFormRow,
   IFormSections,
   INamesFormRow,
-} from '@views/heart/form.types';
+} from '@views/heart/heartForm.types';
 
 import { useMyTheme } from '@hooks/useMyTheme';
 import HeartRules from '@docs/HeartRule.json';

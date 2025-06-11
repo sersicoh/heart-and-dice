@@ -1,8 +1,8 @@
 import Container from '@components/common/container/Container';
 import { ScrollToTopButton } from '@components/common/scrollToTopButton/ScrollToTopButton';
 import { Title } from '@components/common/title/Title';
-import { RuleTile } from '@components/features/rulesWrapper/ruleTile/RuleTile';
-import { TableOfContents } from '@components/features/rulesWrapper/tableOfContents/TableOfContents';
+import { RuleTile } from '@components/features/heart/heartRulesWrapper/ruleTile/RuleTile';
+import { TableOfContents } from '@components/features/heart/heartRulesWrapper/tableOfContents/TableOfContents';
 
 import { useMyTheme } from '@hooks/useMyTheme';
 import HeartRules from '@docs/HeartRule.json';

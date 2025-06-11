@@ -1,4 +1,4 @@
-import type { IFormRow } from '@views/heart/form.types';
+import type { IFormRow } from '@views/heart/heartForm.types';
 
 export const getWinnersAndLosers = (
   row: IFormRow,

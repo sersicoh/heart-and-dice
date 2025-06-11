@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
+import { RulesWrapper } from '@components/features/heart/heartRulesWrapper/RulesWrapper';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
-import { RulesWrapper } from '@components/features/rulesWrapper/RulesWrapper';
 
-import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
+import { getNavigationItemsKierki } from '@utils/heart/getNavigationItemsKierki';
 
-export const Rules = () => {
+export const DiceRules = () => {
   const navigate = useNavigate();
 
   const drawerItems: IDrawerItems['items'] = [

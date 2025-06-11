@@ -3,19 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { Title } from '@components/common/title/Title';
-import { HeartSettingsWrapper } from '@components/features/heart/heartSettingsWrapper/HeartSettingsWrapper';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
 import { getNavigationItemsKierki } from '@utils/heart/getNavigationItemsKierki';
 import { useMyTheme } from '@hooks/useMyTheme';
 
-export const HeartSettings = () => {
+export const DiceSettings = () => {
   const { isMobile } = useMyTheme();
 
   const navigate = useNavigate();
 
   const drawerItems: IDrawerItems['items'] = [
-    { label: 'Wróć do formularza', onClick: () => navigate('/heart/form') },
+    { label: 'Wróć do formularza', onClick: () => navigate('/dice/form') },
     { label: 'Strona główna', onClick: () => navigate('/') },
   ];
   return (
@@ -37,7 +36,8 @@ export const HeartSettings = () => {
           <Title label='Ustawienia - Kierki' />
         </Container>
         <Container variant='flex' flexDirection='column'>
-          <HeartSettingsWrapper />
+          <div>dupa</div>
+          {/* <DiceSettingsWrapper /> */}
         </Container>
       </Container>
     </>

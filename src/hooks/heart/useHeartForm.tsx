@@ -5,12 +5,12 @@ import type {
   IFormRaceSection,
   IFormRow,
   IFormSections,
-} from '@views/heart/form.types';
+} from '@views/heart/heartForm.types';
 
 import { useKierkiStore } from '@store/kierkiStore';
-import { calcRegistry } from '@utils/calcFunctions';
-import { getHeartsFields } from '@utils/getHeartsFields';
-import { recalcAllRows } from '@utils/recalcAllRows';
+import { calcRegistry } from '@utils/heart/calcFunctions';
+import { getHeartsFields } from '@utils/heart/getHeartsFields';
+import { recalcAllRows } from '@utils/heart/recalcAllRows';
 import { useCustomSnackbar } from '@hooks/useCustomSnackbar';
 
 type THeartRowKey = Exclude<keyof IFormHeartSection, 'result'>;

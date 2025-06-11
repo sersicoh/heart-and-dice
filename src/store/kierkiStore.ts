@@ -6,10 +6,10 @@ import type {
   IFormHeartSection,
   IFormRaceSection,
   IFormResultSection,
-} from '@views/heart/form.types';
+} from '@views/heart/heartForm.types';
 
 import type { IFinishedGame, KierkiState } from '@store/kierkiStore.types';
-import { getHeartsFields } from '@utils/getHeartsFields';
+import { getHeartsFields } from '@utils/heart/getHeartsFields';
 
 export const useKierkiStore = create(
   persist<KierkiState>(

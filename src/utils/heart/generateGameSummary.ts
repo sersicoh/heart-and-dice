@@ -1,6 +1,6 @@
 // utils/generateGameSummary.ts
 
-import type { IFormRow, IFormSections, IFromNamesSection } from '@views/heart/form.types';
+import type { IFormRow, IFormSections, IFromNamesSection } from '@views/heart/heartForm.types';
 
 function getPlayersAndScores(
   names: IFromNamesSection['names'],

@@ -18,7 +18,7 @@ import { getNavigationItemsKierki } from '@utils/heart/getNavigationItemsKierki'
 import { useHeartFormLogic } from '@hooks/heart/useHeartForm';
 import { useMyTheme } from '@hooks/useMyTheme';
 
-export const HeartForm = () => {
+export const DiceForm = () => {
   const { theme, isMobile } = useMyTheme();
   const navigate = useNavigate();
   const [finished, setFinished] = useState(false);

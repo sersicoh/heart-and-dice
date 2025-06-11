@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { BasicButton } from '@components/common/basicButton/BasicButton';
 import { ConfirmModal } from '@components/common/confirmModal/ConfirmModal';
 import Container from '@components/common/container/Container';
-import { PlayerInuptTile } from '@components/features/heartSettingsWrapper/playerInuptTile/PlayerInuptTile';
+import { PlayerInuptTile } from '@components/features/heart/heartSettingsWrapper/playerInuptTile/PlayerInuptTile';
 
-import { useHeartSettingsLogic } from '@hooks/useHeartSettings';
+import { useHeartSettingsLogic } from '@hooks/heart/useHeartSettings';
 import { useMyTheme } from '@hooks/useMyTheme';
 
 export const HeartSettingsWrapper = () => {

@@ -1,6 +1,6 @@
 import Container from '@components/common/container/Container';
 import { FormRow } from '@components/common/formRow/FormRow';
-import type { IFormInputChange, IFormSections } from '@views/heart/form.types';
+import type { IFormInputChange, IFormSections } from '@views/heart/heartForm.types';
 
 import { useMyTheme } from '@hooks/useMyTheme';
 
@@ -9,7 +9,7 @@ interface Props {
   sectionName: keyof IFormSections;
   onInputValueChange?: IFormInputChange;
 }
-export const FormSection = ({ section, sectionName, onInputValueChange }: Props) => {
+export const HeartFormSection = ({ section, sectionName, onInputValueChange }: Props) => {
   const { theme, isMobile } = useMyTheme();
   return (
     <Container
