@@ -39,7 +39,7 @@ export const DiceForm = () => {
     setInputValue,
     goToNextPlayer,
     undoLastEntry,
-    activePlayerIndex,
+    canUndo,
     isPlayerColumnComplete,
   } = useDiceFormLogic();
 
@@ -78,11 +78,7 @@ export const DiceForm = () => {
           padding={isMobile ? '4px' : '12px'}
           backgroundColor={theme.colors.frameBackground}
         >
-          <BasicButton
-            onClick={goBack}
-            content={'Cofnij'}
-            disabled={activePlayerIndex === 0 || finished}
-          />
+          <BasicButton onClick={goBack} content={'Cofnij'} disabled={!canUndo || finished} />
           <BasicButton onClick={goToNextPlayer} content={'Następna gracz'} disabled={allDone} />
           <BasicButton
             onClick={

@@ -1,4 +1,4 @@
-import type { ChangeEvent, FC } from 'react';
+import type { FC } from 'react';
 
 import {
   StyledFormField,
@@ -17,16 +17,29 @@ export const DiceFormField: FC<IDiceFormFieldProps> = ({
   isClickable,
   ...rest
 }) => {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (onChangeValue) {
-      onChangeValue(e.target.value ? parseFloat(e.target.value) : null);
-    }
-  };
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (onChangeValue) {
+  //     onChangeValue(e.target.value ? parseFloat(e.target.value) : null);
+  //   }
+  // };
 
   return (
     <StyledFormField $variant={variant} isClickable={isClickable} onClick={onTitleClick} {...rest}>
       {isEditable ? (
-        <StyledInput inputMode='numeric' value={value ?? ''} onChange={handleChange} />
+        <StyledInput
+          type='text'
+          pattern='-?[0-9]*'
+          inputMode='decimal'
+          value={value ?? ''}
+          onChange={(e) => {
+            const val = e.target.value;
+            if (val === '' || val === '-') {
+              onChangeValue?.(null); // pozwala wpisać sam „-”
+            } else {
+              onChangeValue?.(parseFloat(val));
+            }
+          }}
+        />
       ) : (
         <StyledLabel>{label}</StyledLabel>
       )}

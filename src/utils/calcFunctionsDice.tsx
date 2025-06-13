@@ -59,9 +59,10 @@ export const calcFourOf = positiveRow;
 export const calcFullHouse: TDiceCalcFunction = (vals) => {
   const r = positiveRow(vals);
   if (!r.valid) return r;
-  (Object.keys(r) as (keyof TDicePlayerScores)[]).forEach((k) => {
-    const val = r[k] ?? 0;
-    r[k] = val > 0 ? val + 50 : val;
+
+  (Object.keys(r) as (keyof TDicePlayerScores)[]).forEach((k, idx) => {
+    const base = vals[idx] ?? 0;
+    r[k] = base > 0 ? base + 50 : base;
   });
   return r;
 };

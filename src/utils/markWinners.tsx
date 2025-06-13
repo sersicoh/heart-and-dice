@@ -1,39 +1,41 @@
-import type { IDiceFormRow } from '@views/dice/diceForm.types';
+import type { IDiceFormRow, PlayerKey } from '@views/dice/diceForm.types';
 
 import { playerKeyToInputKey } from '@utils/keyMapping';
 
 export function markWinners(row: IDiceFormRow<number>) {
   const pts = row.computedPoints ?? {};
-  const values = Object.values(pts) as number[];
 
-  /* ---------- najpierw zerujemy stare kolory ---------- */
-  (Object.keys(pts) as (keyof typeof pts)[]).forEach((pKey) => {
-    const key = playerKeyToInputKey(pKey as `player${number}`);
-    const cell = row[key];
+  /* ---------- bierzemy TYLKO klucze playerX ---------- */
+  const playerKeys = (Object.keys(pts) as string[]).filter((k): k is PlayerKey =>
+    k.startsWith('player')
+  );
+
+  const values = playerKeys.map((k) => pts[k] as number);
+
+  /* ---------- zerujemy stare kolory ---------- */
+  playerKeys.forEach((pKey) => {
+    const cell = row[playerKeyToInputKey(pKey)];
     if (cell) cell.variant = 'resultTitle';
   });
 
-  /* jeśli wszyscy mają tyle samo – koniec */
+  /* remis → nic nie kolorujemy */
   const min = Math.min(...values);
   const max = Math.max(...values);
-
-  console.log(min, max, values);
-
   if (min === max) return;
 
-  /* policzmy remisy */
   const cntMax = values.filter((v) => v === max).length;
   const cntMin = values.filter((v) => v === min).length;
 
-  /* właściwe kolory */
-  (Object.keys(pts) as (keyof typeof pts)[]).forEach((pKey) => {
-    const key = playerKeyToInputKey(pKey as `player${number}`);
-    const cell = row[key];
+  /* ---------- ustawiamy zwycięzców / przegranych ---------- */
+  playerKeys.forEach((pKey) => {
+    const cell = row[playerKeyToInputKey(pKey)];
     if (!cell) return;
 
-    if (pts[pKey] === max) {
+    const val = pts[pKey] as number;
+
+    if (val === max) {
       cell.variant = cntMax > 1 ? 'manyWinner' : 'winner';
-    } else if (pts[pKey] === min) {
+    } else if (val === min) {
       cell.variant = cntMin > 1 ? 'manyLooser' : 'looser';
     }
   });

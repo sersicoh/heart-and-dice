@@ -43,6 +43,8 @@ export function useDiceFormLogic() {
 
   const lastStackRef = useRef<LastFilled[]>([]);
 
+  const [undoCount, setUndoCount] = useState(0);
+
   /* ---------- synchronizacja z store ---------- */
   useEffect(() => {
     if (fields) setLocalFields(fields);
@@ -114,6 +116,26 @@ export function useDiceFormLogic() {
     setLocalFields((prev) => {
       const cloned = structuredClone(prev);
 
+      const normalizeLastInputs = (row: IDiceFormRow<number>) => {
+        (Object.keys(row) as Array<keyof IDiceFormRow<number>>).forEach((k) => {
+          const cell = row[k];
+          if (
+            cell &&
+            typeof cell === 'object' &&
+            'variant' in cell &&
+            cell.variant === 'lastInput'
+          ) {
+            cell.variant = 'inputFilled';
+          }
+        });
+      };
+
+      [
+        ...Object.values(cloned.mountainSection),
+        ...Object.values(cloned.pokerSection),
+        ...Object.values(cloned.resultSection),
+      ].forEach(normalizeLastInputs);
+
       const prevIdx = activePlayerIndex;
       let nextIdx = (prevIdx + 1) % playerCnt;
 
@@ -156,6 +178,12 @@ export function useDiceFormLogic() {
       setActivePlayerIndex(nextIdx);
       const updated = recalcDiceRows(cloned);
 
+      (() => {
+        const row = updated.resultSection.result;
+        console.groupCollapsed('[NextPlayer] finalRow variants');
+        Object.entries(row).filter(([k]) => k.endsWith('Input'));
+      })();
+
       const comp = updated.resultSection.result.computedPoints;
       if (comp) {
         Object.keys(comp).forEach((pKey) => {
@@ -175,6 +203,7 @@ export function useDiceFormLogic() {
    * ======================================================= */
   function undoLastEntry() {
     const last = lastStackRef.current.pop();
+    setUndoCount(lastStackRef.current.length);
     if (!last) return;
 
     setLocalFields((prev) => {
@@ -226,6 +255,7 @@ export function useDiceFormLogic() {
         rowKey,
         playerIndex: Number(playerInputKey.slice(1, -5)) - 1,
       });
+      setUndoCount(lastStackRef.current.length);
       return cloned;
     });
   }
@@ -288,5 +318,6 @@ export function useDiceFormLogic() {
     undoLastEntry,
     finishGame,
     isPlayerColumnComplete,
+    canUndo: undoCount > 0,
   };
 }

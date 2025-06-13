@@ -53,6 +53,7 @@ function computeRow(row: IDiceFormRow<number>, fnKey: keyof typeof calcRegistryD
 /* kopiuje computedPoints → pXInput.value / label / variant */
 function copyToInputs(row: IDiceFormRow<number>) {
   const pts = row.computedPoints ?? {};
+  const isSummaryRow = row.fieldType.variant === 'resultTitle';
 
   (Object.keys(pts) as (keyof typeof pts)[]).forEach((pKey) => {
     const inKey = playerKeyToInputKey(pKey as `player${number}`);
@@ -60,13 +61,12 @@ function copyToInputs(row: IDiceFormRow<number>) {
     if (!isInputCell(cell)) return;
 
     const v = pts[pKey] ?? 0;
-    const isSummaryRow = row.fieldType.variant === 'resultTitle';
 
-    if (isSummaryRow || cell.value !== null) {
+    if (isSummaryRow) {
       cell.value = v;
-      if (!isSummaryRow && cell.variant !== 'activeInput' && cell.variant !== 'lastInput') {
-        cell.variant = 'inputFilled';
-      }
+      cell.variant = 'resultTitle';
+    } else {
+      if (cell.value !== null && cell.variant === 'input') cell.variant = 'inputFilled';
     }
   });
 }
@@ -95,55 +95,50 @@ function collect(sec: Record<string, IDiceFormRow<number>>, skip: string): numbe
   return sums;
 }
 
-export function calculatePoker(sections: IDiceFormSections<number>): boolean {
+export function calculatePoker(sections: IDiceFormSections<number>): boolean[] {
   const { pokerSection } = sections;
-  let allNonZero = true;
+
+  const playerOk: boolean[] = [];
+
+  const sampleRow = pokerSection.pair;
+  let idx = 1;
+  while (`p${idx}Input` in sampleRow) {
+    playerOk.push(true);
+    idx++;
+  }
 
   Object.entries(pokerSection).forEach(([k, row]) => {
     const fn = calcRegistryDice[k as keyof typeof calcRegistryDice];
     row.computedPoints = fn(extract(row));
     copyToInputs(row);
 
-    const hasZero = Object.values(row.computedPoints ?? {}).some((v) => v === 0);
-    if (hasZero) allNonZero = false;
+    playerOk.forEach((ok, i) => {
+      const pKey = `player${i + 1}` as const;
+      const zero = (row.computedPoints ?? {})[pKey] === 0;
+      if (zero) playerOk[i] = false;
+    });
   });
 
-  return allNonZero;
+  return playerOk;
 }
 
-export function calculateDiceFinal(sections: IDiceFormSections<number>, pokerBonus: boolean) {
+export function calculateDiceFinal(sections: IDiceFormSections<number>, pokerBonus: boolean[]) {
   const resM = sections.mountainSection.result.computedPoints ?? {};
   const players = Object.keys(resM) as (keyof typeof resM)[];
 
   const finalRow = sections.resultSection.result;
-  const vals: number[] = players.map((p) => {
+
+  const vals: number[] = players.map((p, idx) => {
     const mount = resM[p] ?? 0;
     const poker = Object.values(sections.pokerSection).reduce(
-      (a, r) => a + (r.computedPoints?.[p] ?? 0),
+      (a, r) => a + ((r.computedPoints ?? {})[p] ?? 0),
       0
     );
-    return mount + poker + (pokerBonus ? 100 : 0);
+    const bonus = pokerBonus[idx] ? 100 : 0;
+    return mount + poker + bonus;
   });
 
   finalRow.computedPoints = calcRegistryDice.finalResult(vals);
   copyToInputs(finalRow);
-
-  const comp = finalRow.computedPoints;
-  if (comp) {
-    // liczymy ilu graczy faktycznie jest w formularzu
-    const playerCount = Object.keys(sections.namesSection.names).filter(
-      (k): k is `player${number}` => k.startsWith('player')
-    ).length;
-
-    (Object.keys(comp) as (keyof typeof comp)[]).forEach((pKey) => {
-      const idx = Number((pKey as string).replace('player', ''));
-      if (idx > playerCount) {
-        delete comp[pKey];
-      }
-    });
-  }
-
   markWinners(finalRow);
-
-  console.log(finalRow.computedPoints);
 }

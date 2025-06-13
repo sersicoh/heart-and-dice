@@ -9,14 +9,10 @@ import {
 export function recalcDiceRows<F extends IDiceFormSections<number>>(f: F): F {
   const cloned = structuredClone(f);
 
-  /* 1. górka */
   calculateMountain(cloned);
 
-  /* 2. poker */
-  const everyPos = calculatePoker(cloned);
-
-  /* 3. wynik końcowy */
-  calculateDiceFinal(cloned, everyPos);
+  const pokerBonus = calculatePoker(cloned);
+  calculateDiceFinal(cloned, pokerBonus);
 
   return cloned;
 }
