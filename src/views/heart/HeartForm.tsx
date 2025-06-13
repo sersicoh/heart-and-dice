@@ -9,12 +9,12 @@ import { BasicButton } from '@components/common/basicButton/BasicButton';
 import Container from '@components/common/container/Container';
 import type { IDrawerItems } from '@components/common/drawer/drawer.types';
 import { Modal } from '@components/common/modal/Modal';
-import { FormWrapper } from '@components/features/form/FormWrapper';
+import { HeartFormWrapper } from '@components/features/heartForm/FormWrapperHeart';
 import { NavigationBar } from '@components/features/navigationBar/NavigationBar';
 
 import { useKierkiStore } from '@store/kierkiStore';
 import { generateGameSummary } from '@utils/generateGameSummary';
-import { getNavigationItemsKierki } from '@utils/getNavigationItemsKierki';
+import { getNavigationItems } from '@utils/getNavigationItems';
 import { useHeartFormLogic } from '@hooks/useHeartForm';
 import { useMyTheme } from '@hooks/useMyTheme';
 
@@ -25,7 +25,7 @@ export const HeartForm = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const drawerItems: IDrawerItems['items'] = [
-    { label: 'Ustawieia gry', onClick: () => navigate('/heart/settings') },
+    { label: 'Ustawieia gry', onClick: () => navigate(`/heart/settings`) },
     { label: 'Strona główna', onClick: () => navigate('/') },
   ];
 
@@ -59,7 +59,7 @@ export const HeartForm = () => {
 
   return (
     <>
-      <NavigationBar routes={getNavigationItemsKierki()} drawerItems={drawerItems} />
+      <NavigationBar routes={getNavigationItems('heart')} drawerItems={drawerItems} />
       <Container
         variant='flex'
         flexDirection='column'
@@ -67,7 +67,7 @@ export const HeartForm = () => {
         margin={isMobile ? '112px auto 0' : '145px auto 0'}
         gap={isMobile ? '4px' : '8px'}
       >
-        <FormWrapper heartsFields={fields} onInputValueChange={setInputValue} />
+        <HeartFormWrapper heartsFields={fields} onInputValueChange={setInputValue} />
         <Container
           variant='flex'
           gap={isMobile ? '12px' : '24px'}

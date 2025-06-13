@@ -29,6 +29,7 @@
   - Zapis, wczytywanie i analiza statystyk gry.
 
 - **Kości**:
+  - nie wiem
   - Proste zasady: rzuć kostkami i zdobądź jak najwięcej punktów według wybranego wariantu (np. poker kostkowy).
   - Możliwość personalizacji reguł i wariantów rozgrywki.
   - Ranking graczy i zapisywanie wyników.

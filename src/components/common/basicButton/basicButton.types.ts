@@ -5,6 +5,7 @@ export interface IBasicButton {
   onClick: () => void;
   content: ReactNode | string;
   disabled?: boolean;
+  borderRadius?: string;
   padding?: string;
   fontSize?: {
     tablet: string;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import type { IBasicButton } from '@components/common/basicButton/basicButton.types';
 
 export const StyledBasicButton = styled.button<
-  Pick<IBasicButton, 'fontSize' | 'padding' | 'variant'>
+  Pick<IBasicButton, 'fontSize' | 'padding' | 'variant' | 'borderRadius'>
 >`
   padding: ${({ padding }) => padding ?? '12px'};
   width: 100%;
@@ -11,7 +11,7 @@ export const StyledBasicButton = styled.button<
   font-size: ${({ fontSize }) => fontSize?.tablet ?? '2rem'};
   font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: ${({ borderRadius }) => borderRadius ?? '0.5rem'};
   background: ${({ theme, variant }) => {
     switch (variant) {
       case 'dark':

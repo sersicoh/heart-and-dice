@@ -17,6 +17,8 @@ export const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  max-height: 70vh;
+  overflow: hidden;
   position: relative;
   background-color: ${({ theme }) => theme.colors.modalBackground};
   box-shadow: 0 4px 8px ${({ theme }) => theme.colors.backgroundBase};
@@ -27,9 +29,15 @@ export const ModalWrapper = styled.div`
   margin: 0 48px;
 
   @media ${({ theme }) => theme.devices.mobile} {
-    padding: 4px 16px 16px 16px;
+    padding: 16px;
     margin: 0 32px;
   }
+`;
+
+export const ModalContent = styled.div`
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 8px;
 `;
 
 export const CloseButton = styled.button`

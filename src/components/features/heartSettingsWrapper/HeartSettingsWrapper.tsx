@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { BasicButton } from '@components/common/basicButton/BasicButton';
 import { ConfirmModal } from '@components/common/confirmModal/ConfirmModal';
 import Container from '@components/common/container/Container';
-import { PlayerInuptTile } from '@components/features/heartSettingsWrapper/playerInuptTile/PlayerInuptTile';
+import { PlayerInuptTile } from '@components/common/playerInuptTile/PlayerInuptTile';
 
 import { useHeartSettingsLogic } from '@hooks/useHeartSettings';
 import { useMyTheme } from '@hooks/useMyTheme';

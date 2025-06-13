@@ -1,7 +1,7 @@
-import type { IFormRow } from '@views/heart/form.types';
+import type { IHeartFormRow } from '@views/heart/heartForm.types';
 
 export const getWinnersAndLosers = (
-  row: IFormRow,
+  row: IHeartFormRow,
   points: Record<string, number>,
   mode: 'heart' | 'race' | 'finalResult'
 ) => {

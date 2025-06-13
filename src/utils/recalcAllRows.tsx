@@ -1,8 +1,8 @@
+import type { IHeartFormRaceSection, IHeartFormSections } from '@views/heart/heartForm.types';
+
 import { calculateFinal, calculateHearts, calculateRace } from '@utils/calculateSections';
 
-import type { IFormRaceSection, IFormSections } from '@/views/heart/form.types';
-
-export function recalcAllRows(fields: IFormSections): IFormSections {
+export function recalcAllRows(fields: IHeartFormSections): IHeartFormSections {
   const cloned = structuredClone(fields);
 
   const raceStarted = checkIfRaceStarted(cloned.raceSection);
@@ -20,10 +20,10 @@ export function recalcAllRows(fields: IFormSections): IFormSections {
 
   calculateFinal(cloned);
 
-  function checkIfRaceStarted(raceSection: IFormRaceSection): boolean {
+  function checkIfRaceStarted(raceSection: IHeartFormRaceSection): boolean {
     for (const key of Object.keys(raceSection)) {
       if (key === 'result') continue;
-      const row = raceSection[key as keyof IFormRaceSection];
+      const row = raceSection[key as keyof IHeartFormRaceSection];
       if (row.p1Input.value !== null) return true;
       if (row.p2Input.value !== null) return true;
       if (row.p3Input.value !== null) return true;
