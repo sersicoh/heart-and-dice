@@ -112,7 +112,7 @@ export function calculatePoker(sections: IDiceFormSections<number>): boolean[] {
     row.computedPoints = fn(extract(row));
     copyToInputs(row);
 
-    playerOk.forEach((ok, i) => {
+    playerOk.forEach((_, i) => {
       const pKey = `player${i + 1}` as const;
       const zero = (row.computedPoints ?? {})[pKey] === 0;
       if (zero) playerOk[i] = false;
