@@ -1,151 +1,82 @@
-// calcFunctionsDice.ts
-
 import type { TDiceCalcFunction, TDicePlayerScores } from '@views/dice/diceForm.types';
 
-/**
- * Pomoc: zwraca obiekt { p1: x, p2: y, … } na podstawie tablicy playerValues.
- * Jeśli tablica ma długość N, to dostajemy p1…pN (każde z wartością albo 0).
- */
-function buildScores(playerValues: Array<number | null>): TDicePlayerScores {
-  const scores: TDicePlayerScores = {};
-  playerValues.forEach((val, idx) => {
-    const key = `p${idx + 1}` as `player${number}`;
-    scores[key] = val ?? 0;
+import { validateIntegerNonNegative, validateMultiples } from './validationsDice';
+
+/* pomocnik */
+function buildScores(vals: (number | null)[]): TDicePlayerScores {
+  const out: TDicePlayerScores = {};
+  vals.forEach((v, i) => {
+    out[`player${i + 1}`] = v ?? 0;
   });
-  return scores;
+  return out;
 }
 
-/**
- * Przykładowa implementacja „górki”: dla każdej kolumny pX wpisujemy dokładnie przekazaną wartość.
- * Możesz w przyszłości dodać np. walidację sumy lub wielokrotności (ale tu załóżmy stub).
- */
-export const calcOnes: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-export const calcTwos: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-export const calcThrees: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-export const calcFours: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-export const calcFives: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-export const calcSixes: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
+/* -------- sekcja Mountain -------- */
+function makeNumberRow(face: number): TDiceCalcFunction {
+  return (vals) => {
+    const err = validateMultiples(face, ...vals.map((v) => v ?? 0));
+    return err
+      ? { ...buildScores(vals), valid: false, errorMessage: err }
+      : { ...buildScores(vals), valid: true };
+  };
+}
+
+export const calcOnes = makeNumberRow(1);
+export const calcTwos = makeNumberRow(2);
+export const calcThrees = makeNumberRow(3);
+export const calcFours = makeNumberRow(4);
+export const calcFives = makeNumberRow(5);
+export const calcSixes = makeNumberRow(6);
+
+/* suma + premia/kara */
+export const calcMountainResult: TDiceCalcFunction = (vals) => {
+  const base = vals.map((v) => v ?? 0);
+  const scores: TDicePlayerScores = {};
+  base.forEach((sum, i) => {
+    let sc = sum;
+    if (sum < 0)
+      sc -= 50; // kara
+    else if (sum >= 15) sc += 50; // premia
+    scores[`player${i + 1}`] = sc;
+  });
+  return { ...scores, valid: true };
 };
 
-/**
- * Kalkulator wyniku górnej części (sumuje wszystkie ones…sixes).
- * W praktyce:
- *   wynik gracza i = suma wartości we wszystkich wierszach górki (ones…sixes).
- * Tu na razie tylko stub – przekazujemy 0, ale sam buildScores utworzy p1..pN=0.
- */
-export const calcMountainResult: TDiceCalcFunction = (playerValues) => {
-  // Jeżeli naprawdę chcesz obliczać:
-  //   const sum = playerValues.reduce((a, b) => a + (b ?? 0), 0);
-  //   scores[`p${idx+1}`] = sum (ale tu na razie pusta implementacja)
-  return { ...buildScores(playerValues), valid: true };
-};
+/* -------- sekcja Poker -------- */
+function positiveRow(vals: (number | null)[]): ReturnType<TDiceCalcFunction> {
+  const err = validateIntegerNonNegative(...vals.map((v) => v ?? 0));
+  return err
+    ? { ...buildScores(vals), valid: false, errorMessage: err }
+    : { ...buildScores(vals), valid: true };
+}
 
-/**
- * Para (pair) – analogicznie: wolisz pobrać elementy i policzyć parę?
- * Na razie stub: zwracamy po prostu to, co przyszło.
- */
-export const calcPair: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
+export const calcPair = positiveRow;
+export const calcTwoPairs = positiveRow;
+export const calcSmallStraight = positiveRow;
+export const calcLargeStraight = positiveRow;
+export const calcThreeOf = positiveRow;
+export const calcFourOf = positiveRow;
+export const calcFullHouse: TDiceCalcFunction = (vals) => {
+  const r = positiveRow(vals);
+  if (!r.valid) return r;
+  (Object.keys(r) as (keyof TDicePlayerScores)[]).forEach((k) => {
+    const val = r[k] ?? 0;
+    r[k] = val > 0 ? val + 50 : val;
+  });
+  return r;
 };
+export const calcFull = positiveRow;
+export const calcEven = positiveRow;
+export const calcOdd = positiveRow;
+export const calcChance = positiveRow;
 
-/**
- * Dwie pary (twoPairs)
- */
-export const calcTwoPairs: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
+/* ---------- wynik końcowy ---------- */
+export const calcFinalResult: TDiceCalcFunction = (vals) => ({
+  ...buildScores(vals),
+  valid: true,
+});
 
-/**
- * Mały strit (smallStraight)
- */
-export const calcSmallStraight: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
-/**
- * Duży strit (largeStraight)
- */
-export const calcLargeStraight: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
-/**
- * Trójka (threeOf)
- */
-export const calcThreeOf: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
-/**
- * Czwórka (fourOf)
- */
-export const calcFourOf: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
-/**
- * Full House (fullHouse)
- */
-export const calcFullHouse: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
-/**
- * Full (tutaj rozumiem, że to drugie „full” – być może poza fullHouse?
- * Jeśli nie używasz dodatkowo, można wyrzucić albo nadpisać to samo, co fullHouse).
- */
-export const calcFull: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
-/**
- * Liczba oczek parzystych (even)
- */
-export const calcEven: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
-/**
- * Liczba oczek nieparzystych (odd)
- */
-export const calcOdd: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
-/**
- * Szansa (chance)
- */
-export const calcChance: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
-/**
- * Kasowanie (yahtzee / kareta) – w Twoim typie to prawdopodobnie 'yahtzee' albo 'fourOfKind' (w zależności od reguły).
- * Jeśli tego nie używasz, możesz usunąć z sekcji getDiceFields
- */
-export const calcYahtzee: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
-/**
- * Wynik końcowy – podsumowuje górę i dół:
- * Na razie również stub: buildScores(...) i valid: true
- */
-export const calcFinalResult: TDiceCalcFunction = (playerValues) => {
-  return { ...buildScores(playerValues), valid: true };
-};
-
+/* ---------- registry ---------- */
 export const calcRegistryDice = {
   ones: calcOnes,
   twos: calcTwos,

@@ -22,6 +22,7 @@ export const useDiceStore = create(
         set({
           players: newPlayers,
           fields: getDiceFields(newPlayers),
+          isGameInProgress: false,
         });
       },
 

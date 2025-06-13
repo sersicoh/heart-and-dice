@@ -11,6 +11,7 @@ import type {
 import { useDiceStore } from '@store/diceStore';
 import { calcRegistryDice } from '@utils/calcFunctionsDice';
 import { getDiceFields } from '@utils/getDiceFields';
+import { recalcDiceRows } from '@utils/recalcDiceRows';
 import { useCustomSnackbar } from '@hooks/useCustomSnackbar';
 
 /* ────────── aliasy ────────── */
@@ -75,15 +76,15 @@ export function useDiceFormLogic() {
   }
 
   /* helpers ------------------------------------------------- */
-  function markPlayerCells(
-    obj: Sections,
-    pIdx: number,
-    variantIfNull: DiceFieldVariant // 'input' | 'activeInput'
-  ) {
+  function markPlayerCells(obj: Sections, pIdx: number, variantIfNull: DiceFieldVariant) {
     const key = `p${pIdx + 1}Input` as InputKey;
     const mark = (row: IDiceFormRow<number>) => {
       if (row.fieldType.variant === 'resultTitle') return;
-      row[key].variant = row[key].value === null ? variantIfNull : 'inputFilled';
+      if (row[key].value === null) {
+        row[key].variant = variantIfNull;
+      } else if (row[key].variant !== 'lastInput') {
+        row[key].variant = 'inputFilled';
+      }
       refreshRowVariant(row);
     };
     [
@@ -123,8 +124,18 @@ export function useDiceFormLogic() {
 
         const row = getRow(cloned, sectionName, rowKey);
 
-        row[`p${playerIndex + 1}Input` as InputKey].variant = 'inputFilled';
+        const cell = row[`p${playerIndex + 1}Input` as InputKey];
+
+        if (row.fieldType.variant !== 'resultTitle') {
+          cell.variant = 'inputFilled';
+        }
         refreshRowVariant(row);
+
+        if (row.fieldType.rowId) {
+          const fn = calcRegistryDice[row.fieldType.rowId as keyof typeof calcRegistryDice];
+          const vals = inputKeys.map((k) => (row as IDiceFormRow<number>)[k]?.value ?? 0);
+          row.computedPoints = fn(vals);
+        }
       }
 
       for (let step = 1; step <= playerCnt; step++) {
@@ -143,7 +154,19 @@ export function useDiceFormLogic() {
       markPlayerCells(cloned, nextIdx, 'activeInput');
 
       setActivePlayerIndex(nextIdx);
-      return cloned;
+      const updated = recalcDiceRows(cloned);
+
+      const comp = updated.resultSection.result.computedPoints;
+      if (comp) {
+        Object.keys(comp).forEach((pKey) => {
+          const idx = Number(pKey.replace('player', ''));
+          if (idx > players.length) {
+            delete (comp as typeof comp)[pKey as keyof typeof comp];
+          }
+        });
+      }
+
+      return updated;
     });
   }
 
@@ -234,7 +257,7 @@ export function useDiceFormLogic() {
 
       const runCalc = (row: IDiceFormRow<number>) => {
         if (!row.fieldType.rowId) return;
-        const calcFn = calcRegistryDice[row.fieldType.rowId];
+        const calcFn = calcRegistryDice[row.fieldType.rowId as keyof typeof calcRegistryDice];
         const vals = inputKeys.map((k) => {
           const cell = row[k as keyof IDiceFormRow<number>];
           return cell && typeof cell === 'object' && 'value' in cell
@@ -249,7 +272,7 @@ export function useDiceFormLogic() {
       Object.values(cloned.pokerSection).forEach(runCalc);
       Object.values(cloned.resultSection).forEach(runCalc);
 
-      return cloned;
+      return recalcDiceRows(cloned);
     });
 
     return true;

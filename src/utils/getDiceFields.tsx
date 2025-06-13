@@ -81,7 +81,7 @@ export function getDiceFields<N extends number>(players: Player[]): IDiceFormSec
     fullHouse: makeRow('Full House', 'fullHouse', playerCount),
     full: makeRow('Full', 'full', playerCount),
     even: makeRow('Parzyste', 'even', playerCount),
-    odd: makeRow('Nieparzyste', 'odd', playerCount),
+    odd: makeRow('Nieprzyste', 'odd', playerCount),
     chance: makeRow('Szansa', 'chance', playerCount),
   } satisfies IDiceFormSections<N>['pokerSection'];
 

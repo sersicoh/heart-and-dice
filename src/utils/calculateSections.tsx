@@ -151,6 +151,8 @@ export const calculateFinal = (cloned: IHeartFormSections) => {
         p4: finalRow.p4Input ? result.p4 : undefined,
       };
 
+      console.log(finalRow.computedPoints);
+
       getWinnersAndLosers(finalRow, finalPoints, 'finalResult');
     }
   }
