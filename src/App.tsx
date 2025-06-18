@@ -7,6 +7,7 @@ import { Results } from '@views/Results';
 import { Rules } from '@views/Rules';
 import { SettingsView } from '@views/SettingsView';
 
+//TODO: asd
 function App() {
   return (
     <HashRouter>
