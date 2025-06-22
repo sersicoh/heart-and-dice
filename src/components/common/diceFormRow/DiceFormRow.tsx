@@ -11,7 +11,6 @@ import type {
   IDiceFormSections,
   IDiceNamesFormRow,
   InputKey,
-  PlayerKey,
 } from '@views/dice/diceForm.types';
 
 import type { Player } from '@store/store.types';
@@ -40,11 +39,6 @@ export const DiceFormRow = ({
     null
   );
 
-  function isNamesFormRow(row: IDiceNamesFormRow | IDiceFormRow): row is IDiceNamesFormRow {
-    return (row as IDiceNamesFormRow).gameTitle !== undefined;
-  }
-
-  const playerKey = (idx: number) => `player${idx + 1}` as PlayerKey;
   const inputKey = (idx: number) => `p${idx + 1}Input` as InputKey;
 
   const handleOpenRulesModal = (ruleId: string) => {
@@ -62,28 +56,6 @@ export const DiceFormRow = ({
     setSelectedRules(null);
     setIsRulesModalOpen(false);
   };
-
-  const renderNamesRow = (row: IDiceNamesFormRow) => (
-    <>
-      <DiceFormField variant={row.gameTitle.variant} label={row.gameTitle.label} />
-      {players.map((player, idx) => {
-        const pk = playerKey(idx);
-        const field = row[pk];
-        return (
-          <DiceFormField
-            key={pk}
-            variant={field.variant}
-            label={player.name}
-            value={(field as { value?: string | number }).value ?? ''}
-            onChangeValue={(newVal) =>
-              onInputValueChange?.(sectionName, rowKey, inputKey(idx), newVal)
-            }
-            isEditable={field.variant === 'activeInput' || field.variant === 'lastInput'}
-          />
-        );
-      })}
-    </>
-  );
 
   const renderPointsRow = (row: IDiceFormRow) => {
     const onRoundTypeClick = () => {
@@ -128,7 +100,7 @@ export const DiceFormRow = ({
         gap={isMobile ? '2px' : '8px'}
         width='100%'
       >
-        {isNamesFormRow(rowData) ? renderNamesRow(rowData) : renderPointsRow(rowData)}
+        {renderPointsRow(rowData)}
       </Container>
 
       {/* —— Rules modal —— */}

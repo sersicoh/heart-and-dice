@@ -2,8 +2,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import type { IDiceFormSections } from '@views/dice/diceForm.types';
-
 import type { DiceState, IFinishedDiceGame, Player } from '@store/store.types';
 import { getDiceFields } from '@utils/getDiceFields';
 
@@ -18,10 +16,10 @@ export const useDiceStore = create(
       currentGameStartTime: null,
       finishedGames: [],
 
-      setPlayers: (newPlayers: Player[]) => {
+      setPlayers: (players: Player[]) => {
         set({
-          players: newPlayers,
-          fields: getDiceFields(newPlayers),
+          players,
+          fields: getDiceFields(players),
           isGameInProgress: false,
         });
       },
@@ -59,7 +57,7 @@ export const useDiceStore = create(
 
       setGameInProgress: (inProgress) => set({ isGameInProgress: inProgress }),
       setInitialPlayersCount: (count) => set({ initialPlayersCount: count }),
-      setFields: (newFields: IDiceFormSections<number>) => set({ fields: newFields }),
+      setFields: (newFields) => set({ fields: newFields }),
       resetGame: () =>
         set({
           players: [],

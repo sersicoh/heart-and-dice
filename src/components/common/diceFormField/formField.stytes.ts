@@ -41,8 +41,6 @@ const variantStyles = (variant: DiceFieldVariant) => {
         background-color: ${({ theme }) => theme.colors.secondaryFormField};
         color: ${({ theme }) => theme.colors.mainFormText};
         font-weight: 600;
-        font-size: 2rem;
-        line-height: 1.5rem;
 
         @media ${({ theme }) => theme.devices.mobile} {
           font-size: 1rem;
@@ -115,6 +113,7 @@ export const StyledFormField = styled.div<{
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+  width: 100%;
   padding: 8px 0;
   cursor: ${({ isClickable }) => (isClickable ? 'pointer' : 'default')};
   @media ${({ theme }) => theme.devices.mobile} {
