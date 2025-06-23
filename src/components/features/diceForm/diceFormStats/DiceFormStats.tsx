@@ -3,9 +3,10 @@ import React from 'react';
 
 import Container from '@components/common/container/Container';
 import { DiceFieldsRow } from '@components/common/diceFieldsRow/DiceFieldsRow';
-import type { DiceFieldVariant } from '@views/dice/diceForm.types';
+import type { DiceFieldVariant, PlayerKey } from '@views/dice/diceForm.types';
 
 import { useDiceStore } from '@store/diceStore';
+import { getScoreVariants } from '@utils/getScoreVariants';
 import { useMyTheme } from '@hooks/useMyTheme';
 
 type UICell = { variant: DiceFieldVariant; value: string | number | null };
@@ -40,14 +41,17 @@ export const DiceFormStats: React.FC<Props> = ({ currentPlayerIdx }) => {
 
   const header: UIRow[] = [oneCellRow('Wyniki ogólne', 'title')];
 
-  const statsRows: UIRow[] = players.map((p, idx) => {
-    // podświetlamy tylko aktualnego gracza:
-    const nameVar: DiceFieldVariant = idx === currentPlayerIdx ? 'activePlayer' : 'name';
+  const variants = getScoreVariants(scores);
 
-    const key = `player${idx + 1}` as keyof typeof scores;
+  const statsRows = players.map((p, idx) => {
+    const key = `player${idx + 1}` as PlayerKey<number>;
     const pts = scores[key] ?? 0;
 
-    return makeCells(p.name, nameVar, pts, 'inputFilled');
+    const nameVar: DiceFieldVariant = idx === currentPlayerIdx ? 'activePlayer' : 'name';
+
+    const ptsVar: DiceFieldVariant = variants[key] ?? 'inputFilled';
+
+    return makeCells(p.name, nameVar, pts, ptsVar);
   });
 
   const renderSection = (rows: UIRow[], padding = '8px') => (

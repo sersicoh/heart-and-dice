@@ -50,6 +50,7 @@ export const DiceForm: React.FC = () => {
           gap={isMobile ? '12px' : '24px'}
           padding={isMobile ? '4px' : '12px'}
           backgroundColor={theme.colors.frameBackground}
+          borderRadius='8px'
         >
           <BasicButton onClick={undo} content='Cofnij' disabled={!canUndo} />
           <BasicButton onClick={nextPlayer} content='Następny' disabled={!canNext} />

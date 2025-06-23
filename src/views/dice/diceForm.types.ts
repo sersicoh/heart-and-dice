@@ -22,7 +22,9 @@ export type DiceFieldVariant =
   | 'looser'
   | 'manyLooser'
   | 'resultTitle'
-  | 'gameFinished';
+  | 'gameFinished'
+  | 'inputPremium'
+  | 'inputNotPremium';
 
 interface IDiceCellBase {
   variant: DiceFieldVariant;

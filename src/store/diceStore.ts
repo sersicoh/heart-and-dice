@@ -5,7 +5,7 @@ import { persist } from 'zustand/middleware';
 import type { IDiceFormSections } from '@views/dice/diceForm.types';
 
 import type { DiceState, IFinishedDiceGame, Player } from '@store/store.types';
-import { calcRow } from '@utils/diceCalculator';
+import { computeAll } from '@utils/diceCalculator';
 import { getDiceFields } from '@utils/getDiceFields';
 
 export const useDiceStore = create(
@@ -88,18 +88,11 @@ export const useDiceStore = create(
 
       setGameInProgress: (inProgress) => set({ isGameInProgress: inProgress }),
       setInitialPlayersCount: (count) => set({ initialPlayersCount: count }),
-      setFields: (newFields: IDiceFormSections<number>) => {
-        const mountain = Object.entries(newFields.mountainSection).map(([, row]) => calcRow(row));
-        const poker = Object.entries(newFields.pokerSection).map(([, row]) => calcRow(row));
-
-        Object.values(newFields.mountainSection).forEach((row, idx) => {
-          row.computedPoints = mountain[idx];
-        });
-        Object.values(newFields.pokerSection).forEach((row, idx) => {
-          row.computedPoints = poker[idx];
-        });
-
-        set({ fields: newFields });
+      setFields: (newFields) => {
+        const state = get();
+        // przelicz wszystko jednym wywołaniem:
+        const updated = computeAll(newFields, state.players.length);
+        set({ fields: updated });
       },
       resetGame: () =>
         set({

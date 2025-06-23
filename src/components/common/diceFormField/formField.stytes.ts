@@ -66,6 +66,18 @@ const variantStyles = (variant: DiceFieldVariant) => {
         color: ${({ theme }) => theme.colors.secondFormText};
         font-weight: 600;
       `;
+    case 'inputPremium':
+      return css`
+        background-color: ${({ theme }) => theme.colors.inputPremium};
+        color: ${({ theme }) => theme.colors.secondFormText};
+        font-weight: 600;
+      `;
+    case 'inputNotPremium':
+      return css`
+        background-color: ${({ theme }) => theme.colors.inputNotPremium};
+        color: ${({ theme }) => theme.colors.secondFormText};
+        font-weight: 600;
+      `;
     case 'manyWinner':
       return css`
         background-color: ${({ theme }) => theme.colors.manyWinFormField};
