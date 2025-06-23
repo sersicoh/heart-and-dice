@@ -48,12 +48,11 @@ const variantStyles = (variant: DiceFieldVariant) => {
       `;
     case 'activePlayer':
       return css`
-        background-color: ${({ theme }) => theme.colors.secondaryFormField};
+        background-color: ${({ theme }) => theme.colors.textLight};
         color: ${({ theme }) => theme.colors.thirdFormText};
-        text-shadow: 0px 0px 8px ${({ theme }) => theme.colors.textLight};
+        text-shadow: 0px 0px 8px ${({ theme }) => theme.colors.textDark};
         font-weight: 500;
-        border: 4px outset ${({ theme }) => theme.colors.textWhite};
-        font-size: 2rem;
+        font-size: 1.8rem;
         line-height: 1.5rem;
 
         @media ${({ theme }) => theme.devices.mobile} {
