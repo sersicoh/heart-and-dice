@@ -25,7 +25,6 @@ export const DiceForm: React.FC = () => {
   const { fields } = useDiceStore();
   const [modalOpen, setModalOpen] = useState(false);
 
-  // markdown podsumowania (możesz memoizować, jeśli fields się nie zmienia często)
   const summaryMd = fields ? generateDiceSummary(fields) : '';
 
   const drawerItems = [
