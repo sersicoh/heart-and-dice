@@ -33,7 +33,7 @@ interface Props {
 }
 
 export const DiceFormStats: React.FC<Props> = ({ currentPlayerIdx }) => {
-  const { theme } = useMyTheme();
+  const { theme, isMobile } = useMyTheme();
   const { players, fields } = useDiceStore();
   if (!fields) return null;
 
@@ -54,12 +54,12 @@ export const DiceFormStats: React.FC<Props> = ({ currentPlayerIdx }) => {
     return makeCells(p.name, nameVar, pts, ptsVar);
   });
 
-  const renderSection = (rows: UIRow[], padding = '8px') => (
+  const renderSection = (rows: UIRow[], padding = isMobile ? '4px' : '8px') => (
     <Container
       variant='flex'
       flexDirection='column'
-      gap='8px'
-      borderRadius='8px'
+      gap={isMobile ? '4px' : '8px'}
+      borderRadius={isMobile ? '4px' : '8px'}
       backgroundColor={theme.colors.frameBackground}
       padding={padding}
     >
@@ -72,8 +72,8 @@ export const DiceFormStats: React.FC<Props> = ({ currentPlayerIdx }) => {
   );
 
   return (
-    <Container variant='flex' flexDirection='column' gap='16px' width='100%'>
-      {renderSection(header, '20px')}
+    <Container variant='flex' flexDirection='column' gap={isMobile ? '4px' : '12px'} width='100%'>
+      {renderSection(header, isMobile ? '12px' : '20px')}
       {renderSection(statsRows, '8px')}
     </Container>
   );

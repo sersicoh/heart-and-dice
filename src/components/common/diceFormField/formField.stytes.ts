@@ -126,11 +126,12 @@ export const StyledFormField = styled.div<{
   font-size: 1.5rem;
   width: 100%;
   border-radius: 8px;
-  padding: 8px 0;
+  padding: 12px 0;
   cursor: ${({ isClickable }) => (isClickable ? 'pointer' : 'default')};
   @media ${({ theme }) => theme.devices.mobile} {
     font-size: 0.875rem;
-    padding: 4px 0;
+    padding: 6px 0;
+    border-radius: 4px;
   }
   ${({ $variant }) => variantStyles($variant)}
 `;

@@ -12,7 +12,7 @@ type DiceFormInputProps = {
 };
 
 export const DiceFormInput = ({ buildUIRow, currentPlayerIdx }: DiceFormInputProps) => {
-  const { theme } = useMyTheme();
+  const { theme, isMobile } = useMyTheme();
   const { players, fields } = useDiceStore();
 
   if (!fields) return null;
@@ -27,7 +27,7 @@ export const DiceFormInput = ({ buildUIRow, currentPlayerIdx }: DiceFormInputPro
   const renderSection = (
     rows: IDiceFormRow<number>[],
     bgColor: string,
-    padding: string = '8px'
+    padding: string = isMobile ? '4px' : '8px'
   ) => {
     const normalRows = rows.filter((r) => r.fieldType.variant !== 'resultTitle');
     const summaryRow = rows.find((r) => r.fieldType.variant === 'resultTitle');
@@ -36,12 +36,12 @@ export const DiceFormInput = ({ buildUIRow, currentPlayerIdx }: DiceFormInputPro
       <Container
         variant='flex'
         flexDirection='column'
-        gap='8px'
+        gap={isMobile ? '8px' : '16px'}
         backgroundColor={bgColor}
         padding={padding}
-        borderRadius='8px'
+        borderRadius={isMobile ? '4px' : '8px'}
       >
-        <Container variant='grid' gridTemplateColumns='1fr 1fr' gap='8px'>
+        <Container variant='grid' gridTemplateColumns='1fr 1fr' gap={isMobile ? '4px' : '8px'}>
           {normalRows.map((r) => (
             <DiceFieldsRow key={r.fieldType.rowId} row={buildUIRow(r)} />
           ))}
@@ -52,12 +52,12 @@ export const DiceFormInput = ({ buildUIRow, currentPlayerIdx }: DiceFormInputPro
   };
 
   return (
-    <Container variant='flex' flexDirection='column' gap='16px' width='100%'>
+    <Container variant='flex' flexDirection='column' gap={isMobile ? '4px' : '12px'} width='100%'>
       <Container
         variant='flex'
         backgroundColor={theme.colors.frameBackground}
-        padding='20px'
-        borderRadius='8px'
+        padding={isMobile ? '12px' : '20px'}
+        borderRadius={isMobile ? '4px' : '8px'}
       >
         <DiceFieldsRow row={nameRow} />
       </Container>

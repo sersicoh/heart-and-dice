@@ -9,6 +9,8 @@ import type {
   InputKey,
 } from '@views/dice/diceForm.types';
 
+import { useMyTheme } from '@hooks/useMyTheme';
+
 export type UICell = {
   variant: DiceFieldVariant;
   value: string | number | null;
@@ -32,6 +34,7 @@ interface Props {
 }
 
 export const DiceFieldsRow: React.FC<Props> = ({ row }) => {
+  const { isMobile } = useMyTheme();
   if (!row) return null;
 
   let cells: UICell[] = [];
@@ -60,7 +63,7 @@ export const DiceFieldsRow: React.FC<Props> = ({ row }) => {
   }
 
   return (
-    <Container variant='flex' gap='8px' width='100%'>
+    <Container variant='flex' gap={isMobile ? '4px' : '8px'} width='100%'>
       {cells.map((c, idx) => (
         <DiceFormField
           key={idx}
