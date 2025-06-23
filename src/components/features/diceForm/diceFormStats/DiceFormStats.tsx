@@ -1,3 +1,6 @@
+// src/components/features/diceForm/diceFormStats/DiceFormStats.tsx
+import React from 'react';
+
 import Container from '@components/common/container/Container';
 import { DiceFieldsRow } from '@components/common/diceFieldsRow/DiceFieldsRow';
 import type { DiceFieldVariant } from '@views/dice/diceForm.types';
@@ -11,77 +14,63 @@ type UIRow = { cells: UICell[] };
 const oneCellRow = (text: string, v: DiceFieldVariant): UIRow => ({
   cells: [{ variant: v, value: text }],
 });
-
 const makeCells = (
   name: string,
-  nameV: DiceFieldVariant,
+  nameVar: DiceFieldVariant,
   pts: number,
-  ptsV: DiceFieldVariant
+  ptsVar: DiceFieldVariant
 ): UIRow => ({
   cells: [
-    { variant: nameV, value: name },
-    { variant: ptsV, value: pts },
+    { variant: nameVar, value: name },
+    { variant: ptsVar, value: pts },
   ],
 });
 
-const renderSection = (
-  rows: UIRow[],
-  colors: { frameBackground: string },
-  padding: string = '8px'
-) => (
-  <Container
-    variant='flex'
-    flexDirection='column'
-    gap='8px'
-    backgroundColor={colors.frameBackground}
-    padding={padding}
-  >
-    {rows.map((r, i) => (
-      <Container key={i}>
-        <DiceFieldsRow row={r} />
-      </Container>
-    ))}
-  </Container>
-);
+interface Props {
+  /** który gracz jest aktywny (0-based) */
+  currentPlayerIdx: number;
+}
 
-export const DiceFormStats = () => {
+export const DiceFormStats: React.FC<Props> = ({ currentPlayerIdx }) => {
   const { theme } = useMyTheme();
-  const { fields } = useDiceStore();
+  const { players, fields } = useDiceStore();
   if (!fields) return null;
 
-  const list = fields.statsSection?.list;
-  if (!list) return null;
+  const scores = fields.pokerSection.result.computedPoints ?? {};
 
-  const scoresRow = fields.pokerSection.result.computedPoints ?? {};
+  const header: UIRow[] = [oneCellRow('Wyniki ogólne', 'title')];
 
-  const headerRows: UIRow[] = [oneCellRow('Wyniki ogólne', 'title')];
+  const statsRows: UIRow[] = players.map((p, idx) => {
+    // podświetlamy tylko aktualnego gracza:
+    const nameVar: DiceFieldVariant = idx === currentPlayerIdx ? 'activePlayer' : 'name';
 
-  const playerKeys = Object.keys(list) as (keyof typeof list)[];
-  const statsRows: UIRow[] = playerKeys.map((k) => {
-    const cell = list[k];
-    const points = scoresRow[k] ?? 0;
+    const key = `player${idx + 1}` as keyof typeof scores;
+    const pts = scores[key] ?? 0;
 
-    let ptsVar: DiceFieldVariant;
-    if (cell.variant === 'winner') {
-      ptsVar = 'winner';
-    } else if (cell.variant === 'manyWinner') {
-      ptsVar = 'manyWinner';
-    } else if (cell.variant === 'looser') {
-      ptsVar = 'looser';
-    } else if (cell.variant === 'manyLooser') {
-      ptsVar = 'manyLooser';
-    } else {
-      ptsVar = 'inputFilled';
-    }
-
-    return makeCells(cell.label, cell.variant, points, ptsVar);
+    return makeCells(p.name, nameVar, pts, 'inputFilled');
   });
 
-  /* ---------- render ---------- */
+  const renderSection = (rows: UIRow[], padding = '8px') => (
+    <Container
+      variant='flex'
+      flexDirection='column'
+      gap='8px'
+      borderRadius='8px'
+      backgroundColor={theme.colors.frameBackground}
+      padding={padding}
+    >
+      {rows.map((r, i) => (
+        <Container key={i}>
+          <DiceFieldsRow row={r} />
+        </Container>
+      ))}
+    </Container>
+  );
+
   return (
-    <Container variant='flex' flexDirection='column' gap='8px' width='100%'>
-      {renderSection(headerRows, theme.colors, '20px')} {/* padding 20px */}
-      {renderSection(statsRows, theme.colors)} {/* padding 8px */}
+    <Container variant='flex' flexDirection='column' gap='16px' width='100%'>
+      {renderSection(header, '20px')}
+      {renderSection(statsRows, '8px')}
     </Container>
   );
 };

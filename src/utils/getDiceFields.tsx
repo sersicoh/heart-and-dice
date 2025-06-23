@@ -1,4 +1,3 @@
-// @utils/getDiceFields.ts
 import type {
   DiceFieldVariant,
   IDiceFormRow,
@@ -15,6 +14,7 @@ import type { Player } from '@store/store.types';
 const makeInput = (variant: DiceFieldVariant = 'input'): IDiceInputCell => ({
   value: null,
   variant,
+  isEditable: variant === 'activeInput' || variant === 'lastInput',
 });
 
 /* ---------- pomocnik: jeden wiersz ---------- */
