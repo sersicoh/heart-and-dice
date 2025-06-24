@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -25,8 +25,16 @@ export function useDiceSettingsLogic() {
     resetGame,
     initialPlayersCount,
     setInitialPlayersCount,
+    updatePlayerName,
     setGameNameAndStart,
   } = useDiceStore();
+
+  const initializeDefaults = useCallback(() => {
+    if (players.length === 0) {
+      setPlayers([{ name: '' }, { name: '' }]);
+      setInitialPlayersCount(2);
+    }
+  }, [players.length, setPlayers, setInitialPlayersCount]);
 
   const [tempPlayers, setTempPlayers] = useState<string[]>(() =>
     players.length > 0 ? initTempPlayers(players) : ['', '']
@@ -43,9 +51,15 @@ export function useDiceSettingsLogic() {
     setTempPlayers((prev) => {
       const arr = [...prev];
       arr[index] = newName;
-      setPlayers(syncPlayers(arr));
       return arr;
     });
+
+    if (isGameInProgress) {
+      updatePlayerName(index, newName);
+    } else {
+      const valid = syncPlayers(tempPlayers.map((n, i) => (i === index ? newName : n)));
+      setPlayers(valid);
+    }
   };
 
   const addPlayerField = () => {
@@ -129,5 +143,6 @@ export function useDiceSettingsLogic() {
     startNewGame,
     returnToGame,
     resetAll,
+    initializeDefaults,
   };
 }

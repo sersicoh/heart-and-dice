@@ -12,17 +12,10 @@ export const DiceFormField: FC<IDiceFormFieldProps> = ({
   isEditable = false,
   value,
   onChangeValue,
-  label,
   onTitleClick,
   isClickable,
   ...rest
 }) => {
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (onChangeValue) {
-  //     onChangeValue(e.target.value ? parseFloat(e.target.value) : null);
-  //   }
-  // };
-
   return (
     <StyledFormField $variant={variant} isClickable={isClickable} onClick={onTitleClick} {...rest}>
       {isEditable ? (
@@ -34,14 +27,14 @@ export const DiceFormField: FC<IDiceFormFieldProps> = ({
           onChange={(e) => {
             const val = e.target.value;
             if (val === '' || val === '-') {
-              onChangeValue?.(null); // pozwala wpisać sam „-”
+              onChangeValue?.(null);
             } else {
               onChangeValue?.(parseFloat(val));
             }
           }}
         />
       ) : (
-        <StyledLabel>{label}</StyledLabel>
+        <StyledLabel>{value}</StyledLabel>
       )}
     </StyledFormField>
   );

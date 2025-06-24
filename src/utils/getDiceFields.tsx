@@ -1,6 +1,8 @@
 import type {
   DiceFieldVariant,
+  IDiceFormRow,
   IDiceFormSections,
+  IDiceInputCell,
   InputKey,
   PlayerKey,
   RowId,
@@ -8,91 +10,96 @@ import type {
 
 import type { Player } from '@store/store.types';
 
-/* =========================================================
- *  Helpers
- * ======================================================= */
-// ✏️ parametryzowany wariant – domyślnie 'input'
-const inputCell = (variant: DiceFieldVariant = 'input') => ({
+/* ---------- pomocnik: pojedyncza komórka ---------- */
+const makeInput = (variant: DiceFieldVariant = 'input'): IDiceInputCell => ({
   value: null,
   variant,
+  isEditable: variant === 'activeInput' || variant === 'lastInput',
 });
 
-// Jedna linia-klucz w tabeli
-type Row<N extends number, V extends DiceFieldVariant = 'activeFieldsType'> = {
-  fieldType: { label: string; variant: V; rowId: RowId };
-} & Record<InputKey<N>, ReturnType<typeof inputCell>>;
-
-// generator wiersza
-function makeRow<N extends number, V extends DiceFieldVariant = 'activeFieldsType'>(
+/* ---------- pomocnik: jeden wiersz ---------- */
+function makeRow<N extends number>(
   label: string,
   rowId: RowId,
-  playerCount: N,
-  variant: V = 'activeFieldsType' as V
-) {
-  const inputs = Object.fromEntries(
-    Array.from({ length: playerCount }, (_, i) => [
-      `p${i + 1}Input`,
-      inputCell(i === 0 && variant !== 'resultTitle' ? 'activeInput' : 'input'),
-    ])
-  ) as Record<InputKey<N>, ReturnType<typeof inputCell>>;
+  pc: N,
+  summary = false
+): IDiceFormRow<N> {
+  const inputs = {} as Record<InputKey<N>, IDiceInputCell>;
+
+  for (let i = 0; i < pc; i++) {
+    inputs[`p${i + 1}Input` as InputKey<N>] = {
+      ...makeInput(i === 0 && !summary ? 'activeInput' : 'input'),
+      isEditable: i === 0 && !summary,
+    };
+  }
 
   return {
-    fieldType: { label, variant, rowId },
-    ...inputs,
-  } satisfies Row<N, V>;
+    fieldType: {
+      label,
+      rowId,
+      variant: summary ? 'resultTitle' : 'activeFieldsType',
+    },
+    inputs,
+  };
 }
 
 /* =========================================================
- *  API – eksportowane pole
+ *  API
  * ======================================================= */
 export function getDiceFields<N extends number>(players: Player[]): IDiceFormSections<N> {
-  const playerCount = players.length as N;
+  const pc = players.length as N;
 
-  /* ---------- nagłówki ---------- */
-  const namesRow = {
-    gameTitle: { label: 'Kości', variant: 'title' } as const,
-    ...Object.fromEntries(
-      players.map((p, idx) => [
-        `player${idx + 1}`,
-        // 👇 pierwszy gracz = 'activePlayer'
-        { label: p.name, variant: idx === 0 ? 'activePlayer' : 'name' },
-      ])
-    ),
-  } as Record<PlayerKey<N> | 'gameTitle', { label: string; variant: DiceFieldVariant }>;
+  /* ---------- 1. nagłówek z bieżącym graczem ---------- */
+  /** Używamy `satisfies` + `as const`, żeby literały się NIE rozszerzyły. */
+  const namesSection = {
+    current: {
+      title: { label: 'Aktualny gracz', variant: 'title' },
+      player: { label: players[0]?.name ?? '', variant: 'activeFieldsType' },
+    },
+  } as const satisfies IDiceFormSections<N>['namesSection'];
 
-  /* ---------- sekcje ---------- */
+  /* ---------- 2. lista imion do statystyk ---------- */
+  const statsList = {} as Record<PlayerKey<N>, { label: string; variant: DiceFieldVariant }>;
+  players.forEach((p, i) => {
+    statsList[`player${i + 1}` as PlayerKey<N>] = {
+      label: p.name,
+      variant: i === 0 ? 'activePlayer' : 'name',
+    };
+  });
+
+  /* ---------- 3. sekcja „górka” ---------- */
   const mountainSection = {
-    ones: makeRow('I', 'ones', playerCount),
-    twos: makeRow('II', 'twos', playerCount),
-    threes: makeRow('III', 'threes', playerCount),
-    fours: makeRow('IV', 'fours', playerCount),
-    fives: makeRow('V', 'fives', playerCount),
-    sixes: makeRow('VI', 'sixes', playerCount),
-    result: makeRow('Wynik', 'mountainResult', playerCount, 'resultTitle'),
-  } satisfies IDiceFormSections<N>['mountainSection'];
+    ones: makeRow('I', 'ones', pc),
+    twos: makeRow('II', 'twos', pc),
+    threes: makeRow('III', 'threes', pc),
+    fours: makeRow('IV', 'fours', pc),
+    fives: makeRow('V', 'fives', pc),
+    sixes: makeRow('VI', 'sixes', pc),
+    result: makeRow('Wynik', 'mountainResult', pc, true),
+  };
 
+  /* ---------- 4. sekcja „poker” + wynik ogólny ---------- */
   const pokerSection = {
-    pair: makeRow('Para', 'pair', playerCount),
-    twoPairs: makeRow('Dwie pary', 'twoPairs', playerCount),
-    smallStraight: makeRow('Mały strit', 'smallStraight', playerCount),
-    largeStraight: makeRow('Duży strit', 'largeStraight', playerCount),
-    threeOf: makeRow('Trójka', 'threeOf', playerCount),
-    fourOf: makeRow('Czwórka', 'fourOf', playerCount),
-    fullHouse: makeRow('Full House', 'fullHouse', playerCount),
-    full: makeRow('Full', 'full', playerCount),
-    even: makeRow('Parzyste', 'even', playerCount),
-    odd: makeRow('Nieprzyste', 'odd', playerCount),
-    chance: makeRow('Szansa', 'chance', playerCount),
-  } satisfies IDiceFormSections<N>['pokerSection'];
+    pair: makeRow('Para', 'pair', pc),
+    twoPairs: makeRow('Dwie pary', 'twoPairs', pc),
+    smallStraight: makeRow('Mały strit', 'smallStraight', pc),
+    largeStraight: makeRow('Duży strit', 'largeStraight', pc),
+    threeOf: makeRow('Trójka', 'threeOf', pc),
+    fourOf: makeRow('Czwórka', 'fourOf', pc),
+    fullHouse: makeRow('Poker', 'fullHouse', pc),
+    full: makeRow('Full', 'full', pc),
+    even: makeRow('Przyste', 'even', pc),
+    odd: makeRow('Nieprzyste', 'odd', pc),
+    chance: makeRow('Szansa', 'chance', pc),
+    chance2: makeRow('Szansa 2', 'chance2', pc),
+    result: makeRow('Wynik ogólny', 'finalResult', pc, true),
+  };
 
-  const resultSection = {
-    result: makeRow('Wynik końcowy', 'finalResult', playerCount, 'resultTitle'),
-  } satisfies IDiceFormSections<N>['resultSection'];
-
+  /* ---------- 5. łączymy i zwracamy ---------- */
   return {
-    namesSection: { names: namesRow },
+    namesSection,
     mountainSection,
     pokerSection,
-    resultSection,
-  } as IDiceFormSections<N>;
+    statsSection: { list: statsList },
+  };
 }

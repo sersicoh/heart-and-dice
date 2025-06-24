@@ -45,6 +45,8 @@ export interface DiceState {
   isGameInProgress: boolean;
   initialPlayersCount: number | null;
   fields: IDiceFormSections | null;
+  currentPlayerIdx: number;
+  setCurrentPlayerIdx: (idx: number) => void;
   currentGameName: string | null;
   currentGameStartTime: number | null;
   finishedGames: IFinishedDiceGame[];
@@ -56,4 +58,5 @@ export interface DiceState {
   setGameNameAndStart: () => void;
   endGame: () => void;
   removeFinishedGame: (gameId: string) => void;
+  updatePlayerName: (index: number, newName: string) => void;
 }

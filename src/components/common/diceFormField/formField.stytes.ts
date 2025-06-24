@@ -41,8 +41,6 @@ const variantStyles = (variant: DiceFieldVariant) => {
         background-color: ${({ theme }) => theme.colors.secondaryFormField};
         color: ${({ theme }) => theme.colors.mainFormText};
         font-weight: 600;
-        font-size: 2rem;
-        line-height: 1.5rem;
 
         @media ${({ theme }) => theme.devices.mobile} {
           font-size: 1rem;
@@ -50,12 +48,11 @@ const variantStyles = (variant: DiceFieldVariant) => {
       `;
     case 'activePlayer':
       return css`
-        background-color: ${({ theme }) => theme.colors.secondaryFormField};
+        background-color: ${({ theme }) => theme.colors.textLight};
         color: ${({ theme }) => theme.colors.thirdFormText};
-        text-shadow: 0px 0px 8px ${({ theme }) => theme.colors.textLight};
+        text-shadow: 0px 0px 8px ${({ theme }) => theme.colors.textDark};
         font-weight: 500;
-        border: 4px outset ${({ theme }) => theme.colors.thirdFormText};
-        font-size: 2rem;
+        font-size: 1.8rem;
         line-height: 1.5rem;
 
         @media ${({ theme }) => theme.devices.mobile} {
@@ -65,6 +62,18 @@ const variantStyles = (variant: DiceFieldVariant) => {
     case 'winner':
       return css`
         background-color: ${({ theme }) => theme.colors.winFormField};
+        color: ${({ theme }) => theme.colors.secondFormText};
+        font-weight: 600;
+      `;
+    case 'inputPremium':
+      return css`
+        background-color: ${({ theme }) => theme.colors.inputPremium};
+        color: ${({ theme }) => theme.colors.secondFormText};
+        font-weight: 600;
+      `;
+    case 'inputNotPremium':
+      return css`
+        background-color: ${({ theme }) => theme.colors.inputNotPremium};
         color: ${({ theme }) => theme.colors.secondFormText};
         font-weight: 600;
       `;
@@ -115,11 +124,14 @@ export const StyledFormField = styled.div<{
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  padding: 8px 0;
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px 0;
   cursor: ${({ isClickable }) => (isClickable ? 'pointer' : 'default')};
   @media ${({ theme }) => theme.devices.mobile} {
     font-size: 0.875rem;
-    padding: 4px 0;
+    padding: 6px 0;
+    border-radius: 4px;
   }
   ${({ $variant }) => variantStyles($variant)}
 `;

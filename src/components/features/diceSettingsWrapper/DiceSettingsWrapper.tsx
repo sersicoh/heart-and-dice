@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { BasicButton } from '@components/common/basicButton/BasicButton';
 import { ConfirmModal } from '@components/common/confirmModal/ConfirmModal';
@@ -22,7 +22,12 @@ export const DiceSettingsWrapper = () => {
     startNewGame,
     changeName,
     addPlayerField,
+    initializeDefaults,
   } = useDiceSettingsLogic();
+
+  useEffect(() => {
+    initializeDefaults();
+  }, [initializeDefaults]);
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isConfirmModalOpen2, setIsConfirmModalOpen2] = useState(false);

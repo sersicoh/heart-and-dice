@@ -5,6 +5,7 @@ import { persist } from 'zustand/middleware';
 import type { IDiceFormSections } from '@views/dice/diceForm.types';
 
 import type { DiceState, IFinishedDiceGame, Player } from '@store/store.types';
+import { computeAll } from '@utils/diceCalculator';
 import { getDiceFields } from '@utils/getDiceFields';
 
 export const useDiceStore = create(
@@ -13,18 +14,45 @@ export const useDiceStore = create(
       players: [],
       isGameInProgress: false,
       initialPlayersCount: null,
+      currentPlayerIdx: 0,
       fields: getDiceFields([]),
       currentGameName: null,
       currentGameStartTime: null,
       finishedGames: [],
 
-      setPlayers: (newPlayers: Player[]) => {
+      setPlayers: (players: Player[]) => {
         set({
-          players: newPlayers,
-          fields: getDiceFields(newPlayers),
+          players,
+          fields: getDiceFields(players),
           isGameInProgress: false,
         });
       },
+
+      updatePlayerName: (index: number, newName: string) =>
+        set((state) => {
+          const players = state.players.map((p, i) => (i === index ? { ...p, name: newName } : p));
+
+          const fields: IDiceFormSections<number> = {
+            ...state.fields!,
+            mountainSection: { ...state.fields!.mountainSection },
+            pokerSection: { ...state.fields!.pokerSection },
+            statsSection: state.fields!.statsSection
+              ? { list: { ...state.fields!.statsSection.list } }
+              : undefined,
+          };
+
+          fields.namesSection = {
+            current: {
+              title: state.fields!.namesSection.current.title,
+              player: {
+                ...state.fields!.namesSection.current.player,
+                label: players[0]?.name ?? '',
+              },
+            },
+          };
+
+          return { players, fields };
+        }),
 
       setGameNameAndStart: () => {
         const now = Date.now();
@@ -32,6 +60,7 @@ export const useDiceStore = create(
         set({
           currentGameName: newName,
           currentGameStartTime: now,
+          currentPlayerIdx: 0,
         });
       },
 
@@ -59,7 +88,12 @@ export const useDiceStore = create(
 
       setGameInProgress: (inProgress) => set({ isGameInProgress: inProgress }),
       setInitialPlayersCount: (count) => set({ initialPlayersCount: count }),
-      setFields: (newFields: IDiceFormSections<number>) => set({ fields: newFields }),
+      setFields: (newFields) => {
+        const state = get();
+        // przelicz wszystko jednym wywołaniem:
+        const updated = computeAll(newFields, state.players.length);
+        set({ fields: updated });
+      },
       resetGame: () =>
         set({
           players: [],
@@ -73,6 +107,7 @@ export const useDiceStore = create(
         set((state) => ({
           finishedGames: state.finishedGames.filter((g) => g.id !== gameId),
         })),
+      setCurrentPlayerIdx: (idx) => set({ currentPlayerIdx: idx }),
     }),
     {
       name: 'dice-game-storage',
