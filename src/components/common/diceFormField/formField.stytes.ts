@@ -1,6 +1,18 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import type { DiceFieldVariant } from '@views/dice/diceForm.types';
+
+const pulse = keyframes`
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 const variantStyles = (variant: DiceFieldVariant) => {
   switch (variant) {
@@ -15,7 +27,7 @@ const variantStyles = (variant: DiceFieldVariant) => {
       return css`
         background-color: ${({ theme }) => theme.colors.mainFormField};
         color: ${({ theme }) => theme.colors.mainFormText};
-        font-weight: 600;
+        font-weight: 500;
       `;
     case 'activeFieldsType':
       return css`
@@ -48,13 +60,13 @@ const variantStyles = (variant: DiceFieldVariant) => {
       `;
     case 'activePlayer':
       return css`
-        background-color: ${({ theme }) => theme.colors.textLight};
+        background-color: ${({ theme }) => theme.colors.mainFormField};
         color: ${({ theme }) => theme.colors.thirdFormText};
         text-shadow: 0px 0px 8px ${({ theme }) => theme.colors.textDark};
+        animation: ${pulse} 1s ease-in-out infinite;
         font-weight: 500;
         font-size: 1.8rem;
         line-height: 1.5rem;
-
         @media ${({ theme }) => theme.devices.mobile} {
           font-size: 1rem;
         }
