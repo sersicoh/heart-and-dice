@@ -10,7 +10,7 @@ export const Overlay = styled.div<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   justify-content: flex-end;
   align-items: center;
-  z-index: 1000;
+  z-index: 10;
 `;
 
 export const DrawerContainer = styled.div<{ isOpen: boolean }>`
